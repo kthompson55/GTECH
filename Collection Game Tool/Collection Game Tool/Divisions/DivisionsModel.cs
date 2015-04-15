@@ -8,5 +8,6 @@ namespace Collection_Game_Tool.Divisions
 {
     class DivisionsModel
     {
+        public List<DivisionModel> divisions { get; set; }
     }
 }

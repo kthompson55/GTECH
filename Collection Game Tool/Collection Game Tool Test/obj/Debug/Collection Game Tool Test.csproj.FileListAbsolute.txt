@@ -1,0 +1,7 @@
+T:\GTech\Collection Game Tool\Collection Game Tool Test\bin\Debug\Collection Game Tool Test.dll
+T:\GTech\Collection Game Tool\Collection Game Tool Test\bin\Debug\Collection Game Tool Test.pdb
+T:\GTech\Collection Game Tool\Collection Game Tool Test\bin\Debug\Collection Game Tool.exe
+T:\GTech\Collection Game Tool\Collection Game Tool Test\bin\Debug\Collection Game Tool.pdb
+T:\GTech\Collection Game Tool\Collection Game Tool Test\obj\Debug\Collection Game Tool Test.csprojResolveAssemblyReference.cache
+T:\GTech\Collection Game Tool\Collection Game Tool Test\obj\Debug\Collection Game Tool Test.dll
+T:\GTech\Collection Game Tool\Collection Game Tool Test\obj\Debug\Collection Game Tool Test.pdb

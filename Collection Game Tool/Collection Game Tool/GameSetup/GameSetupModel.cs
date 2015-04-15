@@ -8,5 +8,14 @@ namespace Collection_Game_Tool.GameSetup
 {
     class GameSetupModel
     {
+        public short picks { get; set; } //Max 20
+        public bool isNearWin { get; set; }
+        public int nearWins { get; set; } 
+        public int maxPermutations { get; set; }
+
+        public void toggleNearWin()
+        {
+            isNearWin = !isNearWin;
+        }
     }
 }

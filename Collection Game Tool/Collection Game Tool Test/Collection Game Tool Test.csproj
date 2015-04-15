@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DivisionTests\DivisionModelTest.cs" />
+    <Compile Include="DivisionTests\DivisionsModelTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,7 +62,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DivisionTests\" />
+    <Folder Include="GameSetupTests\" />
+    <Folder Include="MainTests\" />
+    <Folder Include="PrizeLevelsTests\" />
+    <Folder Include="ServicesTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

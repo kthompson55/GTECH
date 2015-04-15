@@ -11,3 +11,6 @@ c:\users\dtruman\documents\visual studio 2012\Projects\Collection Game Tool\Coll
 c:\users\dtruman\documents\visual studio 2012\Projects\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.pdb
 c:\users\dtruman\documents\visual studio 2012\Projects\Collection Game Tool\Collection Game Tool\obj\Debug\Main\MainWindow.baml
 c:\users\dtruman\documents\visual studio 2012\Projects\Collection Game Tool\Collection Game Tool\obj\Debug\Main\MainWindow.g.cs
+C:\Users\tdacus\Dropbox\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe.config
+C:\Users\tdacus\Dropbox\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.exe
+C:\Users\tdacus\Dropbox\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.pdb

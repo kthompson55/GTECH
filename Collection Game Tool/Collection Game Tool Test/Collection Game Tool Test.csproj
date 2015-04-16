@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="DivisionTests\DivisionModelTest.cs" />
     <Compile Include="DivisionTests\DivisionsModelTest.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="PrizeLevelsTests\PrizeLevelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +64,6 @@
   <ItemGroup>
     <Folder Include="GameSetupTests\" />
     <Folder Include="MainTests\" />
-    <Folder Include="PrizeLevelsTests\" />
     <Folder Include="ServicesTests\" />
   </ItemGroup>
   <Choose>

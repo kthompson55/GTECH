@@ -57,6 +57,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Divisions\DivisionModel.cs" />
+    <Compile Include="PrizeLevels\PrizeLevel.cs" />
+    <Compile Include="PrizeLevels\PrizeLevels.cs" />
     <Compile Include="Services\FileGenerationService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +68,6 @@
     <Compile Include="Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PrizeLevels\PrizeLevelsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

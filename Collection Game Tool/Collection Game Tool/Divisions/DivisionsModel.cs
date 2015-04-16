@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.Divisions
 {
-    class DivisionsModel
+    public class DivisionsModel
     {
         private List<DivisionModel> divisions = new List<DivisionModel>();
 
@@ -18,6 +18,7 @@ namespace Collection_Game_Tool.Divisions
         public void addDivision(DivisionModel newDivision)
         {
             divisions.Add(newDivision);
+            divisions.Sort();
         }
 
         public void removeDivision(DivisionModel divisionToRemove)

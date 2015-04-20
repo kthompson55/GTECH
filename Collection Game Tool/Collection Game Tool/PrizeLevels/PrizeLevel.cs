@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
-    class PrizeLevel : IComparable
+    public class PrizeLevel : IComparable
     {
         public double prizeValue{ get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.GameSetup
 {
-    class GameSetupModel
+    public class GameSetupModel
     {
         public short picks { get; set; } //Max 20
         public bool isNearWin { get; set; }

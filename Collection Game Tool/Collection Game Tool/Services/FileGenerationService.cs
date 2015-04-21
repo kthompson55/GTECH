@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.Services
 {
-    class FileGenerationService
+    public class FileGenerationService
     {
         //Creates the text file containing game information
         public void buildGameData(
@@ -20,14 +20,23 @@ namespace Collection_Game_Tool.Services
             {
                 divisionLevles.Add(getDivisionWinningPermutations(i, gameInfo.picks, gameInfo.maxPermutations, divisions.getDivision(i), prizeLevels));
             }
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\tlousignont\Documents\PayOutTest.txt");
+            List<string> lines = new List<string>();
             foreach (List<int[]> li in divisionLevles)
             {
-                Console.WriteLine();
+                StringBuilder sb = new StringBuilder();
                 foreach (int[] i in li)
                 {
-                    for (int j = 0; j < i.Length;j++ )
-                        Console.Write(i[j] + ", ");
+                    for (int j = 0; j < i.Length; j++)
+                    {
+                        sb.Append("" + i[j] + ", ");
+                    }
+                    lines.Add(sb.ToString());
                 }
+            }
+            foreach (string s in lines)
+            {
+                file.WriteLine(s);
             }
         }
 

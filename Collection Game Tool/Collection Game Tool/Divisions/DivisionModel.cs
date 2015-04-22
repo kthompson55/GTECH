@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.Divisions
 {
-    class DivisionModel : IComparable
+    public class DivisionModel : IComparable
     {
         private List<PrizeLevels.PrizeLevel> prizesAtDivision = new List<PrizeLevels.PrizeLevel>();
 
         public void addPrizeLevel(PrizeLevels.PrizeLevel prizeLevelToAdd)
         {
-            prizesAtDivision.Add(prizeLevelToAdd); 
+            prizesAtDivision.Add(prizeLevelToAdd);
+            prizesAtDivision.Sort();
         }
 
         public List<PrizeLevels.PrizeLevel> getPrizeLevelsAtDivision()

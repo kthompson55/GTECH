@@ -53,6 +53,7 @@
     <Compile Include="DivisionTests\DivisionModelTest.cs" />
     <Compile Include="DivisionTests\DivisionsModelTest.cs" />
     <Compile Include="PrizeLevelsTests\PrizeLevelTests.cs" />
+    <Compile Include="PrizeLevelsTests\PrizeLevelsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

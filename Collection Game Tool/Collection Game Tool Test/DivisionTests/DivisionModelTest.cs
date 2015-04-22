@@ -2,6 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Collection_Game_Tool.PrizeLevels;
+using Collection_Game_Tool.Divisions;
 
 namespace Collection_Game_Tool_Test.DivisionTests
 {
@@ -11,11 +13,10 @@ namespace Collection_Game_Tool_Test.DivisionTests
     [TestClass]
     public class DivisionModelTest
     {
+        int testAmount = 100;
         public DivisionModelTest()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            
         }
 
         private TestContext testContextInstance;
@@ -59,11 +60,60 @@ namespace Collection_Game_Tool_Test.DivisionTests
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void testAddPirzeLevel()
         {
-            //
-            // TODO: Add test logic here
-            //
+            DivisionModel dm = new DivisionModel();
+            for (int i = 0; i < testAmount; i++)
+            {
+                PrizeLevel pl = new PrizeLevel();
+                pl.prizeValue = 100 + i;
+                dm.addPrizeLevel(pl);
+                Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
+                Assert.IsTrue(dm.getPrizeLevel(i).prizeValue == 100 + i, "PrizeLevel not correct value.");
+            }
+        }
+
+        [TestMethod]
+        public void testGetPrizeLevelsAtDivision()
+        {
+            DivisionModel dm = new DivisionModel();
+            for (int i = 0; i < testAmount; i++)
+            {
+                PrizeLevel pl = new PrizeLevel();
+                pl.prizeValue = 100.0f + i;
+                dm.addPrizeLevel(pl);
+                Assert.IsTrue(dm.getPrizeLevelsAtDivision().Count == i + 1, "incorrect amount of prizes");
+            }
+        }
+
+        [TestMethod]
+        public void testGetPrizeLevel()
+        {
+            DivisionModel dm = new DivisionModel();
+            for (int i = 0; i < testAmount; i++)
+            {
+                PrizeLevel pl = new PrizeLevel();
+                pl.prizeValue = 100 + i;
+                dm.addPrizeLevel(pl);
+                Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
+                Assert.IsTrue(dm.getPrizeLevel(i).prizeValue == 100 + i, "PrizeLevel not correct value.");
+            }
+        }
+
+        [TestMethod]
+        public void testGetDivisionValue()
+        {
+            DivisionModel dm = new DivisionModel();
+            double prizeLevel = 0.0f;
+            for (int i = 0; i < testAmount; i++)
+            {
+                PrizeLevel pl = new PrizeLevel();
+                pl.prizeValue = 100 + i;
+                prizeLevel += pl.prizeValue;
+                dm.addPrizeLevel(pl);
+                Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
+                Assert.IsTrue(dm.getDivisionValue() == prizeLevel, "PrizeLevel not correct value.");
+            }
         }
     }
 }

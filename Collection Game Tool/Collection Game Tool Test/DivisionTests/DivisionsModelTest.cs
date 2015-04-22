@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Collection_Game_Tool.Divisions;
 
 namespace Collection_Game_Tool_Test.DivisionTests
 {
@@ -11,6 +12,7 @@ namespace Collection_Game_Tool_Test.DivisionTests
     [TestClass]
     public class DivisionsModelTest
     {
+        int numberOfTestRuns = 100;
         public DivisionsModelTest()
         {
             //
@@ -59,11 +61,27 @@ namespace Collection_Game_Tool_Test.DivisionTests
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void testGetNumberOfDivisions()
         {
-            //
-            // TODO: Add test logic here
-            //
+            DivisionsModel dm = new DivisionsModel();
+            for (int i = 0; i < numberOfTestRuns; i++)
+            {
+                DivisionModel div = new DivisionModel();
+                dm.addDivision(div);
+                Assert.IsTrue(dm.getNumberOfDivisions() == i +1, "Number of divisions is wrong.");
+            }
+        }
+
+        [TestMethod]
+        public void testGetDivision()
+        {
+            DivisionsModel dm = new DivisionsModel();
+            for (int i = 0; i < numberOfTestRuns; i++)
+            {
+                DivisionModel div = new DivisionModel();
+                dm.addDivision(div);
+                Assert.IsTrue(dm.getDivision(i) != null, "Number of divisions is wrong.");
+            }
         }
     }
 }

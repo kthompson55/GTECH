@@ -9,6 +9,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <SolidColorBrush Color="#B9B9B9"/>
@@ -32,8 +33,9 @@
             VerticalAlignment="Top">
         </Grid>
         <Button
-            Grid.Row="1"
-            VerticalAlignment="Bottom"
+            Name="AddButton"
+            Grid.Row="2"
+            VerticalAlignment="Center"
             Width="100"
             Click="Add_Prize_Level">
             Add Prize Level +

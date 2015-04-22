@@ -30,6 +30,11 @@ namespace Collection_Game_Tool.PrizeLevels
             prizeLevels.Insert(index, obj);
         }
 
+        public int getNumPrizeLevels()
+        {
+            return prizeLevels.Count;
+        }
+
         public int getLevelOfPrize(PrizeLevel obj)
         {
             for (int i = 0; i < prizeLevels.Count; i++)

@@ -9,6 +9,7 @@ namespace Collection_Game_Tool_Test.PrizeLevelsTests
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }

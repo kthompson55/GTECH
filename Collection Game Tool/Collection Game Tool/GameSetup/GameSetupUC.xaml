@@ -6,11 +6,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300">
     <StackPanel x:Name="GameSetupMainPanel">
-        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="Blue" Foreground="White" FontSize="30" Margin="0,0,0,10">Game Setup</Label>
+        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,0,0,10">Game Setup</Label>
 
         <StackPanel x:Name="GameSetupOptionsPanel" Margin="10,0">
             <StackPanel x:Name="GSPlayerPicksPanel" Margin="0,0,0,10" Background="LightGray">
-                <Label Foreground="White" Background="Blue" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Player Picks</Label>
+                <Label Foreground="White" Background="#007CAA" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Player Picks</Label>
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of picks the player gets to attempt to win a prize</Label>
                 <DockPanel Background="LightGray">
                     <Label>Total Number:</Label>
@@ -20,7 +20,7 @@
             </StackPanel>
 
             <StackPanel x:Name="GSNearWinPanel" Margin="0,0,0,10" Background="LightGray">
-                <Label Foreground="White" Background="Blue" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Near Win Experience</Label>
+                <Label Foreground="White" Background="#007CAA" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Near Win Experience</Label>
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">If checked, defines how many levels come within one collection of winning a prize</Label>
                 <StackPanel Orientation="Horizontal">
                     <Label>Enforce Near Win Experience:</Label>
@@ -35,7 +35,7 @@
             </StackPanel>
             
             <StackPanel x:Name="GSPermutationsPanel" Background="LightGray">
-                <Label Background="Blue" Foreground="White" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Game Win Permutations</Label>
+                <Label Background="#007CAA" Foreground="White" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Game Win Permutations</Label>
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of division combinations to calculate that lead to a win</Label>
                 <DockPanel>
                     <Label>Maximum Permutations:</Label>

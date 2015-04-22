@@ -1,8 +1,24 @@
 ﻿<Window x:Class="Collection_Game_Tool.Main.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Collection Game Tool" Height="300" Width="300">
-    <Grid>
+        xmlns:gs="clr-namespace:Collection_Game_Tool.GameSetup"
+        xmlns:pl="clr-namespace:Collection_Game_Tool.PrizeLevels"
+        xmlns:dv="clr-namespace:Collection_Game_Tool.Divisions"
+        Title="Collection Game Tool" Height="800" Width="1200">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Background="white">
+            <Image Source="logo.png" Margin="10"></Image>
+            <Label Foreground="Blue" Background="white" FontSize="48">Collection Game Generator</Label>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <gs:GameSetupUC></gs:GameSetupUC>
+            <gs:GameSetupUC></gs:GameSetupUC>
+            <gs:GameSetupUC></gs:GameSetupUC>
+
+        </StackPanel>
         
-    </Grid>
+        
+        <Button Width="60">Create</Button>
+    </StackPanel>
 </Window>

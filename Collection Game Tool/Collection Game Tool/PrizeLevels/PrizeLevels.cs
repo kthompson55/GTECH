@@ -29,5 +29,10 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             prizeLevels.Insert(index, obj);
         }
+
+        public int getIndexOfPrizeLevel(PrizeLevel pl)
+        {
+            return prizeLevels.IndexOf(pl);
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
         {
             GameSetupModel gs = new GameSetupModel();
             gs.maxPermutations = 100;
-            gs.picks = 8;
+            gs.picks = 5;
 
             PrizeLevel pl1 = new PrizeLevel();
             pl1.isInstantWin = false;

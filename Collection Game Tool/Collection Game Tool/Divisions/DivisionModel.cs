@@ -44,7 +44,9 @@ namespace Collection_Game_Tool.Divisions
 
         internal List<int> getNeededPicks()
         {
-            throw new NotImplementedException();
+            List<int> picks = new List<int>();
+
+            return picks;
         }
     }
 }

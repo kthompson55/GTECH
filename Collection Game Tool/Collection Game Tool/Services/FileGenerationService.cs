@@ -20,23 +20,25 @@ namespace Collection_Game_Tool.Services
             {
                 divisionLevles.Add(getDivisionWinningPermutations(i, gameInfo.picks, gameInfo.maxPermutations, divisions.getDivision(i), prizeLevels));
             }
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\tlousignont\Documents\PayOutTest.txt");
-            List<string> lines = new List<string>();
-            foreach (List<int[]> li in divisionLevles)
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\tlousignont\Documents\PayOutTest.txt"))
             {
-                StringBuilder sb = new StringBuilder();
-                foreach (int[] i in li)
+                List<string> lines = new List<string>();
+                foreach (List<int[]> li in divisionLevles)
                 {
-                    for (int j = 0; j < i.Length; j++)
+                    StringBuilder sb = new StringBuilder();
+                    foreach (int[] i in li)
                     {
-                        sb.Append("" + i[j] + ", ");
+                        for (int j = 0; j < i.Length; j++)
+                        {
+                            sb.Append("" + i[j] + ", ");
+                        }
+                        lines.Add(sb.ToString());
                     }
-                    lines.Add(sb.ToString());
                 }
-            }
-            foreach (string s in lines)
-            {
-                file.WriteLine(s);
+                foreach (string s in lines)
+                {
+                    file.WriteLine(s);
+                }
             }
         }
 
@@ -55,9 +57,13 @@ namespace Collection_Game_Tool.Services
             bool ableToFindNextdivision = true;
             for (int i = 0; i < numberOfPermuitations && ableToFindNextdivision; i++)
             {
-                ableToFindNextdivision = findNextPermutation(permuitationArray);
-                int[] newPermuitation = permuitationArray;
-                divisionWinCombinations.Add(newPermuitation);
+                int[] newPermuitation = new int[totalNumberOfPicks];
+                findNextPermutation(permuitationArray).CopyTo(newPermuitation,0);
+                ableToFindNextdivision = !(newPermuitation[0] == -1);
+                if (ableToFindNextdivision)
+                {
+                    divisionWinCombinations.Add(newPermuitation);
+                }
             }
             return divisionWinCombinations;
         }
@@ -68,7 +74,7 @@ namespace Collection_Game_Tool.Services
             Divisions.DivisionModel division,
             PrizeLevels.PrizeLevels prizeLevels)
         {
-            List<int> neededPicksForDivisionWin = division.getNeededPicks();
+            List<int> neededPicksForDivisionWin = getNeededPicksForDivision(division, prizeLevels);
             for (int i = neededPicksForDivisionWin.Count; i < totalNumberOfPicks; i++)
             {
                 neededPicksForDivisionWin.Add(0);
@@ -77,7 +83,25 @@ namespace Collection_Game_Tool.Services
             return neededPicksForDivisionWin;
         }
 
-        private bool findNextPermutation(int[] values)
+        private List<int> getNeededPicksForDivision(
+            Divisions.DivisionModel division,
+            PrizeLevels.PrizeLevels prizeLevels)
+        {
+            List<int> neededPicks = new List<int>();
+            List<PrizeLevels.PrizeLevel> pls = division.getPrizeLevelsAtDivision();
+            foreach (PrizeLevels.PrizeLevel pl in pls)
+            {
+                int numberToCollect = pl.numCollections;
+                int indexinPrizeLevels = prizeLevels.getIndexOfPrizeLevel(pl) +1;
+                for (int i = 0; i < numberToCollect; i++)
+                {
+                    neededPicks.Add(indexinPrizeLevels);
+                }
+            }
+            return neededPicks;
+        }
+
+        private int[] findNextPermutation(int[] values)
         {
             int i = values.Length - 1;
             while (i > 0 && values[i - 1] >= values[i])
@@ -87,7 +111,8 @@ namespace Collection_Game_Tool.Services
 
             if (i <= 0)
             {
-                return false;
+                int[] fail = {-1};
+                return fail;
             }
 
             int j = values.Length - 1;
@@ -110,7 +135,7 @@ namespace Collection_Game_Tool.Services
                 j--;
             }
 
-            return true;
+            return values;
         }
     }
 }

@@ -60,7 +60,15 @@
     <Compile Include="Divisions\DivisionModel.cs" />
     <Compile Include="PrizeLevels\PrizeLevel.cs" />
     <Compile Include="PrizeLevels\PrizeLevels.cs" />
+    <Compile Include="PrizeLevels\UserControlPrizeLevel.xaml.cs">
+      <DependentUpon>UserControlPrizeLevel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrizeLevels\UserControlPrizeLevels.xaml.cs">
+      <DependentUpon>UserControlPrizeLevels.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\FileGenerationService.cs" />
+    <Compile Include="Services\Listener.cs" />
+    <Compile Include="Services\Teller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Divisions\DivisionsModel.cs" />
@@ -96,6 +104,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Main\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrizeLevels\UserControlPrizeLevel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrizeLevels\UserControlPrizeLevels.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

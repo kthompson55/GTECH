@@ -12,7 +12,8 @@ namespace Collection_Game_Tool.Services
         public void buildGameData(
             Divisions.DivisionsModel divisions, 
             PrizeLevels.PrizeLevels prizeLevels,
-            GameSetup.GameSetupModel gameInfo)
+            GameSetup.GameSetupModel gameInfo,
+            string fileName)
         {
             List<List<int[]>> divisionLevles = new List<List<int[]>>();
             int numberOfDivisions = divisions.getNumberOfDivisions();
@@ -20,20 +21,35 @@ namespace Collection_Game_Tool.Services
             {
                 divisionLevles.Add(getDivisionWinningPermutations(i, gameInfo.picks, gameInfo.maxPermutations, divisions.getDivision(i), prizeLevels));
             }
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\tlousignont\Documents\PayOutTest.txt"))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\tlousignont\Documents\" + fileName + ".txt"))
             {
                 List<string> lines = new List<string>();
+                int divisionIndicator = 0; 
                 foreach (List<int[]> li in divisionLevles)
                 {
-                    StringBuilder sb = new StringBuilder();
+                    int permutationIndex = 0;
                     foreach (int[] i in li)
                     {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append("Div: " + divisionIndicator + " ;");
+                        
                         for (int j = 0; j < i.Length; j++)
                         {
-                            sb.Append("" + i[j] + ", ");
+                            if (j != 0)
+                            {
+                                sb.Append(", " + i[j]);
+                            }
+                            else
+                            {
+                                sb.Append(i[j]);
+                            }
+                            
                         }
+                        sb.Append("  current Permutation: " + permutationIndex + " ;");
                         lines.Add(sb.ToString());
+                        permutationIndex++;
                     }
+                    divisionIndicator++;
                 }
                 foreach (string s in lines)
                 {
@@ -53,7 +69,10 @@ namespace Collection_Game_Tool.Services
             List<int[]> divisionWinCombinations = new List<int[]>();
             List<int> startingPermuitation = getBaseWinCombinaiton(totalNumberOfPicks,division,prizeLevels);
             int[] permuitationArray = startingPermuitation.ToArray();
-            divisionWinCombinations.Add(permuitationArray);
+
+            int[] firstPermuitation = new int[totalNumberOfPicks];
+            permuitationArray.CopyTo(firstPermuitation, 0);
+            divisionWinCombinations.Add(firstPermuitation);
             bool ableToFindNextdivision = true;
             for (int i = 0; i < numberOfPermuitations && ableToFindNextdivision; i++)
             {
@@ -103,6 +122,7 @@ namespace Collection_Game_Tool.Services
 
         private int[] findNextPermutation(int[] values)
         {
+            
             int i = values.Length - 1;
             while (i > 0 && values[i - 1] >= values[i])
             {

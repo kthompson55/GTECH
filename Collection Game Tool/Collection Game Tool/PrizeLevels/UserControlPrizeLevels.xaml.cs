@@ -82,7 +82,7 @@ namespace Collection_Game_Tool.PrizeLevels
             if (pass is string)
             {
                 String parse=(String)pass;
-                if (parse.Equals("Value") || parse.Equals("Collection") || parse.Equals("Instant Win"))
+                if (parse.Equals("Update"))
                 {
                     List<UserControlPrizeLevel> ucplList = new List<UserControlPrizeLevel>();
                     ucplList = Prizes.Children.Cast<UserControlPrizeLevel>().ToList<UserControlPrizeLevel>();
@@ -99,7 +99,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     }
                 }
             }
-            else
+            else if(pass is UserControlPrizeLevel)
             {
                 if (plsObject.getNumPrizeLevels() > 2)
                 {

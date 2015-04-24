@@ -5,62 +5,82 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
-    public class PrizeLevel : IComparable, Teller
+    public class PrizeLevel : IComparable, Teller, INotifyPropertyChanged
     {
         List<Listener> audience =new List<Listener>();
-        static List<String> levels = new List<String>()
-        {
-            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"
-        };
 
-        private int pl;
+        private int _prizeLevel;
         public int prizeLevel
         {
             get
             {
-                return pl;
+                return _prizeLevel;
             }
             set
             {
-                pl = value;
-                shout("Level");
+                _prizeLevel = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("prizeLevel"));
             }
         }
 
-        private double pv;
+        private double _prizeValue;
         public double prizeValue
         {
             get
             {
-                return pv;
+                return _prizeValue;
             }
             set
             {
-                pv = value;
+                _prizeValue = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("prizeValue"));
             }
         }
 
-        public String currentLevel()
+        private int _numCollections;
+        public int numCollections
         {
-            return levels[prizeLevel-1];
+            get
+            {
+                return _numCollections;
+            }
+            set
+            {
+                _numCollections = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("numCollections"));
+            }
         }
 
-        public int numCollections{ get; set; }
+        private bool _isInstantWin;
+        public bool isInstantWin
+        {
+            get
+            {
+                return _isInstantWin;
+            }
+            set
+            {
+                _isInstantWin = value;
 
-        public bool isInstantWin { get; set; }
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("isInstantWin"));
+            }
+        }
 
         public int CompareTo(object obj)
         {
             PrizeLevel pl = (PrizeLevel)obj;
             return (int)Math.Ceiling(this.prizeValue - pl.prizeValue);
-        }
-
-        public void toggleIsInstantWin()
-        {
-            isInstantWin = !isInstantWin;
         }
 
         public void shout(object pass)
@@ -75,5 +95,7 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             audience.Add(list);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

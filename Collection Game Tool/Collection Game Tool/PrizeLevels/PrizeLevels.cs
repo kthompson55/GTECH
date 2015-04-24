@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
-    class PrizeLevels
+    public class PrizeLevels
     {
         private List<PrizeLevel> prizeLevels = new List<PrizeLevel>();
 

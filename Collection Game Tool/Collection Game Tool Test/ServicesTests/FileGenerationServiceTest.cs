@@ -104,7 +104,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
         {
             GameSetupModel gs = new GameSetupModel();
             gs.maxPermutations = 100;
-            gs.picks = 10;
+            gs.picks = 6;
 
             PrizeLevel pl1 = new PrizeLevel();
             pl1.isInstantWin = false;
@@ -152,6 +152,11 @@ namespace Collection_Game_Tool_Test.ServicesTests
             pl2.numCollections = 4;
             pl2.prizeValue = 50;
 
+            PrizeLevel pl3 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 2;
+            pl2.prizeValue = 10;
+
             PrizeLevels pls = new PrizeLevels();
             pls.addPrizeLevel(pl1);
             pls.addPrizeLevel(pl2);
@@ -163,9 +168,10 @@ namespace Collection_Game_Tool_Test.ServicesTests
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl2);
 
+            //7picks;
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl1);
-            dm3.addPrizeLevel(pl2);
+            dm3.addPrizeLevel(pl3);
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);

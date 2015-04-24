@@ -5,9 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="440">
+             d:DesignHeight="40" d:DesignWidth="440"
+             Margin="0,0,0,20">
     <Grid
-        Height="80"
+        Name="LevelGrid"
+        Height="40"
         Width="440"
         VerticalAlignment="Top">
         <Grid.Background>
@@ -16,12 +18,12 @@
         <Label
             Name="Level"
             Background="#FFFFFF"
-            Height="60"
-            Width="60"
+            Height="40"
+            Width="40"
             HorizontalAlignment="Left"
-            Margin="5,0,0,0"
+            Margin="15,0,0,0"
             Foreground="#007CAA"
-            FontSize="30"
+            FontSize="20"
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
             Content="{Binding levelText}"/>
@@ -60,6 +62,8 @@
                 Collect to Win
             </Label>
             <TextBox 
+                Name="CollectionBoxValue"
+                TextChanged="collectionsChangedEventHandler"
                 HorizontalAlignment="Right"
                 Margin="0,0,5,0"
                 Height="25"
@@ -79,6 +83,9 @@
                 Instant Win:
             </Label>
             <CheckBox 
+                Name="InstantWinCheckBox"
+                Checked="instantWinChangedEventHandler"
+                Unchecked="instantWinChangedEventHandler"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Margin="0,0,0,0"
@@ -87,6 +94,7 @@
         </Grid>
         <Grid>
             <Button
+                Name="CloseButton"
                 Width="15"
                 Height="20"
                 VerticalAlignment="Top"

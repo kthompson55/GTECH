@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Collection_Game_Tool.Services;
 
 namespace Collection_Game_Tool.GameSetup
 {
@@ -20,9 +21,86 @@ namespace Collection_Game_Tool.GameSetup
     /// </summary>
     public partial class GameSetupUC : UserControl
     {
+
+        public GameSetupModel gsObject;
+        List<Listener> listenerList = new List<Listener>();
+
         public GameSetupUC()
         {
             InitializeComponent();
+            gsObject = new GameSetupModel();
+        }
+
+        //When Create is clicked, validates data and creates a text file
+        public void createButton_Click(object sender, RoutedEventArgs e)
+        {
+            //validate data
+            //open save dialog
+            openSaveWindow();
+
+        }
+
+        private void openSaveWindow()
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "CollectionGameFile"; // Default file name
+            dlg.DefaultExt = ".txt"; // Default file extension
+            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+
+            }
+        }
+
+        private void TotalPicksSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (gsObject != null)
+            {
+                Slider slider = sender as Slider;
+                gsObject.totalPicks = Convert.ToInt16(slider.Value);
+            }
+        }
+
+        private void NumNearWinsSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (gsObject != null)
+            {
+                Slider slider = sender as Slider;
+                gsObject.nearWins = Convert.ToInt16(slider.Value);
+            }
+        }
+
+        private void NearWinCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            gsObject.toggleNearWin();
+        }
+
+        private void MaxPermutationsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (gsObject != null)
+            {
+                TextBox textBox = sender as TextBox;
+                gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
+            }
+        }
+
+        private void MaxPermutationsTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.SelectAll();
+        }
+
+        private void MaxPermutationsTextBox_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.SelectAll();
         }
     }
 }

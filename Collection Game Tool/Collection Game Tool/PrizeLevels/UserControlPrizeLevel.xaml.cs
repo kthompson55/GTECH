@@ -20,7 +20,7 @@ namespace Collection_Game_Tool.PrizeLevels
     /// <summary>
     /// Interaction logic for UserControlPrizeLevel.xaml
     /// </summary>
-    public partial class UserControlPrizeLevel : UserControl, Teller, Listener, INotifyPropertyChanged, IComparable
+    public partial class UserControlPrizeLevel : UserControl, Teller, Listener, IComparable
     {
         public PrizeLevel plObject;
         List<Listener> listenerList = new List<Listener>();
@@ -39,8 +39,16 @@ namespace Collection_Game_Tool.PrizeLevels
 
         public void Close_Prize_Level(object sender, RoutedEventArgs e)
         {
-            plObject = null;
             shout(this);
+        }
+
+        private void instantWinChangedEventHandler(object sender, RoutedEventArgs args)
+        {
+            plObject.isInstantWin = (bool)InstantWinCheckBox.IsChecked;
+
+            shout("Instant Win");
+
+            boxSelected();
         }
 
         public void shout(object pass)
@@ -65,7 +73,6 @@ namespace Collection_Game_Tool.PrizeLevels
             else if (parse.Equals("Value"))
             {
                 shout("Value");
-                NotifyPropertyChanged("Value");
             }
         }
 
@@ -74,20 +81,46 @@ namespace Collection_Game_Tool.PrizeLevels
             double tryDub = 0;
             if (Double.TryParse(TextBoxValue.Text, out tryDub))
             {
-                plObject.prizeValue = tryDub;
+                if (tryDub > 0)
+                {
+                    plObject.prizeValue = tryDub;
+                }
+                else
+                {
+                    plObject.prizeValue = 1;
+                    TextBoxValue.Text = "1";
+                }
+
                 shout("Value");
-                NotifyPropertyChanged("Value");
+
+                boxSelected();
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(String info)
+        private void collectionsChangedEventHandler(object sender, TextChangedEventArgs args)
         {
-            if (PropertyChanged != null)
+            int tryColl = 0;
+            if (int.TryParse(CollectionBoxValue.Text, out tryColl))
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
+                if (tryColl > 0)
+                {
+                    plObject.numCollections = tryColl;
+                }
+                else
+                {
+                    plObject.numCollections = 1;
+                    CollectionBoxValue.Text = "1";
+                }
+
+                shout("Collection");
+
+                boxSelected();
             }
+        }
+
+        private void boxSelected()
+        {
+            LevelGrid.Background = Brushes.Orange;
         }
 
         public int CompareTo(object obj)

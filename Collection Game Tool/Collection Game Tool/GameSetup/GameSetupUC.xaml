@@ -5,18 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300">
-    <StackPanel x:Name="GameSetupMainPanel">
+    <StackPanel x:Name="GameSetupMainPanel" Background="#B9B9B9">
         <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,0,0,10">Game Setup</Label>
 
         <StackPanel x:Name="GameSetupOptionsPanel" Margin="10,0">
             <StackPanel x:Name="GSPlayerPicksPanel" Margin="0,0,0,10" Background="LightGray">
                 <Label Foreground="White" Background="#007CAA" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Player Picks</Label>
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of picks the player gets to attempt to win a prize</Label>
-                <DockPanel Background="LightGray">
+                <StackPanel Orientation="Horizontal" Background="LightGray">
                     <Label>Total Number:</Label>
-                    <Label x:Name="NumPicksLabel" Background="White" Width="30"></Label>
-                    <Slider Maximum="20" Minimum="1" Background="LightGray" IsSelectionRangeEnabled="True"></Slider>
-                </DockPanel>
+                    <Label x:Name="NumPicksLabel" Content="{Binding ElementName=TotalPicksSlider, Path=Value}" ContentStringFormat="{}{0:#}" HorizontalContentAlignment="Center" Background="White" Width="30"></Label>
+                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                        <Label>1</Label>
+                        <Slider x:Name="TotalPicksSlider" ValueChanged="TotalPicksSlider_ValueChanged" MinWidth="200" Maximum="20" Minimum="1" Background="LightGray" IsSelectionRangeEnabled="True" ></Slider>
+                        <Label>20</Label>
+                    </StackPanel>
+                    
+                </StackPanel>
+                
             </StackPanel>
 
             <StackPanel x:Name="GSNearWinPanel" Margin="0,0,0,10" Background="LightGray">
@@ -24,14 +30,19 @@
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">If checked, defines how many levels come within one collection of winning a prize</Label>
                 <StackPanel Orientation="Horizontal">
                     <Label>Enforce Near Win Experience:</Label>
-                    <CheckBox x:Name="NearWinCheckbox" VerticalAlignment="Center"></CheckBox>
+                    <CheckBox x:Name="NearWinCheckbox" Click="NearWinCheckbox_Click" VerticalAlignment="Center"></CheckBox>
                 </StackPanel>
 
-                <DockPanel x:Name="GSNearWinOptional" Background="LightGray">
+                <StackPanel IsEnabled="{Binding ElementName=NearWinCheckbox, Path=IsChecked}" Orientation="Horizontal" x:Name="GSNearWinOptional" Background="LightGray">
                     <Label>Total Near Wins</Label>
-                    <Label x:Name="NumNearWinsLabel" Background="White" Width="30"></Label>
-                    <Slider Maximum="20" Minimum="1" Background="LightGray" IsSelectionRangeEnabled="True"></Slider>
-                </DockPanel>
+                    <Label x:Name="NumNearWinsLabel" Content="{Binding ElementName=NumNearWinsSlider, Path=Value}" ContentStringFormat="{}{0:#}" HorizontalContentAlignment="Center" Background="White" Width="30"></Label>
+                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                        <Label>2</Label>
+                        <Slider x:Name="NumNearWinsSlider" ValueChanged="NumNearWinsSlider_ValueChanged" MinWidth="200" Maximum="12" Minimum="2" Background="LightGray" IsSelectionRangeEnabled="True" ></Slider>
+                        <Label>12</Label>
+                    </StackPanel>
+                </StackPanel>
+                
             </StackPanel>
             
             <StackPanel x:Name="GSPermutationsPanel" Background="LightGray">
@@ -39,11 +50,12 @@
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of division combinations to calculate that lead to a win</Label>
                 <DockPanel>
                     <Label>Maximum Permutations:</Label>
-                    <TextBox></TextBox>
+                    <TextBox x:Name="MaxPermutationsTextBox" GotFocus="MaxPermutationsTextBox_GotFocus" GotMouseCapture="MaxPermutationsTextBox_GotMouseCapture" TextChanged="MaxPermutationsTextBox_TextChanged">1</TextBox>
 
                 </DockPanel>
             </StackPanel>
-            
+            <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30">Create File</Button>
+
         </StackPanel>
     </StackPanel>
 </UserControl>

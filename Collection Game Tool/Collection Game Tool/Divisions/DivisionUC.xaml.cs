@@ -20,6 +20,8 @@ namespace Collection_Game_Tool.Divisions
     /// </summary>
     public partial class DivisionUC : UserControl
     {
+        public DivisionModel division;
+
         public DivisionUC()
         {
             InitializeComponent();

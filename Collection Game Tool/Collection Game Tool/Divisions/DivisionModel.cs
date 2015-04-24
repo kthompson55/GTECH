@@ -9,6 +9,8 @@ namespace Collection_Game_Tool.Divisions
     public class DivisionModel : IComparable
     {
         private List<PrizeLevels.PrizeLevel> prizesAtDivision = new List<PrizeLevels.PrizeLevel>();
+        private int totalPlayerPicks;
+        private double totalPrizeValue;
 
         public void addPrizeLevel(PrizeLevels.PrizeLevel prizeLevelToAdd)
         {

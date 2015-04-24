@@ -25,7 +25,6 @@ namespace Collection_Game_Tool.Main
         {
             InitializeComponent();
             canCreate = true;
-            CreateButton.DataContext = this;
         }
 
         private bool _canCreate;

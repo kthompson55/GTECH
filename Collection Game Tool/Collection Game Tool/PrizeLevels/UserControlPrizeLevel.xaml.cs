@@ -1,4 +1,5 @@
-﻿using Collection_Game_Tool.Services;
+﻿using Collection_Game_Tool.Main;
+using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,21 +21,30 @@ namespace Collection_Game_Tool.PrizeLevels
     /// <summary>
     /// Interaction logic for UserControlPrizeLevel.xaml
     /// </summary>
-    public partial class UserControlPrizeLevel : UserControl, Teller, Listener, IComparable
+    public partial class UserControlPrizeLevel : UserControl, Teller, IComparable
     {
         public PrizeLevel plObject;
         List<Listener> listenerList = new List<Listener>();
-
 
         public UserControlPrizeLevel()
         {
             InitializeComponent();
             plObject = new PrizeLevel();
+            Level.DataContext = plObject;
             TextBoxValue.DataContext = plObject;
-            plObject.addListener(this);
+            CollectionBoxValue.DataContext = plObject;
+            InstantWinCheckBox.DataContext = plObject;
             plObject.isInstantWin = false;
-            plObject.numCollections = 0;
+            plObject.numCollections = 1;
             plObject.prizeValue = 0;
+
+            this.Loaded += new RoutedEventHandler(MainView_Loaded);
+        }
+
+        void MainView_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            plObject.addListener((Window1)parentWindow);
         }
 
         public void Close_Prize_Level(object sender, RoutedEventArgs e)
@@ -42,12 +52,9 @@ namespace Collection_Game_Tool.PrizeLevels
             shout(this);
         }
 
-        private void instantWinChangedEventHandler(object sender, RoutedEventArgs args)
+        private void boxChangedEventHandler(object sender, RoutedEventArgs args)
         {
-            plObject.isInstantWin = (bool)InstantWinCheckBox.IsChecked;
-
-            shout("Instant Win");
-
+            shout("Update");
             boxSelected();
         }
 
@@ -59,68 +66,34 @@ namespace Collection_Game_Tool.PrizeLevels
             }
         }
 
+        private void boxSelected()
+        {
+            LevelGrid.Background = Brushes.Orange;
+        }
+
         public void addListener(Listener list)
         {
             listenerList.Add(list);
         }
 
-        public void onListen(object pass)
+        private void textBoxValue_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            String parse = (String)pass;
-
-            if (parse.Equals("Level"))
-                Level.Content = plObject.currentLevel();
-            else if (parse.Equals("Value"))
-            {
-                shout("Value");
-            }
+            e.Handled = !TextBoxTextAllowed(e.Text);
         }
 
-        private void valueChangedEventHandler(object sender, TextChangedEventArgs args)
+        private void textBoxCollection_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            double tryDub = 0;
-            if (Double.TryParse(TextBoxValue.Text, out tryDub))
-            {
-                if (tryDub > 0)
-                {
-                    plObject.prizeValue = tryDub;
-                }
-                else
-                {
-                    plObject.prizeValue = 1;
-                    TextBoxValue.Text = "1";
-                }
-
-                shout("Value");
-
-                boxSelected();
-            }
+            e.Handled = !CollectionBoxTextAllowed(e.Text);
         }
 
-        private void collectionsChangedEventHandler(object sender, TextChangedEventArgs args)
+        private bool TextBoxTextAllowed(string p)
         {
-            int tryColl = 0;
-            if (int.TryParse(CollectionBoxValue.Text, out tryColl))
-            {
-                if (tryColl > 0)
-                {
-                    plObject.numCollections = tryColl;
-                }
-                else
-                {
-                    plObject.numCollections = 1;
-                    CollectionBoxValue.Text = "1";
-                }
-
-                shout("Collection");
-
-                boxSelected();
-            }
+            return Array.TrueForAll<Char>(p.ToCharArray(), delegate(Char c) { return Char.IsDigit(c) || Char.IsControl(c) || c.Equals('.'); });
         }
 
-        private void boxSelected()
+        private bool CollectionBoxTextAllowed(string p)
         {
-            LevelGrid.Background = Brushes.Orange;
+            return Array.TrueForAll<Char>(p.ToCharArray(), delegate(Char c) { return Char.IsDigit(c) || Char.IsControl(c); });
         }
 
         public int CompareTo(object obj)
@@ -131,6 +104,11 @@ namespace Collection_Game_Tool.PrizeLevels
             UserControlPrizeLevel compare = obj as UserControlPrizeLevel;
 
             return compare.plObject.prizeValue.CompareTo(plObject.prizeValue);
+        }
+
+        private void Text_Changed(object sender, TextChangedEventArgs e)
+        {
+            plObject.shout("validate");
         }
     }
 }

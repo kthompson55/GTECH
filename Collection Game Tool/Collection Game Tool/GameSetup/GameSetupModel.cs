@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.GameSetup
 {
-    public class GameSetupModel
+    public class GameSetupModel : INotifyPropertyChanged
     {
         private short tp;
         public short totalPicks
@@ -57,6 +58,24 @@ namespace Collection_Game_Tool.GameSetup
                 mp = value;
             }
         }
+
+        private bool _canCreate;
+        public bool canCreate
+        {
+            get
+            {
+                return _canCreate;
+            }
+            set
+            {
+                _canCreate = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("canCreate"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void toggleNearWin()
         {

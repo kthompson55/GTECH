@@ -29,6 +29,8 @@ namespace Collection_Game_Tool.GameSetup
         {
             InitializeComponent();
             gsObject = new GameSetupModel();
+            gsObject.canCreate = true;
+            CreateButton.DataContext = gsObject;
         }
 
         //When Create is clicked, validates data and creates a text file

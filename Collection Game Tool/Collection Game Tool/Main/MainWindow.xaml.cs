@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Collection_Game_Tool.GameSetup;
+using Collection_Game_Tool.PrizeLevels;
+using Collection_Game_Tool.Services;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +21,27 @@ namespace Collection_Game_Tool.Main
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class Window1 : Window, Listener
     {
+        private GameSetupUC gs;
         public Window1()
         {
             InitializeComponent();
+            UserControlPrizeLevels ucpl = new UserControlPrizeLevels();
+            this.UserControls.Children.Add(ucpl);
+            GameSetupUC gsuc = new GameSetupUC();
+            gs = gsuc;
+            this.UserControls.Children.Add(gsuc);
+            GameSetupUC gsuc2 = new GameSetupUC();
+            this.UserControls.Children.Add(gsuc2);
+        }
+
+        public void onListen(object pass)
+        {
+            if(((String)pass).Equals("validate") && gs!=null)
+            {
+                gs.gsObject.canCreate=ServiceValidator.IsValid(this);
+            }
         }
     }
 }

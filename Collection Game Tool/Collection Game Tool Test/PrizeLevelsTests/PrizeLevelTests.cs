@@ -18,21 +18,5 @@ namespace Collection_Game_Tool_Test.PrizeLevelsTests
 
             Assert.IsTrue(pl1.CompareTo(pl2) < 0);
         }
-
-        [TestMethod]
-        public void Test_InstantWin_Toggle()
-        {
-            PrizeLevel pl1 = new PrizeLevel();
-
-            pl1.isInstantWin = false;
-
-            pl1.toggleIsInstantWin();
-
-            Assert.IsTrue(pl1.isInstantWin);
-
-            pl1.toggleIsInstantWin();
-
-            Assert.IsFalse(pl1.isInstantWin);
-        }
     }
 }

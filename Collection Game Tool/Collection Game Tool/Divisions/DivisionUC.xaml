@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="Collection_Game_Tool.Divisions.DivisionUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="110" d:DesignWidth="605">
+    <StackPanel Orientation="Horizontal">
+
+        <Border BorderBrush="Black"
+                BorderThickness="2,2,0,2"
+                Height="55"
+                VerticalAlignment="Top">
+            <Grid x:Name="divisionNumberBox" Background="#848484" Width="55" Height="55" >
+                <Label x:Name="divisionNumber" Content="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" Height="44" Margin="16,4,16,7"/>
+            </Grid>
+        </Border>
+
+        <Border BorderBrush="Black"
+                BorderThickness="2,2,2,2"
+                VerticalAlignment="Top">
+            
+            <StackPanel x:Name="divisionPanel"
+                        Orientation="Horizontal"
+                        Background="#848484"
+                        MaxWidth="540"
+                        MaxHeight="110">
+                <StackPanel.Resources>
+                    <Style x:Key="LevelSelectionStyle" TargetType="Grid">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="MaxHeight" Value="40" />
+                        <Setter Property="MinWidth" Value="40" />
+                        <Setter Property="MaxWidth" Value="41" />
+                        <Setter Property="Margin" Value="5,0" />
+                        <!--<EventSetter Event="MouseEnter" Handler="handlerInCode"/>-->
+                        <!--<EventSetter Event="MouseLeave" Handler="handlerInCode"/>-->
+                        <!--<EventSetter Event="MouseLeftButtonDown" Handler="handlerInCode"/>-->
+                    </Style>
+                    <Style x:Key="LevelLabel" TargetType="Label">
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="30" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <UniformGrid x:Name="prizeLevelsGrid"
+            		Columns="6"
+            		Rows="2">
+                    <Grid x:Name="levelBox_A" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="A"/></Grid>
+                    <Grid x:Name="levelBox_B" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="B"/></Grid>
+                    <Grid x:Name="levelBox_C" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="C"/></Grid>
+                    <Grid x:Name="levelBox_D" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="D"/></Grid>
+                    <Grid x:Name="levelBox_E" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="E"/></Grid>
+                    <Grid x:Name="levelBox_F" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="F"/></Grid>
+
+                    <Grid x:Name="levelBox_G" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="G"/></Grid>
+                    <Grid x:Name="levelBox_H" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="H"/></Grid>
+                    <Grid x:Name="levelBox_I" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="I"/></Grid>
+                    <Grid x:Name="levelBox_J" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="J"/></Grid>
+                    <Grid x:Name="levelBox_K" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="K"/></Grid>
+                    <Grid x:Name="levelBox_L" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="L"/></Grid>
+                </UniformGrid>
+
+                <Line Stroke="Black" StrokeThickness="2" X1="1" Y1="0" X2="1" Y2="110"/>
+
+                <StackPanel x:Name="divsionExtrasPanel"
+            		HorizontalAlignment="Stretch"
+            		MinWidth="238">
+
+                    <UniformGrid x:Name="infoPanel" Height="72" Background="#007baa" MaxWidth="238">
+                        <UniformGrid.Resources>
+                            <Style x:Key="divisionInfoStyle" TargetType="{x:Type Label}">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="19"/>
+                                <Setter Property="Padding" Value="4" />
+                            </Style>
+                        </UniformGrid.Resources>
+                        <Label Style="{StaticResource divisionInfoStyle}" HorizontalAlignment="Right" Content="Player Picks:"/>
+                        <Label Style="{StaticResource divisionInfoStyle}" Content="10"/>
+                        <Label Style="{StaticResource divisionInfoStyle}" HorizontalAlignment="Right" Content="Total Value:"/>
+                        <Label Style="{StaticResource divisionInfoStyle}" Content="100"/>
+                    </UniformGrid>
+
+                    <StackPanel x:Name="divisionButtons" Orientation="Horizontal" Height="39" Background="#e87e02" >
+                        <StackPanel.Resources>
+                            <Style x:Key="divisionButton" TargetType="{x:Type Button}">
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="Width" Value="80"/>
+                                <Setter Property="Margin" Value="25,0,0,4"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button x:Name="clearButton" Style="{StaticResource divisionButton}" Content="Clear"/>
+                        <Button x:Name="deleteButton" Style="{StaticResource divisionButton}" Content="Delete"/>
+                    </StackPanel>
+                </StackPanel>
+                    
+            </StackPanel>
+            
+        </Border>
+    </StackPanel>
+</UserControl>

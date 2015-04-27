@@ -58,6 +58,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Divisions\DivisionModel.cs" />
+    <Compile Include="Divisions\DivisionUC.xaml.cs">
+      <DependentUpon>DivisionUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameSetup\GameSetupUC.xaml.cs">
       <DependentUpon>GameSetupUC.xaml</DependentUpon>
     </Compile>
@@ -69,9 +72,14 @@
     <Compile Include="PrizeLevels\UserControlPrizeLevels.xaml.cs">
       <DependentUpon>UserControlPrizeLevels.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\CreateOpacityConverter.cs" />
     <Compile Include="Services\FileGenerationService.cs" />
     <Compile Include="Services\Listener.cs" />
+    <Compile Include="Services\PrizeLevelConverter.cs" />
+    <Compile Include="Services\RangeRule.cs" />
+    <Compile Include="Services\ServiceValidator.cs" />
     <Compile Include="Services\Teller.cs" />
+    <Compile Include="Services\ValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Divisions\DivisionsModel.cs" />
@@ -106,6 +114,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Divisions\DivisionUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GameSetup\GameSetupUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

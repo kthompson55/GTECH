@@ -6,28 +6,33 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
-    class PrizeLevels
+    public class PrizeLevels
     {
         private List<PrizeLevel> prizeLevels = new List<PrizeLevel>();
 
         public PrizeLevel getPrizeLevel(int index)
         {
+            if (index >= prizeLevels.Count || index < 0)
+                return null;
             return prizeLevels.ElementAt(index);
         }
 
         public void addPrizeLevel(PrizeLevel obj)
         {
-            prizeLevels.Add(obj);
+            if(obj!=null)
+                prizeLevels.Add(obj);
         }
 
         public void removePrizeLevel(int index)
         {
-            prizeLevels.RemoveAt(index);
+            if (!(index >= prizeLevels.Count || index < 0))
+                prizeLevels.RemoveAt(index);
         }
 
         public void addPrizeLevelAt(PrizeLevel obj, int index)
         {
-            prizeLevels.Insert(index, obj);
+            if (!(index >= prizeLevels.Count || index < 0) && obj!=null)
+                prizeLevels.Insert(index, obj);
         }
 
         public int getNumPrizeLevels()

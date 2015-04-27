@@ -9,13 +9,37 @@ namespace Collection_Game_Tool.Divisions
     public class DivisionModel : IComparable
     {
         private List<PrizeLevels.PrizeLevel> prizesAtDivision = new List<PrizeLevels.PrizeLevel>();
-        private int totalPlayerPicks;
-        private double totalPrizeValue;
 
         public void addPrizeLevel(PrizeLevels.PrizeLevel prizeLevelToAdd)
         {
             prizesAtDivision.Add(prizeLevelToAdd);
             prizesAtDivision.Sort();
+        }
+
+        private int totalPlayerPicks;
+        public int _totalPlayerPicks
+        {
+            get
+            {
+                return totalPlayerPicks;
+            }
+            set
+            {
+                totalPlayerPicks = value;
+            }
+        }
+
+        private double totalPrizeValue;
+        public double _totalPrizeValue
+        {
+            get
+            {
+                return totalPrizeValue;
+            }
+            set
+            {
+                totalPrizeValue = value;
+            }
         }
 
         public List<PrizeLevels.PrizeLevel> getPrizeLevelsAtDivision()

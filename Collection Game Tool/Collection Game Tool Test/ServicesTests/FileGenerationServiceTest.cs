@@ -111,6 +111,57 @@ namespace Collection_Game_Tool_Test.ServicesTests
         }
 
         [TestMethod]
+        public void testBuildGameDataThreeDivisonsFourPicksWithLoss()
+        {
+            //Custom input for a game
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 4;
+
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 3;
+            pl1.prizeValue = 100;
+
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 2;
+            pl2.prizeValue = 50;
+
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 2;
+            pl3.prizeValue = 25;
+
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
+
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
+
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl2);
+
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl2);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionModel dm4 = new DivisionModel();
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+
+            //File Generator
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataThreeDivisonsFourPicksWithLoss");
+        }
+
+        [TestMethod]
         public void testBuildGameDataFourDivisionsSixPicks()
         {
             GameSetupModel gs = new GameSetupModel();
@@ -231,6 +282,80 @@ namespace Collection_Game_Tool_Test.ServicesTests
             FileGenerationService fgs = new FileGenerationService();
             fgs.buildGameData(dms, pls, gs, "testBuildGameDataFiveDivisionsNinePicks");
         }
+
+        [TestMethod]
+        public void testBuildGameDataFiveDivisionsNinePicksWithFailDivision()
+        {
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 9;
+
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 5;
+            pl1.prizeValue = 100;
+
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 4;
+            pl2.prizeValue = 50;
+
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 4;
+            pl3.prizeValue = 25;
+
+            PrizeLevel pl4 = new PrizeLevel();
+            pl4.isInstantWin = false;
+            pl4.numCollections = 3;
+            pl4.prizeValue = 10;
+
+            PrizeLevel pl5 = new PrizeLevel();
+            pl5.isInstantWin = false;
+            pl5.numCollections = 3;
+            pl5.prizeValue = 5;
+
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
+            pls.addPrizeLevel(pl4);
+            pls.addPrizeLevel(pl5);
+
+
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
+
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl1);
+            dm2.addPrizeLevel(pl2);
+
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl1);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionModel dm4 = new DivisionModel();
+            dm4.addPrizeLevel(pl2);
+            dm4.addPrizeLevel(pl3);
+
+            DivisionModel dm5 = new DivisionModel();
+            dm5.addPrizeLevel(pl4);
+            dm5.addPrizeLevel(pl5);
+
+            DivisionModel dm6 = new DivisionModel();
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+            dms.addDivision(dm5);
+            dms.addDivision(dm6);
+
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataFiveDivisionsNinePicksWithFail");
+        }
+
 
         [TestMethod]
         public void testBuildGameDataMaxDivison()

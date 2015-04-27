@@ -12,7 +12,6 @@ namespace Collection_Game_Tool.Services
 
         public FileGenerationService() {}
 
-        //Creates the text file containing game information
         public void buildGameData(
             Divisions.DivisionsModel divisions, 
             PrizeLevels.PrizeLevels prizeLevels,

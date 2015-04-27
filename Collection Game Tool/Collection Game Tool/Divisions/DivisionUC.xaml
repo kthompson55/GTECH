@@ -20,7 +20,7 @@
                 BorderThickness="2,2,2,2"
                 VerticalAlignment="Top">
             
-            <StackPanel x:Name="division"
+            <StackPanel x:Name="divisionPanel"
                         Orientation="Horizontal"
                         Background="#848484"
                         MaxWidth="540"

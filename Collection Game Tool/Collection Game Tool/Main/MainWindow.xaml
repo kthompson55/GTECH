@@ -17,7 +17,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
             <pl:UserControlPrizeLevels></pl:UserControlPrizeLevels>
             <gs:GameSetupUC></gs:GameSetupUC>
-            <gs:GameSetupUC></gs:GameSetupUC>
+            <dv:DivisionPanelUC></dv:DivisionPanelUC>
         </StackPanel>
         
         

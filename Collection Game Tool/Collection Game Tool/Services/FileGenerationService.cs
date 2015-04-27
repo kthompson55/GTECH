@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.Services
@@ -9,10 +10,7 @@ namespace Collection_Game_Tool.Services
     public class FileGenerationService
     {
 
-        public FileGenerationService()
-        {
-
-        }
+        public FileGenerationService() {}
 
         //Creates the text file containing game information
         public void buildGameData(
@@ -21,24 +19,36 @@ namespace Collection_Game_Tool.Services
             GameSetup.GameSetupModel gameInfo,
             string fileName)
         {
-            List<List<int[]>> divisionLevles = new List<List<int[]>>();
             int numberOfDivisions = divisions.getNumberOfDivisions();
+            List<int[]>[] divisionLevles = new List<int[]>[numberOfDivisions];
+            List<Thread> threads = new List<Thread>();
             for (int i = 0; i < numberOfDivisions; i++)
             {
-                List<int[]> temp = getDivisionWinningPermutations(i, gameInfo.picks, gameInfo.maxPermutations, divisions.getDivision(i), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList();
-                divisionLevles.Add(temp);
+                int divisionIndex = i; 
+                Thread t = new Thread(() => divisionLevles[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                t.Start();
+                threads.Add(t);
             }
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"T:\TestData\" + fileName + ".txt"))
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+            writeFile(fileName, divisionLevles);
+        }
+
+        private void writeFile(string fileName, List<int[]>[] divisionLevles)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\GTech\" + fileName + ".txt"))
             {
                 List<string> lines = new List<string>();
-                int divisionIndicator = 0; 
+                int divisionIndicator = 0;
                 foreach (List<int[]> li in divisionLevles)
                 {
                     foreach (int[] i in li)
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append(divisionIndicator + " |");
-                        
+
                         for (int j = 0; j < i.Length; j++)
                         {
                             if (j != 0)
@@ -49,7 +59,7 @@ namespace Collection_Game_Tool.Services
                             {
                                 sb.Append(i[j]);
                             }
-                            
+
                         }
                         lines.Add(sb.ToString());
                     }
@@ -65,8 +75,8 @@ namespace Collection_Game_Tool.Services
         //Creates the collection of win permutations
         private List<int[]> getDivisionWinningPermutations(
             int divisionIndicator,
-            int totalNumberOfPicks,
-            int numberOfPermuitations,
+            short totalNumberOfPicks,
+            uint numberOfPermuitations,
             Divisions.DivisionModel division,
             PrizeLevels.PrizeLevels prizeLevels)
         {
@@ -101,7 +111,7 @@ namespace Collection_Game_Tool.Services
             int[] extraPicks,
             Divisions.DivisionModel div,
             PrizeLevels.PrizeLevels prizeLevels,
-            int maxNumberOfPermiutations)
+            uint maxNumberOfPermiutations)
         {
             List<int[]> filledPermiutations = new List<int[]>();
 
@@ -121,7 +131,7 @@ namespace Collection_Game_Tool.Services
             int[] extraValues,
             Divisions.DivisionModel div,
             PrizeLevels.PrizeLevels prizeLevels,
-            int maxNumberOfPermiutations)
+            uint maxNumberOfPermiutations)
         {
             int numberOfAddedPermiutations = nonWinningPermutations.Count;
             List<int[]> expandedPermiutationList = new List<int[]>(nonWinningPermutations);
@@ -200,7 +210,7 @@ namespace Collection_Game_Tool.Services
                 winningDivisionIndexs.Add(prizeLevels.getLevelOfPrize(pl));
             }
             int numberOfPrizeLevels = prizeLevels.getNumPrizeLevels();
-            for (int i = 0; i < numberOfPrizeLevels - 1; i++)
+            for (int i = 0; i < numberOfPrizeLevels; i++)
             {
                 if (!winningDivisionIndexs.Contains(i))
                 {

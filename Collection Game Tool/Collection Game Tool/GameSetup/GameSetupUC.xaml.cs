@@ -24,6 +24,7 @@ namespace Collection_Game_Tool.GameSetup
 
         public GameSetupModel gsObject;
         List<Listener> listenerList = new List<Listener>();
+        private string lastAcceptableMaxPermutationValue = 0 + "";
 
         public GameSetupUC()
         {
@@ -89,7 +90,18 @@ namespace Collection_Game_Tool.GameSetup
             if (gsObject != null)
             {
                 TextBox textBox = sender as TextBox;
-                gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
+                if (textBox.Text == "")
+                {
+                    textBox.Text = 0 +"";
+                }
+                else if (!WithinPermutationRange(textBox.Text))
+                {
+                    textBox.Text = lastAcceptableMaxPermutationValue;
+                }
+                else
+                {
+                    gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
+                }
             }
         }
 
@@ -103,6 +115,19 @@ namespace Collection_Game_Tool.GameSetup
         {
             TextBox textBox = sender as TextBox;
             textBox.SelectAll();
+        }
+
+        private void MaxPermutationsTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            lastAcceptableMaxPermutationValue = tb.Text;
+           
+        }
+
+        private bool WithinPermutationRange(string s)
+        {
+            uint philTheOrphan;
+            return UInt32.TryParse(s, out philTheOrphan);
         }
     }
 }

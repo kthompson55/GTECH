@@ -22,3 +22,5 @@ C:\Users\tdacus\Dropbox\GTECH\Collection Game Tool\Collection Game Tool\obj\Debu
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe.config
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.exe
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.pdb
+C:\Users\tdacus\Dropbox\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionUC.baml
+C:\Users\tdacus\Dropbox\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionUC.g.cs

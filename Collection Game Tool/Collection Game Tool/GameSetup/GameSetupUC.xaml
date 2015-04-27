@@ -54,7 +54,11 @@
                 <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of division combinations to calculate that lead to a win</Label>
                 <DockPanel>
                     <Label>Maximum Permutations:</Label>
-                    <TextBox x:Name="MaxPermutationsTextBox" GotFocus="MaxPermutationsTextBox_GotFocus" GotMouseCapture="MaxPermutationsTextBox_GotMouseCapture" TextChanged="MaxPermutationsTextBox_TextChanged">1</TextBox>
+                    <TextBox x:Name="MaxPermutationsTextBox" 
+                             GotFocus="MaxPermutationsTextBox_GotFocus" 
+                             GotMouseCapture="MaxPermutationsTextBox_GotMouseCapture" 
+                             TextChanged="MaxPermutationsTextBox_TextChanged"
+                             PreviewTextInput="MaxPermutationsTextBox_PreviewTextInput">1</TextBox>
 
                 </DockPanel>
             </StackPanel>

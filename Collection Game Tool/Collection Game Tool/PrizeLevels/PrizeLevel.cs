@@ -79,6 +79,8 @@ namespace Collection_Game_Tool.PrizeLevels
 
         public int CompareTo(object obj)
         {
+            if (obj == null)
+                return 1;
             PrizeLevel pl = (PrizeLevel)obj;
             return (int)Math.Ceiling(this.prizeValue - pl.prizeValue);
         }

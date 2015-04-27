@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace Collection_Game_Tool.Services
 {
-    class CreateOpacityConverter : IValueConverter
+    public class CreateOpacityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -17,7 +17,7 @@ namespace Collection_Game_Tool.Services
                 ret = (bool)value;
 
                 if (ret)
-                    return 1;
+                    return 1.0;
             }
 
             return 0.3;

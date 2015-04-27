@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -56,6 +57,10 @@
     <Compile Include="PrizeLevelsTests\PrizeLevelTests.cs" />
     <Compile Include="PrizeLevelsTests\PrizeLevelsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesTests\CreateOpacityConverterTest.cs" />
+    <Compile Include="ServicesTests\PrizeLevelConverterTest.cs" />
+    <Compile Include="ServicesTests\RangeRuleTests.cs" />
+    <Compile Include="ServicesTests\ValueConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Collection Game Tool\Collection Game Tool.csproj">
@@ -65,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MainTests\" />
-    <Folder Include="ServicesTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

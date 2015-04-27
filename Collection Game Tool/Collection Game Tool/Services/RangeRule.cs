@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Collection_Game_Tool.Services
 {
-    class RangeRule : ValidationRule
+    public class RangeRule : ValidationRule
     {
         private int _min;
         private int _max;
@@ -39,21 +39,21 @@ namespace Collection_Game_Tool.Services
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            int age = 0;
+            int num = 0;
 
             try
             {
                 if (((string)value).Length > 0)
-                    age = int.Parse((String)value);
+                    num = int.Parse((String)value);
             }
             catch (Exception e)
             {
                 return new ValidationResult(false, "Illegal characters");
             }
 
-            if ((age < Min) || (age > Max))
+            if ((num < Min) || (num > Max))
             {
-                return new ValidationResult(false, "Please enter an age in the range: " + Min + " - " + Max + ".");
+                return new ValidationResult(false, "Please enter a number in the given range.");
             }
             else
             {

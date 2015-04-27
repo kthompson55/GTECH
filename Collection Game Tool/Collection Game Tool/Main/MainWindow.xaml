@@ -14,11 +14,7 @@
             <Label Foreground="#007CAA" Background="white" FontSize="48" FontWeight="Bold">Collection Game Generator</Label>
 
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-            <pl:UserControlPrizeLevels></pl:UserControlPrizeLevels>
-            <gs:GameSetupUC></gs:GameSetupUC>
-            <dv:DivisionPanelUC></dv:DivisionPanelUC>
-        </StackPanel>
+        <StackPanel Name="UserControls" Orientation="Horizontal" HorizontalAlignment="Stretch"/>
         
         
 

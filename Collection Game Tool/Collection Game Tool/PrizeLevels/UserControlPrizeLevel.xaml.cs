@@ -43,7 +43,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
         void MainView_Loaded(object sender, RoutedEventArgs e)
         {
-            Window parentWindow = Window.GetWindow(this);
+            Window parentWindow = Window.GetWindow(this.Parent);
             plObject.addListener((Window1)parentWindow);
         }
 

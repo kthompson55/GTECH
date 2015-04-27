@@ -1,4 +1,6 @@
-﻿using Collection_Game_Tool.Services;
+﻿using Collection_Game_Tool.GameSetup;
+using Collection_Game_Tool.PrizeLevels;
+using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,37 +21,26 @@ namespace Collection_Game_Tool.Main
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window, INotifyPropertyChanged, Listener
+    public partial class Window1 : Window, Listener
     {
+        private GameSetupUC gs;
         public Window1()
         {
             InitializeComponent();
-            canCreate = true;
+            UserControlPrizeLevels ucpl = new UserControlPrizeLevels();
+            this.UserControls.Children.Add(ucpl);
+            GameSetupUC gsuc = new GameSetupUC();
+            gs = gsuc;
+            this.UserControls.Children.Add(gsuc);
+            GameSetupUC gsuc2 = new GameSetupUC();
+            this.UserControls.Children.Add(gsuc2);
         }
-
-        private bool _canCreate;
-        public bool canCreate
-        {
-            get
-            {
-                return _canCreate;
-            }
-            set
-            {
-                _canCreate = value;
-
-                if(PropertyChanged!=null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("canCreate"));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void onListen(object pass)
         {
-            if(((String)pass).Equals("validate"))
+            if(((String)pass).Equals("validate") && gs!=null)
             {
-                canCreate=ServiceValidator.IsValid(this);
+                gs.gsObject.canCreate=ServiceValidator.IsValid(this);
             }
         }
     }

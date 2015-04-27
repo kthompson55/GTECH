@@ -23,19 +23,22 @@ namespace Collection_Game_Tool.Services
                 return levels[ret - 1];
             }
 
-            return ret.ToString();
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            String text = (string)value;
-            int ret;
-            if (!int.TryParse(text, out ret))
+            String text;
+            if (value is string)
             {
-                return 0;
+                text = (string)value;
+
+                int ret = levels.FindIndex(0, x => x == text);
+                ret += 1;
+                return ret;
             }
 
-            return ret;
+            return -1;
         }
     }
 }

@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Services="clr-namespace:Collection_Game_Tool.Services"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300">
     <StackPanel x:Name="GameSetupMainPanel" Background="#B9B9B9">
+        <StackPanel.Resources>
+            <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
+        </StackPanel.Resources>
         <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,0,0,10">Game Setup</Label>
 
         <StackPanel x:Name="GameSetupOptionsPanel" Margin="10,0">
@@ -54,7 +58,7 @@
 
                 </DockPanel>
             </StackPanel>
-            <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30">Create File</Button>
+            <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
 
         </StackPanel>
     </StackPanel>

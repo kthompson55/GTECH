@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace Collection_Game_Tool.Services
 {
-    class ValueConverter : IValueConverter
+    public class ValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -24,7 +24,7 @@ namespace Collection_Game_Tool.Services
         {
             String text = (string)value;
             double ret=0;
-            if (!double.TryParse(text, out ret))
+            if (double.TryParse(text, out ret))
             {
                 return ret;
             }

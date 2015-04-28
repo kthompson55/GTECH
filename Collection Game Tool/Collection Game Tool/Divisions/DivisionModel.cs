@@ -31,7 +31,7 @@ namespace Collection_Game_Tool.Divisions
             TotalPrizeValue = totalValue;
             prizesInDivision = levels;
         }
-        
+
         public void addPrizeLevel(PrizeLevel prizeLevelToAdd)
         {
             prizesInDivision.Add(prizeLevelToAdd);
@@ -64,11 +64,11 @@ namespace Collection_Game_Tool.Divisions
         {
             return prizesInDivision.ElementAt(index);
         }
-        
+
         public double calculateDivisionValue()
         {
             double divisionValue = 0.0f;
-            foreach(PrizeLevel p in prizesInDivision)
+            foreach (PrizeLevel p in prizesInDivision)
             {
                 divisionValue += p.prizeValue;
             }

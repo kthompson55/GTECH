@@ -24,12 +24,12 @@
                    FontWeight="Bold"
                    Foreground="#FFFFFF"/>
         </Grid>
-        
+
         <Grid x:Name="divisionsHolderPanel"
               Grid.Row="1"
               VerticalAlignment="Top">
         </Grid>
-        
+
         <Grid Grid.Row="2">
             <Button x:Name="addDivisionButton" 
                     VerticalAlignment="Center"
@@ -37,6 +37,6 @@
                     Content="Add New Division"
                     Click="addDivisionButton_Click"/>
         </Grid>
-            
+
     </Grid>
 </UserControl>

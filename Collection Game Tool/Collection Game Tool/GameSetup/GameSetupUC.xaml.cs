@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Collection_Game_Tool.Services;
+using Collection_Game_Tool.Main;
 
 namespace Collection_Game_Tool.GameSetup
 {
@@ -102,6 +103,7 @@ namespace Collection_Game_Tool.GameSetup
                 {
                     gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
                 }
+                gsObject.shout("validate");
             }
         }
 
@@ -128,6 +130,13 @@ namespace Collection_Game_Tool.GameSetup
         {
             uint philTheOrphan;
             return UInt32.TryParse(s, out philTheOrphan);
+        }
+
+       
+        private void GameSetupUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this.Parent);
+            gsObject.addListener((Window1)parentWindow);
         }
     }
 }

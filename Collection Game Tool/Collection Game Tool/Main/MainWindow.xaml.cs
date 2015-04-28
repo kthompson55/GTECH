@@ -1,4 +1,5 @@
-﻿using Collection_Game_Tool.GameSetup;
+﻿using Collection_Game_Tool.Divisions;
+using Collection_Game_Tool.GameSetup;
 using Collection_Game_Tool.PrizeLevels;
 using Collection_Game_Tool.Services;
 using System;
@@ -29,11 +30,13 @@ namespace Collection_Game_Tool.Main
             InitializeComponent();
             UserControlPrizeLevels ucpl = new UserControlPrizeLevels();
             this.UserControls.Children.Add(ucpl);
+
             GameSetupUC gsuc = new GameSetupUC();
             gs = gsuc;
             this.UserControls.Children.Add(gsuc);
-            GameSetupUC gsuc2 = new GameSetupUC();
-            this.UserControls.Children.Add(gsuc2);
+
+            DivisionPanelUC divUC = new DivisionPanelUC();
+            this.UserControls.Children.Add(divUC);
         }
 
         public void onListen(object pass)

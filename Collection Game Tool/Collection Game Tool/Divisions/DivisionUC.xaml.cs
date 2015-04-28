@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Collection_Game_Tool.PrizeLevels;
+using Collection_Game_Tool.Services;
 
 namespace Collection_Game_Tool.Divisions
 {
     /// <summary>
     /// Interaction logic for DivisionUC.xaml
     /// </summary>
-    public partial class DivisionUC : UserControl
+    public partial class DivisionUC : UserControl, Listener
     {
         public DivisionModel Division { get; set; }
         public PrizeLevels.PrizeLevels prizes { get; set; }
@@ -48,6 +49,12 @@ namespace Collection_Game_Tool.Divisions
         {
             Grid divisionsGrid = (Grid)this.Parent;
             return divisionsGrid.Children.IndexOf(this);
+        }
+
+        public void onListen(object pass)
+        {
+            //This listens to DivisionPanel
+            throw new NotImplementedException();
         }
     }
 }

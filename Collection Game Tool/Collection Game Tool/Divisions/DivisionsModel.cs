@@ -40,5 +40,10 @@ namespace Collection_Game_Tool.Divisions
         {
             return divisions.ElementAt(index);
         }
+
+        public int getSize()
+        {
+            return divisions.Count();
+        }
     }
 }

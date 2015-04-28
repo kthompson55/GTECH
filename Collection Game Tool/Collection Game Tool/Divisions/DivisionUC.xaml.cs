@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Collection_Game_Tool.PrizeLevels;
 
 namespace Collection_Game_Tool.Divisions
 {
@@ -20,11 +21,33 @@ namespace Collection_Game_Tool.Divisions
     /// </summary>
     public partial class DivisionUC : UserControl
     {
-        public DivisionModel division;
+        public DivisionModel Division { get; set; }
+        public PrizeLevels.PrizeLevels prizes { get; set; }
 
         public DivisionUC()
         {
             InitializeComponent();
+            Division = new DivisionModel();
+        }
+
+        private void deleteDivisionButton_Click(object sender, RoutedEventArgs e)
+        {
+            DivisionPanelUC mainPanel = getPanel();
+            int index = getIndex();
+            mainPanel.removeDivision(index);
+        }
+
+        private DivisionPanelUC getPanel()
+        {
+            Grid divisionsGrid = (Grid)this.Parent;
+            Grid mainGrid = (Grid)divisionsGrid.Parent;
+            return (DivisionPanelUC)mainGrid.Parent;
+        }
+
+        public int getIndex()
+        {
+            Grid divisionsGrid = (Grid)this.Parent;
+            return divisionsGrid.Children.IndexOf(this);
         }
     }
 }

@@ -18,13 +18,21 @@ namespace Collection_Game_Tool.Services
             GameSetup.GameSetupModel gameInfo,
             string fileName)
         {
-            int numberOfDivisions = divisions.getNumberOfDivisions();
+            int numberOfDivisions = divisions.getNumberOfDivisions() + 1;
             List<int[]>[] divisionLevles = new List<int[]>[numberOfDivisions];
             List<Thread> threads = new List<Thread>();
             for (int i = 0; i < numberOfDivisions; i++)
             {
-                int divisionIndex = i; 
-                Thread t = new Thread(() => divisionLevles[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                int divisionIndex = i;
+                Thread t;
+                if (divisionIndex == numberOfDivisions - 1)
+                {
+                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionLossingPermutations(gameInfo.totalPicks, gameInfo.maxPermutations, prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                }
+                else
+                {
+                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                }
                 t.Start();
                 threads.Add(t);
             }
@@ -33,6 +41,15 @@ namespace Collection_Game_Tool.Services
                 t.Join();
             }
             writeFile(fileName, divisionLevles);
+        }
+
+        private List<int[]> getDivisionLossingPermutations(
+            short totalNumberOfPicks,
+            uint numberOfPermuitations,
+            PrizeLevels.PrizeLevels prizeLevels)
+        {
+
+            throw new NotImplementedException();
         }
 
         private void writeFile(string fileName, List<int[]>[] divisionLevles)

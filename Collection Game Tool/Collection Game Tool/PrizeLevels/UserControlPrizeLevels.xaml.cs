@@ -1,4 +1,5 @@
-﻿using Collection_Game_Tool.Services;
+﻿using Collection_Game_Tool.Divisions;
+using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,9 @@ namespace Collection_Game_Tool.PrizeLevels
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class UserControlPrizeLevels : UserControl, Listener
+    public partial class UserControlPrizeLevels : UserControl, Listener, Teller
     {
+        List<Listener> listenerList = new List<Listener>();
         public PrizeLevels plsObject;
 
         public UserControlPrizeLevels()
@@ -142,6 +144,20 @@ namespace Collection_Game_Tool.PrizeLevels
                     AddButton.Opacity = 1;
                 }
             }
+            shout(this);
+        }
+
+        public void shout(object pass)
+        {
+            foreach (Listener l in listenerList)
+            {
+                l.onListen(pass);
+            }
+        }
+
+        public void addListener(Listener list)
+        {
+            listenerList.Add(list);
         }
     }
 }

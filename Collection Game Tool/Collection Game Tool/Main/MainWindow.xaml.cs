@@ -39,6 +39,9 @@ namespace Collection_Game_Tool.Main
 
             DivisionPanelUC divUC = new DivisionPanelUC();
             this.UserControls.Children.Add(divUC);
+            
+            //Listener stuff between divisions and Prize Levels
+            pl.addListener(divUC);
         }
 
         public void onListen(object pass)

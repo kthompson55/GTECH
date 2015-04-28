@@ -60,7 +60,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
         public void shout(object pass)
         {
-            foreach (UserControlPrizeLevels ucpls in listenerList)
+            foreach (Listener ucpls in listenerList)
             {
                 ucpls.onListen(pass);
             }

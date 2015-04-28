@@ -16,7 +16,7 @@ namespace Collection_Game_Tool_Test.DivisionTests
         int testAmount = 100;
         public DivisionModelTest()
         {
-            
+
         }
 
         private TestContext testContextInstance;
@@ -112,7 +112,7 @@ namespace Collection_Game_Tool_Test.DivisionTests
                 prizeLevel += pl.prizeValue;
                 dm.addPrizeLevel(pl);
                 Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
-                Assert.IsTrue(dm.getDivisionValue() == prizeLevel, "PrizeLevel not correct value.");
+                Assert.IsTrue(dm.calculateDivisionValue() == prizeLevel, "PrizeLevel not correct value.");
             }
         }
     }

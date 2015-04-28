@@ -31,7 +31,7 @@ namespace Collection_Game_Tool.Divisions
             divisions.RemoveAt(index);
         }
 
-        public void cleadDivisions()
+        public void clearDivisions()
         {
             divisions.Clear();
         }

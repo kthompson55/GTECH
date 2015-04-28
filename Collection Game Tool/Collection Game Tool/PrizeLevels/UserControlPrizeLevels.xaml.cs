@@ -21,7 +21,7 @@ namespace Collection_Game_Tool.PrizeLevels
     /// </summary>
     public partial class UserControlPrizeLevels : UserControl, Listener
     {
-        PrizeLevels plsObject;
+        public PrizeLevels plsObject;
 
         public UserControlPrizeLevels()
         {

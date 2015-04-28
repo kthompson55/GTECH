@@ -23,11 +23,13 @@ namespace Collection_Game_Tool.Main
     /// </summary>
     public partial class Window1 : Window, Listener
     {
+        private UserControlPrizeLevels pl;
         private GameSetupUC gs;
         public Window1()
         {
             InitializeComponent();
             UserControlPrizeLevels ucpl = new UserControlPrizeLevels();
+            pl = ucpl;
             this.UserControls.Children.Add(ucpl);
             GameSetupUC gsuc = new GameSetupUC();
             gs = gsuc;
@@ -41,6 +43,12 @@ namespace Collection_Game_Tool.Main
             if(((String)pass).Equals("validate") && gs!=null)
             {
                 gs.gsObject.canCreate=ServiceValidator.IsValid(this);
+            }
+            else if (((String)pass).Contains("generate/") && gs != null)
+            {
+                String file = ((String)pass).Replace("generate/", "");
+                FileGenerationService fgs = new FileGenerationService();
+                fgs.buildGameData(null, pl.plsObject, gs.gsObject, file);
             }
         }
     }

@@ -53,7 +53,7 @@ namespace Collection_Game_Tool.Divisions
         {
             for (int i = index; i < divisionsModel.getSize(); i++)
             {
-                DivisionUC div = divisionsHolderPanel.Children.
+                //DivisionUC div = divisionsHolderPanel.Children.
             }
 
             divisionsModel.removeDivision(index);

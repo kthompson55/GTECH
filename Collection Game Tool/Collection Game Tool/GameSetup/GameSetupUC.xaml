@@ -11,13 +11,25 @@
     <StackPanel x:Name="GameSetupMainPanel" Background="#B9B9B9">
         <StackPanel.Resources>
             <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
+            <Style x:Key="instructionStyle" TargetType="Label">
+                <Setter Property="Background" Value="#e87e02" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="titleStyle" TargetType="Label">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Background" Value="#007CAA" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
         </StackPanel.Resources>
-        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" Margin="0,0,0,10">Game Setup</Label>
+        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
+        <Label Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Content="The basic game settings"></Label>
 
         <StackPanel x:Name="GameSetupOptionsPanel" Margin="10,0">
             <StackPanel x:Name="GSPlayerPicksPanel" Margin="0,0,0,10" Background="LightGray">
-                <Label Foreground="White" Background="#007CAA" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Player Picks</Label>
-                <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of picks the player gets to attempt to win a prize</Label>
+                <Label Style="{StaticResource titleStyle}">Player Picks</Label>
+                <Label Style="{StaticResource instructionStyle}">The number of picks the player gets to attempt to win a prize</Label>
                 <StackPanel Orientation="Horizontal" Background="LightGray">
                     <Label>Total Number:</Label>
                     <Label x:Name="NumPicksLabel" Content="{Binding ElementName=TotalPicksSlider, Path=Value}" ContentStringFormat="{}{0:#}" HorizontalContentAlignment="Center" Background="White" Width="30"></Label>
@@ -32,8 +44,8 @@
             </StackPanel>
 
             <StackPanel x:Name="GSNearWinPanel" Margin="0,0,0,10" Background="LightGray">
-                <Label Foreground="White" Background="#007CAA" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Near Win Experience</Label>
-                <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">If checked, defines how many levels come within one collection of winning a prize</Label>
+                <Label Style="{StaticResource titleStyle}">Near Win Experience</Label>
+                <Label Style="{StaticResource instructionStyle}">If checked, defines how many levels come within one collection of winning a prize</Label>
                 <StackPanel Orientation="Horizontal">
                     <Label>Enforce Near Win Experience:</Label>
                     <CheckBox x:Name="NearWinCheckbox" Click="NearWinCheckbox_Click" VerticalAlignment="Center"></CheckBox>
@@ -52,8 +64,8 @@
             </StackPanel>
             
             <StackPanel x:Name="GSPermutationsPanel" Background="LightGray">
-                <Label Background="#007CAA" Foreground="White" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">Game Win Permutations</Label>
-                <Label Background="Orange" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">The number of division combinations to calculate that lead to a win</Label>
+                <Label Style="{StaticResource titleStyle}">Game Win Permutations</Label>
+                <Label Style="{StaticResource instructionStyle}">The number of division combinations to calculate that lead to a win</Label>
                 <DockPanel>
                     <Label>Maximum Permutations:</Label>
                     <TextBox x:Name="MaxPermutationsTextBox" 

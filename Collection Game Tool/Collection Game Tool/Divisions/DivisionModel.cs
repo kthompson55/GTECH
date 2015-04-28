@@ -110,5 +110,12 @@ namespace Collection_Game_Tool.Divisions
             DivisionModel dm = (DivisionModel)obj;
             return (int)Math.Ceiling(this.calculateDivisionValue() - dm.calculateDivisionValue());
         }
+
+        internal List<int> getNeededPicks()
+        {
+            List<int> picks = new List<int>();
+
+            return picks;
+        }
     }
 }

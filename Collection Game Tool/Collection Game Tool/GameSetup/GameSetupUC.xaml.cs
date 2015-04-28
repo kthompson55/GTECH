@@ -59,7 +59,7 @@ namespace Collection_Game_Tool.GameSetup
             {
                 // Save document
                 string filename = dlg.FileName;
-
+                gsObject.shout("generate/" + filename);
             }
         }
 

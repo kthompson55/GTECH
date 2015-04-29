@@ -24,6 +24,7 @@ namespace Collection_Game_Tool.Divisions
     {
         public DivisionModel Division { get; set; }
         public PrizeLevels.PrizeLevels prizes { get; set; }
+        public DivisionPanelUC SectionContainer { get; set; }
 
         public DivisionUC()
         {
@@ -33,28 +34,22 @@ namespace Collection_Game_Tool.Divisions
 
         private void deleteDivisionButton_Click(object sender, RoutedEventArgs e)
         {
-            DivisionPanelUC mainPanel = getPanel();
             int index = getIndex();
-            mainPanel.removeDivision(index);
-        }
-
-        private DivisionPanelUC getPanel()
-        {
-            Grid divisionsGrid = (Grid)this.Parent;
-            Grid mainGrid = (Grid)divisionsGrid.Parent;
-            return (DivisionPanelUC)mainGrid.Parent;
+            SectionContainer.removeDivision(index);
         }
 
         public int getIndex()
         {
-            Grid divisionsGrid = (Grid)this.Parent;
-            return divisionsGrid.Children.IndexOf(this);
+            StackPanel divisionsPanel = (StackPanel)this.Parent;
+            return divisionsPanel.Children.IndexOf(this);
         }
 
         public void onListen(object pass)
         {
-            //This listens to DivisionPanel
-            throw new NotImplementedException();
+            if (pass is PrizeLevels.PrizeLevels)
+            {
+
+            }
         }
     }
 }

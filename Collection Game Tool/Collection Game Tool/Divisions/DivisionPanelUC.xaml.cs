@@ -22,50 +22,40 @@ namespace Collection_Game_Tool.Divisions
     public partial class DivisionPanelUC : UserControl, Listener, Teller
     {
         List<Listener> listenerList = new List<Listener>();
-        public DivisionsModel divisionsModel;
+        public DivisionsModel divisionsList;
         private double marginAmount;
         public PrizeLevels.PrizeLevels prizes { get; set; }
 
         public DivisionPanelUC()
         {
             InitializeComponent();
-            divisionsModel = new DivisionsModel();
+            divisionsList = new DivisionsModel();
             marginAmount = 10;
-
-            //DivisionUC firstDiv = new DivisionUC();
-            //firstDiv.Margin = new Thickness(leftMarginAmount, topMarginAmount, 0, 0);
-            //divisionsHolderPanel.Children.Add(firstDiv);
-            //divisionsModel.addDivision(firstDiv.Division);
         }
 
         private void addDivision()
         {
-            divisionsHolderPanel.RowDefinitions.Add(new RowDefinition());
-
             DivisionUC divUC = new DivisionUC();
-            divUC.divisionNumber.Content = divisionsModel.getSize() + 1;
+            divUC.divisionNumber.Content = divisionsList.getSize() + 1;
             divUC.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
-            divUC.SetValue(Grid.RowProperty, divisionsModel.getSize());
-
+            divUC.SectionContainer = this;
+            
             divisionsHolderPanel.Children.Add(divUC);
-            divisionsModel.addDivision(divUC.Division);
-
-            //Adds Children Listeners
+            divisionsList.addDivision(divUC.Division);
             this.addListener(divUC);
         }
 
         public void removeDivision(int index)
         {
-            for (int i = index; i < divisionsModel.getSize(); i++)
+            for (int i = index; i < divisionsList.getSize(); i++)
             {
-                //DivisionUC div = divisionsHolderPanel.Children.
+                DivisionUC div = (DivisionUC)divisionsHolderPanel.Children[i];
+                div.divisionNumber.Content = (int)div.divisionNumber.Content - 1;
             }
 
-            divisionsModel.removeDivision(index);
+            listenerList.Remove((DivisionUC)divisionsHolderPanel.Children[index]);
+            divisionsList.removeDivision(index);
             divisionsHolderPanel.Children.RemoveAt(index);
-
-            //You will need to remove listeners
-            // listenerList.remove(DivisionUC);
         }
 
         private void addDivisionButton_Click(object sender, RoutedEventArgs e)

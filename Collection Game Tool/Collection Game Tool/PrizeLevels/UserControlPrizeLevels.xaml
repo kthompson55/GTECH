@@ -8,6 +8,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
@@ -27,14 +28,33 @@
             </Label.Background>
             Prize Levels
         </Label>
+        <Grid
+            Grid.Row="1"
+            Background="#e87e02">
+            <Label
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+                The different prizes a player can win. (12 max and 2 min)
+            </Label>
+            <Label
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                Each prize includes a level, a prize value, the number of collections
+            </Label>
+            <Label
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom">
+                needed to win, and can be set to be won instantly in the game.
+            </Label>
+        </Grid>
         <Grid 
             Name="Prizes"
-            Grid.Row="1"
+            Grid.Row="2"
             VerticalAlignment="Top">
         </Grid>
         <Button
             Name="AddButton"
-            Grid.Row="2"
+            Grid.Row="3"
             VerticalAlignment="Center"
             Width="100"
             Click="Add_Prize_Level">

@@ -19,7 +19,7 @@
         Width="440"
         VerticalAlignment="Top">
         <Grid.Background>
-            <SolidColorBrush Color="#858585"/>
+            <SolidColorBrush Color="LightGray"/>
         </Grid.Background>
         <Label
             Name="Level"

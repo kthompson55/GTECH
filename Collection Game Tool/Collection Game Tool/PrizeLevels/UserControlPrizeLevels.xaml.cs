@@ -64,7 +64,7 @@ namespace Collection_Game_Tool.PrizeLevels
             for (int i = 0; i < Prizes.Children.Count; i++)
             {
                 UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
-                ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
+                ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
                 ucpl.Margin = new Thickness(0, i * 50, 0, 0);
                 ucpl.plObject.prizeLevel = (i + 1);
 

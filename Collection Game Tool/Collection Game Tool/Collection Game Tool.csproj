@@ -64,6 +64,9 @@
     <Compile Include="Divisions\DivisionUC.xaml.cs">
       <DependentUpon>DivisionUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Divisions\PrizeLevelBox.xaml.cs">
+      <DependentUpon>PrizeLevelBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameSetup\GameSetupUC.xaml.cs">
       <DependentUpon>GameSetupUC.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
     <Page Include="Divisions\DivisionUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Divisions\PrizeLevelBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GameSetup\GameSetupUC.xaml">
       <Generator>MSBuild:Compile</Generator>

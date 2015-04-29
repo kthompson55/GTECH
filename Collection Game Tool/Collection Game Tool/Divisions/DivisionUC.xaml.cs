@@ -23,13 +23,28 @@ namespace Collection_Game_Tool.Divisions
     public partial class DivisionUC : UserControl, Listener
     {
         public DivisionModel Division { get; set; }
-        public PrizeLevels.PrizeLevels prizes { get; set; }
+        public PrizeLevels.PrizeLevels Prizes { get; set; }
         public DivisionPanelUC SectionContainer { get; set; }
+        private List<PrizeLevelBox> PrizeBoxes { get; set; }
 
         public DivisionUC()
         {
             InitializeComponent();
             Division = new DivisionModel();
+            PrizeBoxes = new List<PrizeLevelBox>();
+
+            for (int i = 0; i < 12; i++)
+            {
+                PrizeLevelBox box = new PrizeLevelBox(this, false, i+1);
+                if (i < 2) { box.IsAvailable = true; }
+                PrizeBoxes.Add(box);
+                prizeLevelsGrid.Children.Add(PrizeBoxes[i]);
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                PrizeBoxes[i].IsAvailable = true;
+            }
         }
 
         private void deleteDivisionButton_Click(object sender, RoutedEventArgs e)
@@ -48,7 +63,11 @@ namespace Collection_Game_Tool.Divisions
         {
             if (pass is PrizeLevels.PrizeLevels)
             {
-
+                Prizes = (PrizeLevels.PrizeLevels)pass;
+            }
+            else
+            {
+                Console.WriteLine("ERROR: PrizeLevels was not passed into the Division User Control");
             }
         }
     }

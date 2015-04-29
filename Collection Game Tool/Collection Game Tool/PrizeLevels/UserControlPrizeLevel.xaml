@@ -7,127 +7,130 @@
              mc:Ignorable="d"
              Loaded="MainView_Loaded"
              d:DesignHeight="40" d:DesignWidth="440"
-             Margin="0,0,0,20"
              xmlns:Services="clr-namespace:Collection_Game_Tool.Services">
     <UserControl.Resources>
         <Services:PrizeLevelConverter x:Key="LevelConverter"/>
         <Services:ValueConverter x:Key="ValueConverter"/>
     </UserControl.Resources>
     <Grid
-        Name="LevelGrid"
-        Height="40"
-        Width="440"
-        VerticalAlignment="Top">
-        <Grid.Background>
-            <SolidColorBrush Color="#858585"/>
-        </Grid.Background>
-        <Label
-            Name="Level"
-            Content="{Binding Path=prizeLevel, Converter={StaticResource LevelConverter}, FallbackValue='0'}"
-            Background="#FFFFFF"
-            Height="40"
-            Width="40"
-            HorizontalAlignment="Left"
-            Margin="15,0,0,0"
-            Foreground="#007CAA"
-            FontSize="20"
-            VerticalContentAlignment="Center"
-            HorizontalContentAlignment="Center"/>
+        x:Name="OuterGrid">
         <Grid
-            Background="#007CAA"
             Height="40"
-            Width="100"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Margin="70,0,0,0">
+            Width="440"
+            VerticalAlignment="Top"
+            Name="LevelGrid">
+            <Grid.Background>
+                <SolidColorBrush Color="LightGray"/>
+            </Grid.Background>
+            <Border BorderBrush="Black" BorderThickness="2"/>
             <Label
-                Foreground="White"
-                FontSize="12"
-                VerticalContentAlignment="Center">
-                Value $
-            </Label>
-            <TextBox 
-                Name="TextBoxValue"
-                PreviewMouseUp="boxChangedEventHandler"
-                PreviewTextInput="textBoxValue_PreviewTextInput"
-                TextChanged="Text_Changed"
-                MaxLength="34"
-                Text="{Binding prizeValue, Mode=TwoWay, Converter={StaticResource ValueConverter}}"
-                HorizontalAlignment="Right"
-                Margin="0,0,5,0"
-                Height="25"
-                Width="40"/>
-            <!-- Max Length is set to 34 because that is what we deterimned
-                    the amount of characters a double will take before overflowing
-                    or causing an error-->
-        </Grid>
-        <Grid
-            Background="#007CAA"
-            Height="40"
-            Width="130"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Margin="180,0,0,0">
-            <Label
-                Foreground="White"
-                FontSize="12"
-                VerticalContentAlignment="Center">
-                Collect to Win
-            </Label>
-            <TextBox 
-                Name="CollectionBoxValue"
-                TextChanged="Text_Changed"
-                PreviewMouseUp="boxChangedEventHandler"
-                PreviewTextInput="textBoxCollection_PreviewTextInput"
-                MaxLength="2"
-                HorizontalAlignment="Right"
-                Margin="0,0,5,0"
-                Height="25"
+                Name="Level"
+                Content="{Binding Path=prizeLevel, Converter={StaticResource LevelConverter}, FallbackValue='0'}"
+                Background="#FFFFFF"
+                Height="40"
                 Width="40"
-                ToolTip="Enter a value between 1 and 20">
-                <Binding Path="numCollections" Mode="TwoWay">
-                    <Binding.ValidationRules>
-                        <Services:RangeRule Max="20" Min="1"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox>
-        </Grid>
-        <Grid
-            Background="#007CAA"
-            Height="40"
-            Width="90"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Margin="320,0,0,0">
-            <Label
-                Foreground="White"
-                FontSize="12"
-                VerticalContentAlignment="Center">
-                Instant Win:
-            </Label>
-            <CheckBox 
-                Name="InstantWinCheckBox"
-                Checked="boxChangedEventHandler"
-                Unchecked="boxChangedEventHandler"
-                Content="{Binding Path=isInstantWin, Mode=TwoWay}"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Margin="0,0,0,0"
-                Height="15"
-                Width="15"/>
-        </Grid>
-        <Grid>
-            <Button
-                Name="CloseButton"
-                Width="15"
-                Height="20"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
+                Margin="15,2,0,2"
+                Foreground="#007CAA"
+                FontSize="20"
                 VerticalContentAlignment="Center"
-                HorizontalContentAlignment="Center"
-                Click="Close_Prize_Level">
-                X
-            </Button>
+                HorizontalContentAlignment="Center"/>
+            <Grid
+                Background="#007CAA"
+                Height="40"
+                Width="100"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="70,2,0,2">
+                <Label
+                    Foreground="White"
+                    FontSize="12"
+                    VerticalContentAlignment="Center">
+                    Value $
+                </Label>
+                <TextBox 
+                    Name="TextBoxValue"
+                    PreviewMouseUp="boxChangedEventHandler"
+                    PreviewTextInput="textBoxValue_PreviewTextInput"
+                    TextChanged="Text_Changed"
+                    MaxLength="34"
+                    Text="{Binding prizeValue, Mode=TwoWay, Converter={StaticResource ValueConverter}}"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,5,0"
+                    Height="25"
+                    Width="40"/>
+                <!-- Max Length is set to 34 because that is what we deterimned
+                        the amount of characters a double will take before overflowing
+                        or causing an error-->
+            </Grid>
+            <Grid
+                Background="#007CAA"
+                Height="40"
+                Width="130"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="180,2,0,2">
+                <Label
+                    Foreground="White"
+                    FontSize="12"
+                    VerticalContentAlignment="Center">
+                    Collect to Win
+                </Label>
+                <TextBox 
+                    Name="CollectionBoxValue"
+                    TextChanged="Text_Changed"
+                    PreviewMouseUp="boxChangedEventHandler"
+                    PreviewTextInput="textBoxCollection_PreviewTextInput"
+                    MaxLength="2"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,5,0"
+                    Height="25"
+                    Width="40"
+                    ToolTip="Enter a value between 1 and 20">
+                    <Binding Path="numCollections" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <Services:RangeRule Max="20" Min="1"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Grid>
+            <Grid
+                Background="#007CAA"
+                Height="40"
+                Width="90"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="320,2,0,2">
+                <Label
+                    Foreground="White"
+                    FontSize="12"
+                    VerticalContentAlignment="Center">
+                    Instant Win:
+                </Label>
+                <CheckBox 
+                    Name="InstantWinCheckBox"
+                    Checked="boxChangedEventHandler"
+                    Unchecked="boxChangedEventHandler"
+                    Content="{Binding Path=isInstantWin, Mode=TwoWay}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,0"
+                    Height="15"
+                    Width="15"/>
+            </Grid>
+            <Grid>
+                <Button
+                    Name="CloseButton"
+                    Width="15"
+                    Height="20"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Click="Close_Prize_Level">
+                    X
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

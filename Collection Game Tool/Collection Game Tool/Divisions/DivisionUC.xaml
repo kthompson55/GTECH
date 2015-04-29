@@ -25,43 +25,11 @@
                         Background="#848484"
                         MaxWidth="540"
                         MaxHeight="90">
-                <StackPanel.Resources>
-                    <Style x:Key="LevelSelectionStyle" TargetType="Grid">
-                        <Setter Property="Background" Value="White" />
-                        <Setter Property="MaxHeight" Value="30" />
-                        <Setter Property="MinWidth" Value="30" />
-                        <Setter Property="MaxWidth" Value="31" />
-                        <Setter Property="Margin" Value="5,0" />
-                        <!--<EventSetter Event="MouseEnter" Handler="handlerInCode"/>-->
-                        <!--<EventSetter Event="MouseLeave" Handler="handlerInCode"/>-->
-                        <!--<EventSetter Event="MouseLeftButtonDown" Handler="handlerInCode"/>-->
-                    </Style>
-                    <Style x:Key="LevelLabel" TargetType="Label">
-                        <Setter Property="Foreground" Value="Black" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                        <Setter Property="HorizontalAlignment" Value="Center" />
-                        <Setter Property="FontSize" Value="20" />
-                        <Setter Property="Padding" Value="0" />
-                    </Style>
-                </StackPanel.Resources>
-
+                
                 <UniformGrid x:Name="prizeLevelsGrid"
-            		Columns="6"
-            		Rows="2">
-                    <Grid x:Name="levelBox_A" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="A"/></Grid>
-                    <Grid x:Name="levelBox_B" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="B"/></Grid>
-                    <Grid x:Name="levelBox_C" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="C"/></Grid>
-                    <Grid x:Name="levelBox_D" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="D"/></Grid>
-                    <Grid x:Name="levelBox_E" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="E"/></Grid>
-                    <Grid x:Name="levelBox_F" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="F"/></Grid>
-
-                    <Grid x:Name="levelBox_G" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="G"/></Grid>
-                    <Grid x:Name="levelBox_H" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="H"/></Grid>
-                    <Grid x:Name="levelBox_I" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="I"/></Grid>
-                    <Grid x:Name="levelBox_J" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="J"/></Grid>
-                    <Grid x:Name="levelBox_K" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="K"/></Grid>
-                    <Grid x:Name="levelBox_L" Style="{StaticResource LevelSelectionStyle}"><Label Style="{StaticResource LevelLabel}" Content="L"/></Grid>
-                </UniformGrid>
+                             Columns="6" 
+                             Rows="2"
+                             Width="240"/>
 
                 <Line Stroke="Black" StrokeThickness="2" X1="1" Y1="0" X2="1" Y2="110"/>
 

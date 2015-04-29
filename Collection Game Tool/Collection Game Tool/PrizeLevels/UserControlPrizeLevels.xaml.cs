@@ -39,7 +39,7 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl.CloseButton.Opacity = 0.0f;
 
             UserControlPrizeLevel ucpl2 = new UserControlPrizeLevel();
-            ucpl2.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
+            ucpl2.OuterGrid.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
             ucpl2.addListener(this);
             Prizes.Children.Add(ucpl2);
             plsObject.addPrizeLevel(ucpl2.plObject);
@@ -53,7 +53,7 @@ namespace Collection_Game_Tool.PrizeLevels
             if (plsObject.getNumPrizeLevels() < 12)
             {
                 UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
-                ucpl.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
+                ucpl.OuterGrid.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
 
                 ucpl.addListener(this);
                 Prizes.Children.Add(ucpl);
@@ -65,7 +65,7 @@ namespace Collection_Game_Tool.PrizeLevels
             {
                 UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
                 ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
-                ucpl.Margin = new Thickness(0, i * 50, 0, 0);
+                ucpl.OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                 ucpl.plObject.prizeLevel = (i + 1);
 
                 ucpl.CloseButton.IsEnabled = true;
@@ -95,7 +95,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
-                        ucplList[i].Margin = new Thickness(0, i*50, 0, 0);
+                        ucplList[i].OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
                         Prizes.Children.Add(ucplList[i]);
                     }
@@ -124,8 +124,8 @@ namespace Collection_Game_Tool.PrizeLevels
                     for (int i = 0; i < Prizes.Children.Count; i++)
                     {
                         UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
-                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
-                        ucpl.Margin = new Thickness(0, i * 50, 0, 0);
+                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
+                        ucpl.OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                         ucpl.plObject.prizeLevel = (i + 1);
 
                         if (plsObject.getNumPrizeLevels() == 2)

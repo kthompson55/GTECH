@@ -25,24 +25,35 @@ namespace Collection_Game_Tool.Divisions
         public DivisionsModel divisionsList;
         private double marginAmount;
         public PrizeLevels.PrizeLevels prizes { get; set; }
+        private const int MAX_DIVISIONS = 30;
 
         public DivisionPanelUC()
         {
             InitializeComponent();
             divisionsList = new DivisionsModel();
             marginAmount = 10;
+            determineScrollVisibility();
         }
 
         private void addDivision()
         {
-            DivisionUC divUC = new DivisionUC();
-            divUC.divisionNumber.Content = divisionsList.getSize() + 1;
-            divUC.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
-            divUC.SectionContainer = this;
-            
-            divisionsHolderPanel.Children.Add(divUC);
-            divisionsList.addDivision(divUC.Division);
-            this.addListener(divUC);
+            if (divisionsList.getSize() < MAX_DIVISIONS)
+            {
+                DivisionUC divUC = new DivisionUC(prizes);
+                divUC.divisionNumber.Content = divisionsList.getSize() + 1;
+                divUC.updateDivision();
+                divUC.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
+                divUC.SectionContainer = this;
+
+                divisionsHolderPanel.Children.Add(divUC);
+                divisionsList.addDivision(divUC.DivModel);
+                this.addListener(divUC);
+            }
+
+            if (divisionsList.getSize() >= MAX_DIVISIONS)
+            {
+                addDivisionButton.IsEnabled = false;
+            }
         }
 
         public void removeDivision(int index)
@@ -56,15 +67,40 @@ namespace Collection_Game_Tool.Divisions
             listenerList.Remove((DivisionUC)divisionsHolderPanel.Children[index]);
             divisionsList.removeDivision(index);
             divisionsHolderPanel.Children.RemoveAt(index);
+
+            if (divisionsList.getSize() < MAX_DIVISIONS)
+            {
+                addDivisionButton.IsEnabled = true;
+            }
+
+            determineScrollVisibility();
         }
 
         private void addDivisionButton_Click(object sender, RoutedEventArgs e)
         {
             addDivision();
+            determineScrollVisibility();
+            divisionsScroll.ScrollToBottom();
+        }
+
+        private void determineScrollVisibility()
+        {
+            if (divisionsHolderPanel.ActualHeight >= divisionsScroll.MaxHeight)
+            {
+                divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            }
+            else
+            {
+                divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            }
         }
 
         public void onListen(object pass)
         {
+            if (pass is PrizeLevels.PrizeLevels)
+            {
+                prizes = (PrizeLevels.PrizeLevels)pass;
+            }
             shout(pass);
         }
 

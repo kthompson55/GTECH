@@ -25,11 +25,14 @@
                    Foreground="#FFFFFF"/>
         </Grid>
 
-        <StackPanel x:Name="divisionsHolderPanel"
-                    Grid.Row="1"
-                    VerticalAlignment="Top"
-                    Orientation="Vertical">
-        </StackPanel>
+        <ScrollViewer x:Name="divisionsScroll" 
+                      Grid.Row="1"
+                      MaxHeight="630">
+            <StackPanel x:Name="divisionsHolderPanel"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
+            </StackPanel>
+        </ScrollViewer>
 
         <Grid Grid.Row="2">
             <Button x:Name="addDivisionButton" 

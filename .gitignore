@@ -239,3 +239,5 @@ FakesAssemblies/
 /Collection Game Tool/Collection Game Tool/obj
 /Collection Game Tool/Collection Game Tool Test/obj/Debug/*.cache
 /Collection Game Tool/*.suo
+*.lref
+*.cache

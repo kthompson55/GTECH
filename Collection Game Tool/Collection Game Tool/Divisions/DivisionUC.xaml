@@ -46,9 +46,9 @@
                             </Style>
                         </UniformGrid.Resources>
                         <Label Style="{StaticResource divisionInfoStyle}" HorizontalAlignment="Right" Content="Collections:"/>
-                        <Label Style="{StaticResource divisionInfoStyle}" Content="10"/>
+                        <Label x:Name="totalPicksLabel" Style="{StaticResource divisionInfoStyle}" Content="{Binding Path=TotalPlayerPicks, Mode=TwoWay, FallbackValue=0}"/>
                         <Label Style="{StaticResource divisionInfoStyle}" HorizontalAlignment="Right" Content="Total Value:"/>
-                        <Label Style="{StaticResource divisionInfoStyle}" Content="100"/>
+                        <Label x:Name="totalValueLabel" Style="{StaticResource divisionInfoStyle}" Content="{Binding Path=TotalPrizeValue, Mode=TwoWay, FallbackValue=0}"/>
                     </UniformGrid>
 
                     <StackPanel x:Name="divisionButtons" Orientation="Horizontal" Height="31" Background="#e87e02" Width="201" >
@@ -59,8 +59,12 @@
                                 <Setter Property="Margin" Value="20,5,0,4"/>
                             </Style>
                         </StackPanel.Resources>
-                        <Button x:Name="clearButton" Style="{StaticResource divisionButton}" Content="Clear"/>
-                        <Button x:Name="deleteButton" Style="{StaticResource divisionButton}" 
+                        <Button x:Name="clearButton" 
+                                Style="{StaticResource divisionButton}" 
+                                Content="Clear"
+                                Click="clearDivisionButton_Click"/>
+                        <Button x:Name="deleteButton" 
+                                Style="{StaticResource divisionButton}" 
                                 Content="Delete"
                                 Click="deleteDivisionButton_Click"/>
                     </StackPanel>

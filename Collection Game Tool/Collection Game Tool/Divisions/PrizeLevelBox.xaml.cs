@@ -24,7 +24,21 @@ namespace Collection_Game_Tool.Divisions
         public event PropertyChangedEventHandler PropertyChanged;
 
         public DivisionUC division;
-        public bool IsSelected { get; set; }
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsSelected"));
+            }
+        }
 
         private bool _isAvailable;
         public bool IsAvailable
@@ -72,15 +86,8 @@ namespace Collection_Game_Tool.Divisions
 
         private void levelBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (IsSelected)
-            {
-                levelBox.Background = Brushes.White;
-            }
-            else
-            {
-                levelBox.Background = new SolidColorBrush(Color.FromRgb(0, 157, 217));
-            }
             IsSelected = !IsSelected;
+            division.updateInfo();
         }
 
     }

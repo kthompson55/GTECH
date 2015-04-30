@@ -25,6 +25,9 @@
                         <Setter Property="IsEnabled" Value="false"/>
                         <Setter Property="Background" Value="#b9b9b9"/>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsSelected, Mode=OneWay}" Value="true">
+                        <Setter Property="Background" Value="#009dd9"/>
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
 

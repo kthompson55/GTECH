@@ -72,15 +72,17 @@ namespace Collection_Game_Tool.Divisions
             {
                 addDivisionButton.IsEnabled = true;
             }
-
-            determineScrollVisibility();
         }
 
         private void addDivisionButton_Click(object sender, RoutedEventArgs e)
         {
             addDivision();
-            determineScrollVisibility();
             divisionsScroll.ScrollToBottom();
+        }
+
+        private void divisionsHolderPanel_SizeChanged_1(object sender, SizeChangedEventArgs e)
+        {
+            determineScrollVisibility();
         }
 
         private void determineScrollVisibility()

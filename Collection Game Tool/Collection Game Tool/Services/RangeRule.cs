@@ -48,7 +48,7 @@ namespace Collection_Game_Tool.Services
             }
             catch (Exception e)
             {
-                e.GetBaseException(); //This is just so warnings don't appear anymore, yeah I'm lazy, so sue me
+                e.GetBaseException(); //This is just so warnings don't appear anymore, yeah I'm lazy
                 return new ValidationResult(false, "Illegal characters");
             }
 

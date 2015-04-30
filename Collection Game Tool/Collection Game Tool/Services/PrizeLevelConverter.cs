@@ -14,6 +14,7 @@ namespace Collection_Game_Tool.Services
                 "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"
             };
 
+        //Converts integer to letter reference
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             int ret=0;
@@ -26,6 +27,7 @@ namespace Collection_Game_Tool.Services
             return "";
         }
 
+        //Converts letter reference back to integer
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             String text;

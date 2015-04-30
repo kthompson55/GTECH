@@ -30,6 +30,9 @@ namespace Collection_Game_Tool.Main
         public Window1()
         {
             InitializeComponent();
+
+            //Programmaticaly add UserControls to mainwindow.
+            //Did this because couldn't find a way to access the usercontrol from within the xaml.
             UserControlPrizeLevels ucpl = new UserControlPrizeLevels();
             pl = ucpl;
             this.UserControls.Children.Add(ucpl);
@@ -41,6 +44,7 @@ namespace Collection_Game_Tool.Main
             DivisionPanelUC divUC = new DivisionPanelUC();
             this.UserControls.Children.Add(divUC);
             divUC.prizes = pl.plsObject;
+
             
             //Listener stuff between divisions and Prize Levels
             pl.addListener(divUC);
@@ -68,10 +72,20 @@ namespace Collection_Game_Tool.Main
 
         public void onListen(object pass)
         {
+            //Validate is used when something changes from any usercontrol, this is so it can check the validity of the variables within those controls
+            //Also sets the create file button to invalid if anything the ServiceValidator finds is invalid (ex. CollectionNumber in PrizeLevels is greater then 20)
             if(((String)pass).Equals("validate") && gs!=null)
             {
                 gs.gsObject.canCreate=ServiceValidator.IsValid(this);
-            }
+            }   //Error is used when something that can't be easily validated with the above statement is invalid
+            else if (((String)pass).Equals("error") && gs!=null)
+            {
+                gs.gsObject.canCreate = false;
+            }   //Valid is used when something that can't be easily validated with the above statement is valid
+            else if (((String)pass).Equals("valid") && gs != null)
+            {
+                gs.gsObject.canCreate = true;
+            }   //generate/ is used to generate the final output file, this calls up the FileGenerationService to make the file
             else if (((String)pass).Contains("generate/") && gs != null)
             {
                 String file = ((String)pass).Replace("generate/", "");

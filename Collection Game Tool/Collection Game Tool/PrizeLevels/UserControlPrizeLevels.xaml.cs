@@ -30,6 +30,7 @@ namespace Collection_Game_Tool.PrizeLevels
             InitializeComponent();
             plsObject = new PrizeLevels();
 
+            //SetsUp the default 2 PrizeLevel
             UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
             ucpl.addListener(this);
             Prizes.Children.Add(ucpl);
@@ -59,8 +60,11 @@ namespace Collection_Game_Tool.PrizeLevels
                 Prizes.Children.Add(ucpl);
                 plsObject.addPrizeLevel(ucpl.plObject);
                 ucpl.plObject.prizeLevel = Prizes.Children.Count;
+
+                //adds the PrizeLevel to the end
             }
 
+            //Gets rid of any highlight of previously selected PrizeLevel
             for (int i = 0; i < Prizes.Children.Count; i++)
             {
                 UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
@@ -77,6 +81,7 @@ namespace Collection_Game_Tool.PrizeLevels
                 AddButton.IsEnabled = false;
                 AddButton.Opacity = 0.3;
             }
+            //Shouts the PrizeLevels object so that they can be analyzed in Divisions
             shout(plsObject);
         }
 
@@ -105,6 +110,7 @@ namespace Collection_Game_Tool.PrizeLevels
             }
             else if(pass is UserControlPrizeLevel)
             {
+                //This removes the PrizeLevel that was just closed
                 if (plsObject.getNumPrizeLevels() > 2)
                 {
                     UserControlPrizeLevel rem = (UserControlPrizeLevel)pass;
@@ -146,6 +152,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     AddButton.Opacity = 1;
                 }
             }
+            //Shouts PrizeLevels object so divisions can analyze it
             shout(plsObject);
         }
 

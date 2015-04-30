@@ -9,6 +9,7 @@ namespace Collection_Game_Tool.Services
 {
     public class CreateOpacityConverter : IValueConverter
     {
+        //Converts from boolean to opacity value
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool ret = false;
@@ -23,6 +24,7 @@ namespace Collection_Game_Tool.Services
             return 0.3;
         }
 
+        //Converts from Opacity value to boolean
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             double ret = 0;

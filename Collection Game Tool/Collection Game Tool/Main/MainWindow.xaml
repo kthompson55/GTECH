@@ -4,8 +4,8 @@
         xmlns:gs="clr-namespace:Collection_Game_Tool.GameSetup"
         xmlns:pl="clr-namespace:Collection_Game_Tool.PrizeLevels"
         xmlns:dv="clr-namespace:Collection_Game_Tool.Divisions"
-        Title="Collection Game Tool" WindowState="Maximized" 
-        SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+        Title="Collection Game Tool" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+        SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" >
 
     <StackPanel>
             

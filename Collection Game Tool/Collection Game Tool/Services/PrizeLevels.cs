@@ -40,6 +40,11 @@ namespace Collection_Game_Tool.PrizeLevels
             return prizeLevels.Count;
         }
 
+        public void sortPrizeLevels()
+        {
+            prizeLevels.Sort();
+        }
+
         public int getLevelOfPrize(PrizeLevel obj)
         {
             for (int i = 0; i < prizeLevels.Count; i++)

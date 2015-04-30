@@ -14,7 +14,7 @@ namespace Collection_Game_Tool.Divisions
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<PrizeLevel> prizesInDivision { get; set; }
+        public List<PrizeLevel> selectedPrizes { get; set; }
         private int _totalPlayerPicks;
         private double _totalPrizeValue;
 
@@ -22,57 +22,67 @@ namespace Collection_Game_Tool.Divisions
         {
             TotalPlayerPicks = 0;
             TotalPrizeValue = 0.00;
-            prizesInDivision = new List<PrizeLevel>();
+            selectedPrizes = new List<PrizeLevel>();
         }
 
         public DivisionModel(int playerPicks, double totalValue, List<PrizeLevel> levels)
         {
             TotalPlayerPicks = playerPicks;
             TotalPrizeValue = totalValue;
-            prizesInDivision = levels;
+            selectedPrizes = levels;
         }
 
         public void addPrizeLevel(PrizeLevel prizeLevelToAdd)
         {
-            prizesInDivision.Add(prizeLevelToAdd);
-            prizesInDivision.Sort();
+            selectedPrizes.Add(prizeLevelToAdd);
+            selectedPrizes.Sort();
         }
 
         public void removePrizeLevel(PrizeLevel prizeLevelToRemove)
         {
-            prizesInDivision.Remove(prizeLevelToRemove);
-            prizesInDivision.Sort();
+            selectedPrizes.Remove(prizeLevelToRemove);
+            selectedPrizes.Sort();
         }
 
         public void removePrizeLevel(int prizeLevelIndex)
         {
-            prizesInDivision.RemoveAt(prizeLevelIndex);
-            prizesInDivision.Sort();
+            selectedPrizes.RemoveAt(prizeLevelIndex);
+            selectedPrizes.Sort();
         }
 
         public void clearPrizeLevelList()
         {
-            prizesInDivision = new List<PrizeLevel>();
+            selectedPrizes = new List<PrizeLevel>();
         }
 
         public List<PrizeLevel> getPrizeLevelsAtDivision()
         {
-            return prizesInDivision;
+            return selectedPrizes;
         }
 
         public PrizeLevel getPrizeLevel(int index)
         {
-            return prizesInDivision.ElementAt(index);
+            return selectedPrizes.ElementAt(index);
         }
 
         public double calculateDivisionValue()
         {
             double divisionValue = 0.0f;
-            foreach (PrizeLevel p in prizesInDivision)
+            foreach (PrizeLevel p in selectedPrizes)
             {
                 divisionValue += p.prizeValue;
             }
             return divisionValue;
+        }
+
+        public int calculateTotalCollections()
+        {
+            int collections = 0;
+            foreach (PrizeLevel p in selectedPrizes)
+            {
+                collections += p.numCollections;
+            }
+            return collections;
         }
 
         public int TotalPlayerPicks
@@ -108,7 +118,7 @@ namespace Collection_Game_Tool.Divisions
         public int CompareTo(object obj)
         {
             DivisionModel dm = (DivisionModel)obj;
-            return (int)Math.Ceiling(this.calculateDivisionValue() - dm.calculateDivisionValue());
+            return (int)Math.Ceiling(dm.calculateDivisionValue() - this.calculateDivisionValue());
         }
 
         internal List<int> getNeededPicks()

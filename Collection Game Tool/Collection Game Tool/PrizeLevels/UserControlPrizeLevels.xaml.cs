@@ -77,6 +77,7 @@ namespace Collection_Game_Tool.PrizeLevels
                 AddButton.IsEnabled = false;
                 AddButton.Opacity = 0.3;
             }
+            shout(plsObject);
         }
 
         public void onListen(object pass)
@@ -91,6 +92,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     Prizes.Children.Clear();
 
                     ucplList.Sort();
+                    plsObject.sortPrizeLevels();
 
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
@@ -144,7 +146,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     AddButton.Opacity = 1;
                 }
             }
-            shout(this);
+            shout(plsObject);
         }
 
         public void shout(object pass)

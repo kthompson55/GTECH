@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace Collection_Game_Tool.Main
 {
@@ -42,6 +43,19 @@ namespace Collection_Game_Tool.Main
             
             //Listener stuff between divisions and Prize Levels
             pl.addListener(divUC);
+
+            
+            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+
+            Screen screen = System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(this).Handle);
+            this.MaxHeight = screen.WorkingArea.Height;
+            
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.MaxWidth = this.Width;
+            this.MinWidth = this.Width;
         }
 
         public void onListen(object pass)

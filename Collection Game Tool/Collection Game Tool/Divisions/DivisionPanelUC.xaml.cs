@@ -39,8 +39,8 @@ namespace Collection_Game_Tool.Divisions
         {
             if (divisionsList.getSize() < MAX_DIVISIONS)
             {
-                DivisionUC divUC = new DivisionUC(prizes);
-                divUC.divisionNumber.Content = divisionsList.getSize() + 1;
+                DivisionUC divUC = new DivisionUC(prizes, divisionsList.getSize() + 1);
+                divUC.DivModel.DivisionNumber = divisionsList.getSize() + 1;
                 divUC.updateDivision();
                 divUC.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
                 divUC.SectionContainer = this;
@@ -61,7 +61,7 @@ namespace Collection_Game_Tool.Divisions
             for (int i = index; i < divisionsList.getSize(); i++)
             {
                 DivisionUC div = (DivisionUC)divisionsHolderPanel.Children[i];
-                div.divisionNumber.Content = (int)div.divisionNumber.Content - 1;
+                div.DivModel.DivisionNumber = (int)div.DivModel.DivisionNumber - 1;
             }
 
             listenerList.Remove((DivisionUC)divisionsHolderPanel.Children[index]);
@@ -94,6 +94,40 @@ namespace Collection_Game_Tool.Divisions
             else
             {
                 divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            }
+        }
+
+        public void validateDivision(DivisionUC divToCompare)
+        {
+            bool valid = true;
+            for (int i = 0; i < divisionsList.getSize() && valid; i++)
+            {
+                DivisionUC div = (DivisionUC)divisionsHolderPanel.Children[i];
+                if (divToCompare.DivModel.DivisionNumber != div.DivModel.DivisionNumber)
+                {
+                    bool isUnique = false;
+                    for (int prizeIndex = 0; prizeIndex < prizes.getNumPrizeLevels() && !isUnique; prizeIndex++)
+                    {
+                        if (divToCompare.PrizeBoxes[prizeIndex].IsSelected != div.PrizeBoxes[prizeIndex].IsSelected)
+                        {
+                            isUnique = true;
+                        }
+                    }
+
+                    if (!isUnique)
+                    {
+                        valid = false;
+                    }
+                }
+            }
+
+            if (valid)
+            {
+                shout("valid");
+            }
+            else
+            {
+                shout("error");
             }
         }
 

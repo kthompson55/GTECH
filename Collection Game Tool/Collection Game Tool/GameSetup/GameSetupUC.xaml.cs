@@ -20,7 +20,7 @@ namespace Collection_Game_Tool.GameSetup
     /// <summary>
     /// Interaction logic for GameSetupUC.xaml
     /// </summary>
-    public partial class GameSetupUC : UserControl
+    public partial class GameSetupUC : UserControl, Teller, Listener
     {
 
         public GameSetupModel gsObject;
@@ -69,6 +69,7 @@ namespace Collection_Game_Tool.GameSetup
             {
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
+                shout(gsObject.totalPicks);
             }
         }
 
@@ -137,6 +138,27 @@ namespace Collection_Game_Tool.GameSetup
         {
             Window parentWindow = Window.GetWindow(this.Parent);
             gsObject.addListener((Window1)parentWindow);
+        }
+
+        public void shout(object pass)
+        {
+            foreach (Listener list in listenerList)
+            {
+                list.onListen(pass);
+            }
+        }
+
+        public void addListener(Listener list)
+        {
+            listenerList.Add(list);
+        }
+
+        public void onListen(object pass)
+        {
+            if (pass is int)
+            {
+                int pick = (int)pass;
+            }
         }
     }
 }

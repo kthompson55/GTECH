@@ -10,6 +10,8 @@ using System.Windows.Media;
 
 namespace Collection_Game_Tool.Services
 {
+    //This is a ServiceValidator that checks the entire application (starting from MainWindow, because I called the IsValid function from there) and looks to see if and ValidationRule
+    //is not met, and returns false if the validationRules are ever invalid, returns true if they are valid;
     class ServiceValidator
     {
         public static bool IsValid(DependencyObject parent)

@@ -137,10 +137,6 @@ namespace Collection_Game_Tool.Divisions
                 DivModel.clearPrizeLevelList();
                 updateDivision();
             }
-            else
-            {
-                Console.WriteLine("ERROR: PrizeLevels was not passed into the Division User Control");
-            }
         }
 
         public int CompareTo(object obj)

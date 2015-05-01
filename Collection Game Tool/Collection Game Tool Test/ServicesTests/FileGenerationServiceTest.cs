@@ -69,6 +69,8 @@ namespace Collection_Game_Tool_Test.ServicesTests
             GameSetupModel gs = new GameSetupModel();
             gs.maxPermutations = 1000;
             gs.totalPicks = 4;
+            gs.isNearWin = true;
+            gs.nearWins = 2;
 
             PrizeLevel pl1 = new PrizeLevel();
             pl1.isInstantWin = false;
@@ -107,7 +109,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
           
             //File Generator
             FileGenerationService fgs = new FileGenerationService();
-            fgs.buildGameData(dms, pls, gs, "testBuildGameDataThreeDivisonsFourPicks");
+            fgs.buildGameData(dms, pls, gs, "D:\\GTech\\testBuildGameDataThreeDivisonsFourPicks.txt");
         }
 
         [TestMethod]

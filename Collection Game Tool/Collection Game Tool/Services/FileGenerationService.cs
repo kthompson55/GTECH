@@ -27,7 +27,7 @@ namespace Collection_Game_Tool.Services
                 Thread t;
                 if (divisionIndex == numberOfDivisions - 1)
                 {
-                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionLossingPermutations(gameInfo.totalPicks, gameInfo.maxPermutations, prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionLossingPermutations(gameInfo, prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
                 }
                 else
                 {
@@ -44,17 +44,204 @@ namespace Collection_Game_Tool.Services
         }
 
         private List<int[]> getDivisionLossingPermutations(
-            short totalNumberOfPicks,
-            uint numberOfPermuitations,
+            GameSetup.GameSetupModel gameInfo,
+            PrizeLevels.PrizeLevels prizeLevels
+            )
+        {
+            List<int[]> lossPermutations = new List<int[]>();
+            List<int> extraPicks = getExtraPicksForWinCombination(new Divisions.DivisionModel(), prizeLevels).ToList();
+            List<int[]> baseLossconditions = new List<int[]>();
+            int numberOfPermutationsForNearWinAmount = (int)gameInfo.maxPermutations;
+            if (gameInfo.isNearWin)
+            {
+                numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations / gameInfo.nearWins);
+               baseLossconditions.AddRange(getBaseNearWinLossPermiutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
+            }
+            else
+            {
+                int[] baseLoss = new int[gameInfo.totalPicks];
+                baseLossconditions.Add(baseLoss);
+            }
+            lossPermutations = getAllLosePermiutations(baseLossconditions, prizeLevels, gameInfo.nearWins, numberOfPermutationsForNearWinAmount);
+            return lossPermutations;
+        }
+
+        private List<int[]> getAllLosePermiutations(
+            List<int[]> baseLossconditions,
+            PrizeLevels.PrizeLevels prizeLevels,
+            int numberOfNearWins,
+            int maxNumberOfPermiutationsPerNearWin)
+        {
+            List<int[]> lossPermituations = new List<int[]>();
+            int[] nearWinCounts = new int[numberOfNearWins + 1];
+
+            foreach (int[] lossCondition in baseLossconditions)
+            {
+                int nearWinType = 0;
+                for (int i = 1; i < lossCondition.Length; i++)
+                {
+                    if (lossCondition[i] != lossCondition[i - 1])
+                    {
+                        nearWinType++;
+                    }
+                }
+
+                int[] bsaePermuitation = new int[lossCondition.Length];
+                lossCondition.CopyTo(bsaePermuitation, 0);
+                bool ableToFindNextdivision = true;
+                for (int i = nearWinCounts[nearWinType]; i < maxNumberOfPermiutationsPerNearWin && ableToFindNextdivision; i++)
+                {
+                    int[] newPermuitation = new int[lossCondition.Length];
+                    lossCondition.CopyTo(newPermuitation, 0);
+                    if (ableToFindNextdivision)
+                    {
+                        lossPermituations.Add(newPermuitation);
+                        nearWinCounts[nearWinType]++;
+                    }
+                    bsaePermuitation = findNextPermutation(lossCondition);
+                    ableToFindNextdivision = !(bsaePermuitation[0] == -1);
+                }
+            }
+            return createExtraPermiutations(lossPermituations, maxNumberOfPermiutationsPerNearWin, prizeLevels); ;
+        }
+
+        /// <summary>
+        /// Fills in the zero values of a permutation with desired extra pick values
+        /// </summary>
+        /// <param name="extraPicks"> List of extra picks that will be used to fill in zero values</param>
+        /// <param name="permutation"> Base permutation to be filled in </param>
+        /// <returns> Returns a filled in permutation with no zero values</returns>
+        private int[] fillPermiutation(
+            List<int> extraPicks,
+            int[] permutation)
+        {
+            List<int> extraPicksCopy = new List<int>(extraPicks);
+            int[] filledPermiutation = new int[permutation.Length];
+            permutation.CopyTo(filledPermiutation, 0);
+            Random rand = new Random();
+            for (int i = 0; i < filledPermiutation.Length; i++)
+            {
+                if (filledPermiutation[i] == 0)
+                {
+                    int extraPickIndex = rand.Next(0, extraPicksCopy.Count);
+                    filledPermiutation[i] = extraPicks.ElementAt(extraPickIndex);
+                    extraPicks.RemoveAt(extraPickIndex);
+                }
+            }
+            return filledPermiutation;
+        }
+
+        private List<int[]> createExtraPermiutations(
+            List<int[]> permutations,
+            int desiredAmountOfPermiutations,
             PrizeLevels.PrizeLevels prizeLevels)
         {
+            HashSet<int[]> permiutationList = new HashSet<int[]>();
+            for (int i = 0; i < permutations.Count; i++)
+            {
+                HashSet<int[]> extrasForPerm = createExtraPermiutationsFormBase(permutations[i], getExtraPicks(permutations[i], prizeLevels), (int)desiredAmountOfPermiutations/permutations.Count);
+                permiutationList.UnionWith(extrasForPerm);
+            }
+            return permiutationList.ToList();
+        }
 
-            throw new NotImplementedException();
+        private HashSet<int[]> createExtraPermiutationsFormBase(
+            int[] basePermiutation,
+            int[] extraPicks,
+            int maxNumberOfPermiutaitons)
+        {
+            HashSet<int[]> extraPermiutations = new HashSet<int[]>();
+            int[] copyOfExtraPicks = new int[extraPicks.Length];
+            extraPicks.CopyTo(copyOfExtraPicks, 0);
+            int[] copyOfBase = new int[basePermiutation.Length];
+            basePermiutation.CopyTo(copyOfBase, 0);
+            int numberOfFailuers = 0;
+            while (extraPermiutations.Count < maxNumberOfPermiutaitons && numberOfFailuers < maxNumberOfPermiutaitons)
+            {
+                if (!extraPermiutations.Add(fillPermiutation(copyOfBase, copyOfExtraPicks.ToArray())))
+                {
+                    numberOfFailuers++;
+                }
+            }
+            return extraPermiutations;
+        }
+
+
+        private List<int[]> getBaseNearWinLossPermiutations(
+            int nearWinPrizeLevels,
+            int totalNumberOfPicks,
+            PrizeLevels.PrizeLevels prizeLevels)
+        {
+            List<int[]> nearWinBasePermiutations = new List<int[]>();
+            List<int[]> prizeLevelCombinations = getPrizeLevelCombinationsForNearWins(nearWinPrizeLevels, totalNumberOfPicks, prizeLevels);
+            foreach (int[] combo in prizeLevelCombinations)
+            {
+                List<int> neededPicks = new List<int>();
+                for (int i = 0; i < combo.Length; i++)
+                {
+                    int prizeLevelToSelect = combo[i];
+                    for (int k = 0; k < prizeLevels.getPrizeLevel(prizeLevelToSelect).numCollections - 1; k++)
+                    {
+                        neededPicks.Add(combo[i ] + 1);
+                    }
+                }
+                nearWinBasePermiutations.Add(getBaseCombinaiton(totalNumberOfPicks, neededPicks.ToArray()).ToArray());
+            }
+            return nearWinBasePermiutations;
+        }
+
+        private List<int[]> getPrizeLevelCombinationsForNearWins(
+            int nearWinPrizeLevels,
+            int totalNumberOfPicks,
+            PrizeLevels.PrizeLevels prizeLevels)
+        {
+            int numberOfPrizeLevels = prizeLevels.getNumPrizeLevels();
+            List<int[]> prizeLevelCombinations = new List<int[]>();
+            int numberOfMaximumCombinations = prizeLevels.getNumPrizeLevels();
+
+            List<int> prizeLevelsIndexes = new List<int>();
+            for(int i = 0; i < numberOfPrizeLevels; i++){
+                prizeLevelsIndexes.Add(i);
+            }
+            // Max possible Base
+            for (int i = 1; i <= nearWinPrizeLevels; i++)
+            {
+                for (int j= 0; j < numberOfMaximumCombinations; j++)
+                {
+                    Random rand = new Random();
+                    int[] tempPrizeLevelCombinations = new int[i];
+                    int numberOfPicksForPrizeLevelCombintation = 0;
+                    bool newBaseComboAdded = false;
+                    List<int> tempPrizeLevelIndexes = new List<int>(prizeLevelsIndexes);
+                    do
+                    {
+                        for (int k = 0; k < i; k++)
+                        {
+                            int randomPrizeLevelSelection = rand.Next(0, tempPrizeLevelIndexes.Count);
+                            numberOfPicksForPrizeLevelCombintation += prizeLevels.getPrizeLevel(randomPrizeLevelSelection).numCollections - 1;
+                            tempPrizeLevelCombinations[k] = randomPrizeLevelSelection;
+                            tempPrizeLevelIndexes.RemoveAt(randomPrizeLevelSelection);
+                        }
+                        if (!prizeLevelCombinations.Any(tempPrizeLevelCombinations.SequenceEqual) && numberOfPicksForPrizeLevelCombintation <= totalNumberOfPicks)
+                        {
+                            prizeLevelCombinations.Add(tempPrizeLevelCombinations);
+                            newBaseComboAdded = true;
+                        }
+                        else if (numberOfPicksForPrizeLevelCombintation > totalNumberOfPicks || tempPrizeLevelIndexes.Count == 0)
+                        {
+                            tempPrizeLevelCombinations = new int[i];
+                            numberOfPicksForPrizeLevelCombintation = 0;
+                        }
+                        tempPrizeLevelIndexes = new List<int>(prizeLevelsIndexes);
+                    } while (!newBaseComboAdded);
+                }  
+            }
+            return prizeLevelCombinations;
         }
 
         private void writeFile(string fileName, List<int[]>[] divisionLevles)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\GTech\" + fileName + ".txt"))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
             {
                 List<string> lines = new List<string>();
                 int divisionIndicator = 0;
@@ -69,7 +256,14 @@ namespace Collection_Game_Tool.Services
                         {
                             if (j != 0)
                             {
-                                sb.Append(", " + i[j]);
+                                if (i[j] > 0)
+                                {
+                                    sb.Append(", " + i[j]);
+                                }
+                                else
+                                {
+                                    sb.Append("," + "W:" + (i[j] * -1));
+                                }
                             }
                             else
                             {
@@ -240,6 +434,40 @@ namespace Collection_Game_Tool.Services
             return extraPicks.ToArray();
         }
 
+        /// <summary>
+        /// Gets all non winning picks for a given permutation
+        /// </summary>
+        /// <param name="permutation"> The base permutation</param>
+        /// <param name="prizeLevels"> Used to find collection amount for unused pic<s/param>
+        /// <returns> Returns an array of non winning picks</returns>
+        private int[] getExtraPicks(
+            int[] permutation,
+            PrizeLevels.PrizeLevels prizeLevels)
+        {
+            List<int> usedIndexs = new List<int>();
+            List<int> extraPicks = new List<int>();
+            foreach (int i in permutation)
+            {
+                if (i - 1 != -1 && !usedIndexs.Contains((i-1)))
+                {
+                     usedIndexs.Add(i -1);
+                }
+            }
+            int numberOfPrizeLevels = prizeLevels.getNumPrizeLevels();
+            for (int i = 0; i < numberOfPrizeLevels; i++)
+            {
+                if (!usedIndexs.Contains(i))
+                {
+                    int numberOfCollections = prizeLevels.getPrizeLevel(i).numCollections - 1;
+                    for (int j = 0; j < numberOfCollections; j++)
+                    {
+                        extraPicks.Add(i + 1);
+                    }
+                }
+            }
+            return extraPicks.ToArray();
+        }
+
         //Creates a base win combination for a given division
         private List<int> getBaseWinCombinaiton(
             int totalNumberOfPicks,
@@ -255,6 +483,19 @@ namespace Collection_Game_Tool.Services
             return neededPicksForDivisionWin;
         }
 
+        private List<int> getBaseCombinaiton(
+            int totalNumberOfPicks,
+            int[] picks)
+        {
+            List<int> neededPicksForComination = picks.ToList();
+            for (int i = neededPicksForComination.Count; i < totalNumberOfPicks; i++)
+            {
+                neededPicksForComination.Add(0);
+            }
+            neededPicksForComination.Sort();
+            return neededPicksForComination;
+        }
+
         private List<int> getNeededPicksForDivision(
             Divisions.DivisionModel division,
             PrizeLevels.PrizeLevels prizeLevels)
@@ -265,10 +506,19 @@ namespace Collection_Game_Tool.Services
             {
                 int numberToCollect = pl.numCollections;
                 int indexinPrizeLevels = prizeLevels.getLevelOfPrize(pl) + 1;
-                for (int i = 0; i < numberToCollect; i++)
+                if (pl.isInstantWin)
                 {
-                    neededPicks.Add(indexinPrizeLevels);
+                    numberToCollect = 1;
+                    neededPicks.Add(-indexinPrizeLevels);
                 }
+                else
+                {
+                    numberToCollect = pl.numCollections;
+                    for (int i = 0; i < numberToCollect; i++)
+                    {
+                        neededPicks.Add(indexinPrizeLevels);
+                    }
+                }   
             }
             return neededPicks;
         }

@@ -20,13 +20,13 @@ namespace Collection_Game_Tool.GameSetup
     /// <summary>
     /// Interaction logic for GameSetupUC.xaml
     /// </summary>
-    public partial class GameSetupUC : UserControl, Teller
+    public partial class GameSetupUC : UserControl, Teller, Listener
     {
+        public int pickCheck; 
 
         public GameSetupModel gsObject;
         List<Listener> listenerList = new List<Listener>();
-        private string lastAcceptableMaxPermutationValue = "0";
-        public int pickCheck;
+        private string lastAcceptableMaxPermutationValue = 0 + "";
 
         public GameSetupUC()
         {
@@ -34,6 +34,7 @@ namespace Collection_Game_Tool.GameSetup
             gsObject = new GameSetupModel();
             gsObject.canCreate = true;
             CreateButton.DataContext = gsObject;
+            ErrorTextBlock.DataContext = GameToolError.Instance;
         }
 
         //When Create is clicked, validates data and creates a text file
@@ -42,7 +43,6 @@ namespace Collection_Game_Tool.GameSetup
             //validate data
             //open save dialog
             openSaveWindow();
-
         }
 
         private void openSaveWindow()
@@ -70,16 +70,6 @@ namespace Collection_Game_Tool.GameSetup
             {
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
-                if (gsObject.totalPicks < pickCheck)
-                {
-                    //Throw error here
-                    shout("errorPick");
-                }
-                else if (gsObject.totalPicks >= pickCheck)
-                {
-                    //Correct error
-                    shout("validPick");
-                }
                 shout(gsObject.totalPicks);
             }
         }
@@ -105,7 +95,7 @@ namespace Collection_Game_Tool.GameSetup
                 TextBox textBox = sender as TextBox;
                 if (textBox.Text == "")
                 {
-                    textBox.Text = "0";
+                    textBox.Text = 0 +"";
                 }
                 else if (!WithinPermutationRange(textBox.Text))
                 {
@@ -162,6 +152,26 @@ namespace Collection_Game_Tool.GameSetup
         public void addListener(Listener list)
         {
             listenerList.Add(list);
+        }
+
+        public void onListen(object pass)
+        {
+            if (pass is int)
+            {
+                int pick = (int)pass;
+            }
+        }
+
+        private void ErrorTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            if (GameToolError.Instance.errorText == "" || GameToolError.Instance.errorText == null)
+            {
+                ErrorBoxBorder.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                ErrorBoxBorder.Visibility = Visibility.Visible;
+            }
         }
     }
 }

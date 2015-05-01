@@ -133,7 +133,11 @@
             </Border>
 
             <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
-
+            <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="Red" CornerRadius="10">
+                <TextBlock x:Name="ErrorTextBlock" MaxWidth="400" Foreground="Red" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+            </Border>
+            
         </StackPanel>
+        
     </StackPanel>
 </UserControl>

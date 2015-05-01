@@ -47,5 +47,10 @@ namespace Collection_Game_Tool.Services
                 return new ValidationResult(true, null);
             }
         }
+
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,10 +25,10 @@ namespace Collection_Game_Tool.Divisions
         public DivisionModel DivModel { get; set; }
         public PrizeLevels.PrizeLevels Prizes { get; set; }
         public DivisionPanelUC SectionContainer { get; set; }
-        private List<PrizeLevelBox> PrizeBoxes { get; set; }
-        private const int MAX_PRIZE_BOXES = 12;
+        public List<PrizeLevelBox> PrizeBoxes { get; set; }
+        public const int MAX_PRIZE_BOXES = 12;
 
-        public DivisionUC(PrizeLevels.PrizeLevels initialPrizeLevels)
+        public DivisionUC(PrizeLevels.PrizeLevels initialPrizeLevels, int number)
         {
             InitializeComponent();
             DivModel = new DivisionModel();
@@ -36,6 +36,8 @@ namespace Collection_Game_Tool.Divisions
             PrizeBoxes = new List<PrizeLevelBox>();
             totalPicksLabel.DataContext = DivModel;
             totalValueLabel.DataContext = DivModel;
+            divisionNumberLabel.DataContext = DivModel;
+            DivModel.DivisionNumber = number;
 
             for (int i = 0; i < MAX_PRIZE_BOXES; i++)
             {
@@ -85,6 +87,8 @@ namespace Collection_Game_Tool.Divisions
                 DivModel.TotalPlayerPicks = DivModel.calculateTotalCollections();
                 DivModel.TotalPrizeValue = DivModel.calculateDivisionValue();
             }
+
+            SectionContainer.validateDivision(this);
         }
 
         public void updateDivision()

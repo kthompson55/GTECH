@@ -1,4 +1,5 @@
-﻿using Collection_Game_Tool.Services;
+﻿using Collection_Game_Tool.Main;
+using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,13 @@ namespace Collection_Game_Tool.Divisions
             divisionsList = new DivisionsModel();
             marginAmount = 10;
             determineScrollVisibility();
+            this.Loaded += new RoutedEventHandler(DivisionPanelUC_Loaded);
+        }
+
+        private void DivisionPanelUC_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this.Parent);
+            addListener((Window1)parentWindow);
         }
 
         private void addDivision()

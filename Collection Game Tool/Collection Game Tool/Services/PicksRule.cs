@@ -35,5 +35,10 @@ namespace Collection_Game_Tool.Services
                 _collection = value;
             }
         }
+
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -15,11 +15,13 @@ namespace Collection_Game_Tool.Divisions
         public event PropertyChangedEventHandler PropertyChanged;
 
         public List<PrizeLevel> selectedPrizes { get; set; }
+        private int _divisionNumber;
         private int _totalPlayerPicks;
         private double _totalPrizeValue;
 
         public DivisionModel()
         {
+            DivisionNumber = 0;
             TotalPlayerPicks = 0;
             TotalPrizeValue = 0.00;
             selectedPrizes = new List<PrizeLevel>();
@@ -83,6 +85,21 @@ namespace Collection_Game_Tool.Divisions
                 collections += p.numCollections;
             }
             return collections;
+        }
+
+        public int DivisionNumber
+        {
+            get
+            {
+                return _divisionNumber;
+            }
+
+            set
+            {
+                _divisionNumber = value;
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("DivisionNumber"));
+            }
         }
 
         public int TotalPlayerPicks

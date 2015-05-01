@@ -30,7 +30,8 @@
                       MaxHeight="630">
             <StackPanel x:Name="divisionsHolderPanel"
                         VerticalAlignment="Top"
-                        Orientation="Vertical">
+                        Orientation="Vertical"
+                        SizeChanged="divisionsHolderPanel_SizeChanged_1">
             </StackPanel>
         </ScrollViewer>
 

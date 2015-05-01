@@ -89,7 +89,7 @@
                     ToolTip="Enter a value between 1 and 20">
                     <Binding Path="numCollections" Mode="TwoWay">
                         <Binding.ValidationRules>
-                            <Services:RangeRule Max="20" Min="1"/>
+                            <Services:RangeRule Max="20" Min="0"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox>

@@ -7,25 +7,25 @@ using System.Windows.Controls;
 
 namespace Collection_Game_Tool.Services
 {
-    class PicksRule : ValidationRule
+    class CollectionsRule : ValidationRule
     {
-        private int _pick;
+        private int _collection;
 
-        public int Pick
+        public int Collection
         {
             get
             {
-                return _pick;
+                return _collection;
             }
             set
             {
-                _pick = value;
+                _collection = value;
             }
         }
 
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            int num=0;
+            int num = 0;
 
             try
             {
@@ -38,9 +38,9 @@ namespace Collection_Game_Tool.Services
                 return new ValidationResult(false, "Illegal characters");
             }
 
-            if(Pick<num)
+            if (Collection < num)
             {
-                return new ValidationResult(false, "Please change Player Picks to support collection number of Division/PrizeLevel.");
+                return new ValidationResult(false, "Please change DivisionCollection/PrizeLevelCollection to support collection number in Game Setup.");
             }
             else
             {

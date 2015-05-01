@@ -49,10 +49,6 @@ namespace Collection_Game_Tool.Main
             //Listener stuff between divisions and Prize Levels
             pl.addListener(divUC);
 
-            //Listener from GameSetup for player picks validation
-            pl.addListener(gs);
-            divUC.addListener(gs);
-
             //Listeners for GameSetup so they can see player picks for validation
             gs.addListener(pl);
             gs.addListener(divUC);
@@ -70,27 +66,57 @@ namespace Collection_Game_Tool.Main
             this.MinWidth = this.Width;
         }
 
+        private bool divBool=true;
+        private bool setBool=true;
+        private bool validateBool=true;
+        private bool collectionBool = true;
         public void onListen(object pass)
         {
-            //Validate is used when something changes from any usercontrol, this is so it can check the validity of the variables within those controls
-            //Also sets the create file button to invalid if anything the ServiceValidator finds is invalid (ex. CollectionNumber in PrizeLevels is greater then 20)
-            if(((String)pass).Equals("validate") && gs!=null)
+            if (pass is String)
             {
-                gs.gsObject.canCreate=ServiceValidator.IsValid(this);
-            }   //Error is used when something that can't be easily validated with the above statement is invalid
-            else if (((String)pass).Equals("error") && gs!=null)
+                //Validate is used when something changes from any usercontrol, this is so it can check the validity of the variables within those controls
+                //Also sets the create file button to invalid if anything the ServiceValidator finds is invalid (ex. CollectionNumber in PrizeLevels is greater then 20)
+                if (((String)pass).Equals("validate") && gs != null)
+                {
+                    validateBool = ServiceValidator.IsValid(this);
+                }   //Error is used when something that can't be easily validated with the above statement is invalid
+                else if (((String)pass).Equals("error") && gs != null)
+                {
+                    divBool = false;
+                }   //Valid is used when something that can't be easily validated with the above statement is valid
+                else if (((String)pass).Equals("valid") && gs != null)
+                {
+                    divBool = true;
+                }
+                else if (((String)pass).Equals("errorPick") && gs != null)
+                {
+                    setBool = false;
+                }
+                else if (((String)pass).Equals("validPick") && gs != null)
+                {
+                    setBool = true;
+                }
+                else if (((String)pass).Equals("errorCollection") && gs != null)
+                {
+                    collectionBool = false;
+                }
+                else if (((String)pass).Equals("validCollection") && gs != null)
+                {
+                    collectionBool = true;
+                }   //generate/ is used to generate the final output file, this calls up the FileGenerationService to make the file
+                else if (((String)pass).Contains("generate/") && gs != null)
+                {
+                    String file = ((String)pass).Replace("generate/", "");
+                    FileGenerationService fgs = new FileGenerationService();
+                    fgs.buildGameData(null, pl.plsObject, gs.gsObject, file);
+                }
+
+                gs.gsObject.canCreate = (validateBool && divBool && setBool);
+            }
+            if (pass is int)
             {
-                gs.gsObject.canCreate = false;
-            }   //Valid is used when something that can't be easily validated with the above statement is valid
-            else if (((String)pass).Equals("valid") && gs != null)
-            {
-                gs.gsObject.canCreate = true;
-            }   //generate/ is used to generate the final output file, this calls up the FileGenerationService to make the file
-            else if (((String)pass).Contains("generate/") && gs != null)
-            {
-                String file = ((String)pass).Replace("generate/", "");
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(null, pl.plsObject, gs.gsObject, file);
+                gs.pickCheck = (int)pass;
+                pl.collectionCheck = gs.pickCheck;
             }
         }
     }

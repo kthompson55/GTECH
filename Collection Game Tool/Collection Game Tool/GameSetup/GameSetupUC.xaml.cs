@@ -20,12 +20,13 @@ namespace Collection_Game_Tool.GameSetup
     /// <summary>
     /// Interaction logic for GameSetupUC.xaml
     /// </summary>
-    public partial class GameSetupUC : UserControl, Teller, Listener
+    public partial class GameSetupUC : UserControl, Teller
     {
 
         public GameSetupModel gsObject;
         List<Listener> listenerList = new List<Listener>();
-        private string lastAcceptableMaxPermutationValue = 0 + "";
+        private string lastAcceptableMaxPermutationValue = "0";
+        public int pickCheck;
 
         public GameSetupUC()
         {
@@ -69,6 +70,16 @@ namespace Collection_Game_Tool.GameSetup
             {
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
+                if (gsObject.totalPicks < pickCheck)
+                {
+                    //Throw error here
+                    shout("errorPick");
+                }
+                else if (gsObject.totalPicks >= pickCheck)
+                {
+                    //Correct error
+                    shout("validPick");
+                }
                 shout(gsObject.totalPicks);
             }
         }
@@ -94,7 +105,7 @@ namespace Collection_Game_Tool.GameSetup
                 TextBox textBox = sender as TextBox;
                 if (textBox.Text == "")
                 {
-                    textBox.Text = 0 +"";
+                    textBox.Text = "0";
                 }
                 else if (!WithinPermutationRange(textBox.Text))
                 {
@@ -151,14 +162,6 @@ namespace Collection_Game_Tool.GameSetup
         public void addListener(Listener list)
         {
             listenerList.Add(list);
-        }
-
-        public void onListen(object pass)
-        {
-            if (pass is int)
-            {
-                int pick = (int)pass;
-            }
         }
     }
 }

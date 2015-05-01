@@ -1,4 +1,5 @@
 ﻿using Collection_Game_Tool.Divisions;
+using Collection_Game_Tool.Main;
 using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Collection_Game_Tool.PrizeLevels
     {
         List<Listener> listenerList = new List<Listener>();
         public PrizeLevels plsObject;
+        public int collectionCheck;
 
         public UserControlPrizeLevels()
         {
@@ -47,6 +49,14 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl2.plObject.prizeLevel = Prizes.Children.Count;
             ucpl2.CloseButton.IsEnabled = false;
             ucpl2.CloseButton.Opacity = 0.0f;
+
+            this.Loaded += new RoutedEventHandler(UserControlPrizeLevels_Loaded);
+        }
+
+        private void UserControlPrizeLevels_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this.Parent);
+            addListener((Window1)parentWindow);
         }
 
         public void Add_Prize_Level(object sender, RoutedEventArgs e)
@@ -99,13 +109,20 @@ namespace Collection_Game_Tool.PrizeLevels
                     ucplList.Sort();
                     plsObject.sortPrizeLevels();
 
+                    int collectionToShout = 0;
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
                         ucplList[i].OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
+                        if (ucplList[i].plObject.numCollections>collectionToShout)
+                            collectionToShout = ucplList[i].plObject.numCollections;
                         Prizes.Children.Add(ucplList[i]);
                     }
+                    shout(collectionToShout);
+
+                    if (collectionCheck < collectionToShout)
+                        shout("errorCollection");
                 }
             }
             else if(pass is UserControlPrizeLevel)

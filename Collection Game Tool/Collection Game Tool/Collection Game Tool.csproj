@@ -73,8 +73,6 @@
       <DependentUpon>GameSetupUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrizeLevels\PrizeLevel.cs" />
-    <Compile Include="Services\CollectionsRule.cs" />
-    <Compile Include="Services\PicksRule.cs" />
     <Compile Include="Services\PrizeLevels.cs" />
     <Compile Include="PrizeLevels\UserControlPrizeLevel.xaml.cs">
       <DependentUpon>UserControlPrizeLevel.xaml</DependentUpon>

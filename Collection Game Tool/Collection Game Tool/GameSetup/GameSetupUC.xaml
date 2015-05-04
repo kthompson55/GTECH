@@ -7,8 +7,19 @@
              xmlns:Services="clr-namespace:Collection_Game_Tool.Services"
              mc:Ignorable="d" 
              Loaded="GameSetupUserControl_Loaded"
-             d:DesignHeight="600" d:DesignWidth="300">
-    <StackPanel x:Name="GameSetupMainPanel" Background="#B9B9B9">
+             d:DesignHeight="600" d:DesignWidth="300"
+             Height="Auto"
+             Width="Auto"
+             Margin="0"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+    <StackPanel x:Name="GameSetupMainPanel" 
+                Background="#B9B9B9"
+                Height="Auto"
+             Width="Auto"
+             Margin="0"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
         <StackPanel.Resources>
             <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
             <Style x:Key="instructionStyle" TargetType="Label">

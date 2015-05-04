@@ -27,6 +27,7 @@ namespace Collection_Game_Tool.Main
     {
         private UserControlPrizeLevels pl;
         private GameSetupUC gs;
+        DivisionPanelUC divUC;
         public Window1()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace Collection_Game_Tool.Main
             gs = gsuc;
             this.UserControls.Children.Add(gsuc);
 
-            DivisionPanelUC divUC = new DivisionPanelUC();
+            divUC = new DivisionPanelUC();
             this.UserControls.Children.Add(divUC);
             divUC.prizes = pl.plsObject;
 
@@ -57,13 +58,22 @@ namespace Collection_Game_Tool.Main
 
             Screen screen = System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(this).Handle);
             this.MaxHeight = screen.WorkingArea.Height;
-            
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.MaxWidth = this.Width;
             this.MinWidth = this.Width;
+        }
+
+        private void Window_LayoutUpdated_1(object sender, EventArgs e)
+        {
+            double controlsHeight = this.ActualHeight - windowHeader.ActualHeight - 35;
+            if (controlsHeight < 0) controlsHeight = 0;
+            pl.Height = controlsHeight;
+            gs.Height = controlsHeight;
+            divUC.Height = controlsHeight;
+            divUC.divisionsScroll.MaxHeight = ((divUC.ActualHeight - 125) > 0) ? divUC.ActualHeight - 125 : 0;
         }
 
         private bool divBool=true;

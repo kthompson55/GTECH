@@ -269,56 +269,6 @@ namespace Collection_Game_Tool.Services
             return filledPermiutations;
         }
 
-        //private List<int[]> createExtraPermiutations(
-        //    List<int[]> nonWinningPermutations,
-        //    int[] extraValues,
-        //    Divisions.DivisionModel div,
-        //    PrizeLevels.PrizeLevels prizeLevels,
-        //    uint maxNumberOfPermiutations)
-        //{
-        //    int numberOfAddedPermiutations = nonWinningPermutations.Count;
-        //    List<int[]> expandedPermiutationList = new List<int[]>(nonWinningPermutations);
-        //    List<int> winningIndexes = new List<int>();
-        //    foreach (PrizeLevels.PrizeLevel p in div.getPrizeLevelsAtDivision())
-        //    {
-        //        winningIndexes.Add(prizeLevels.getLevelOfPrize(p) + 1);
-        //    }
-        //    for (int i = 0; i < nonWinningPermutations.Count && numberOfAddedPermiutations <= maxNumberOfPermiutations; i++)
-        //    {
-        //        int[] permiutation = nonWinningPermutations.ElementAt(i);
-        //        List<int> extraValuesCopy = extraValues.ToList<int>();
-        //        for (int j = 0; j < permiutation.Length; j++)
-        //        {
-        //            if (extraValuesCopy.Contains(permiutation[j]))
-        //            {
-        //                extraValuesCopy.Remove(permiutation[j]);
-        //            }
-        //        }
-        //        for (int j = 0; j < permiutation.Length; j++)
-        //        {
-        //            if (!winningIndexes.Contains(permiutation[j]))
-        //            {
-        //                for (int k = 0; k < extraValuesCopy.Count; k++)
-        //                {
-        //                    if (!(permiutation[j] == extraValuesCopy.ElementAt(k)))
-        //                    {
-        //                        int[] tempPermuitation = new int[permiutation.Length];
-        //                        permiutation.CopyTo(tempPermuitation, 0);
-        //                        tempPermuitation[j] = extraValuesCopy.ElementAt(k);
-        //                        if (!expandedPermiutationList.Contains(tempPermuitation))
-        //                        {
-        //                            expandedPermiutationList.Add(tempPermuitation);
-        //                            numberOfAddedPermiutations++;
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return expandedPermiutationList;
-        //}
-
-
         /// <summary>
         /// Creates extra permutations for each permutation given
         /// </summary>
@@ -373,31 +323,6 @@ namespace Collection_Game_Tool.Services
             return extraPermiutations;
         }
 
-
-        //private int[] fillPermiutation(
-        //    int[] blankPermiutation,
-        //    int[] extraValues)
-        //{
-        //    int[] permiutationCopy = new int[blankPermiutation.Length];
-        //    blankPermiutation.CopyTo(permiutationCopy, 0);
-        //    List<int> extraValuesCopy = extraValues.ToList<int>();
-        //    Random rand = new Random();
-        //    for (int i = 0; i < permiutationCopy.Length; i++)
-        //    {
-        //        if (permiutationCopy[i] == 0)
-        //        {
-        //            if (!(extraValuesCopy.Count == 0))
-        //            {
-        //                extraValuesCopy.OrderBy(a => Guid.NewGuid());
-        //                int selection = rand.Next(0, extraValuesCopy.Count - 1);
-        //                permiutationCopy[i] = extraValuesCopy.ElementAt(selection);
-        //                extraValuesCopy.RemoveAt(selection);
-        //            }
-        //        }
-        //    }
-        //    return permiutationCopy;
-        //}
-
         /// <summary>
         /// Fills in the zero values of a permutation with desired extra pick values
         /// </summary>
@@ -423,31 +348,6 @@ namespace Collection_Game_Tool.Services
             }
             return filledPermiutation;
         }
-
-        //private int[] getExtraPicksForWinCombination(
-        //    Divisions.DivisionModel division,
-        //    PrizeLevels.PrizeLevels prizeLevels)
-        //{
-        //    List<int> winningDivisionIndexs = new List<int>();
-        //    List<int> extraPicks = new List<int>();
-        //    foreach(PrizeLevels.PrizeLevel pl in division.getPrizeLevelsAtDivision())
-        //    {
-        //        winningDivisionIndexs.Add(prizeLevels.getLevelOfPrize(pl));
-        //    }
-        //    int numberOfPrizeLevels = prizeLevels.getNumPrizeLevels();
-        //    for (int i = 0; i < numberOfPrizeLevels; i++)
-        //    {
-        //        if (!winningDivisionIndexs.Contains(i))
-        //        {
-        //            int numberOfCollections = prizeLevels.getPrizeLevel(i).numCollections - 1;
-        //            for (int j = 0; j < numberOfCollections; j++)
-        //            {
-        //                extraPicks.Add(i + 1);
-        //            }
-        //        }
-        //    }
-        //    return extraPicks.ToArray();
-        //}
 
         /// <summary>
         /// Gets all non winning picks for a given permutation

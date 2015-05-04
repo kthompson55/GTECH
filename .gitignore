@@ -233,3 +233,11 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/Collection Game Tool/Collection Game Tool/bin/Debug/*.exe
+/Collection Game Tool/Collection Game Tool/bin/Debug/*.pdb
+/Collection Game Tool/Collection Game Tool/obj/Debug/GameSetup
+/Collection Game Tool/Collection Game Tool/obj
+/Collection Game Tool/Collection Game Tool Test/obj/Debug/*.cache
+/Collection Game Tool/*.suo
+*.lref
+*.cache

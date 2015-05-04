@@ -1,4 +1,6 @@
-﻿using Collection_Game_Tool.Services;
+﻿using Collection_Game_Tool.Divisions;
+using Collection_Game_Tool.Main;
+using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +21,18 @@ namespace Collection_Game_Tool.PrizeLevels
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class UserControlPrizeLevels : UserControl, Listener
+    public partial class UserControlPrizeLevels : UserControl, Listener, Teller
     {
-        PrizeLevels plsObject;
+        List<Listener> listenerList = new List<Listener>();
+        public PrizeLevels plsObject;
+        public int collectionCheck;
 
         public UserControlPrizeLevels()
         {
             InitializeComponent();
             plsObject = new PrizeLevels();
 
+            //SetsUp the default 2 PrizeLevel
             UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
             ucpl.addListener(this);
             Prizes.Children.Add(ucpl);
@@ -37,13 +42,21 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl.CloseButton.Opacity = 0.0f;
 
             UserControlPrizeLevel ucpl2 = new UserControlPrizeLevel();
-            ucpl2.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
+            ucpl2.OuterGrid.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
             ucpl2.addListener(this);
             Prizes.Children.Add(ucpl2);
             plsObject.addPrizeLevel(ucpl2.plObject);
             ucpl2.plObject.prizeLevel = Prizes.Children.Count;
             ucpl2.CloseButton.IsEnabled = false;
             ucpl2.CloseButton.Opacity = 0.0f;
+
+            this.Loaded += new RoutedEventHandler(UserControlPrizeLevels_Loaded);
+        }
+
+        private void UserControlPrizeLevels_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this.Parent);
+            addListener((Window1)parentWindow);
         }
 
         public void Add_Prize_Level(object sender, RoutedEventArgs e)
@@ -51,19 +64,22 @@ namespace Collection_Game_Tool.PrizeLevels
             if (plsObject.getNumPrizeLevels() < 12)
             {
                 UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
-                ucpl.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
+                ucpl.OuterGrid.Margin = new Thickness(0, Prizes.Children.Count * 50, 0, 0);
 
                 ucpl.addListener(this);
                 Prizes.Children.Add(ucpl);
                 plsObject.addPrizeLevel(ucpl.plObject);
                 ucpl.plObject.prizeLevel = Prizes.Children.Count;
+
+                //adds the PrizeLevel to the end
             }
 
+            //Gets rid of any highlight of previously selected PrizeLevel
             for (int i = 0; i < Prizes.Children.Count; i++)
             {
                 UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
-                ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
-                ucpl.Margin = new Thickness(0, i * 50, 0, 0);
+                ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
+                ucpl.OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                 ucpl.plObject.prizeLevel = (i + 1);
 
                 ucpl.CloseButton.IsEnabled = true;
@@ -75,6 +91,8 @@ namespace Collection_Game_Tool.PrizeLevels
                 AddButton.IsEnabled = false;
                 AddButton.Opacity = 0.3;
             }
+            //Shouts the PrizeLevels object so that they can be analyzed in Divisions
+            shout(plsObject);
         }
 
         public void onListen(object pass)
@@ -89,18 +107,27 @@ namespace Collection_Game_Tool.PrizeLevels
                     Prizes.Children.Clear();
 
                     ucplList.Sort();
+                    plsObject.sortPrizeLevels();
 
+                    int collectionToShout = 0;
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
-                        ucplList[i].Margin = new Thickness(0, i*50, 0, 0);
+                        ucplList[i].OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
+                        if (ucplList[i].plObject.numCollections>collectionToShout)
+                            collectionToShout = ucplList[i].plObject.numCollections;
                         Prizes.Children.Add(ucplList[i]);
                     }
+                    shout(collectionToShout);
+
+                    if (collectionCheck < collectionToShout)
+                        shout("errorCollection");
                 }
             }
             else if(pass is UserControlPrizeLevel)
             {
+                //This removes the PrizeLevel that was just closed
                 if (plsObject.getNumPrizeLevels() > 2)
                 {
                     UserControlPrizeLevel rem = (UserControlPrizeLevel)pass;
@@ -122,8 +149,8 @@ namespace Collection_Game_Tool.PrizeLevels
                     for (int i = 0; i < Prizes.Children.Count; i++)
                     {
                         UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
-                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
-                        ucpl.Margin = new Thickness(0, i * 50, 0, 0);
+                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
+                        ucpl.OuterGrid.Margin = new Thickness(0, i * 50, 0, 0);
                         ucpl.plObject.prizeLevel = (i + 1);
 
                         if (plsObject.getNumPrizeLevels() == 2)
@@ -142,6 +169,21 @@ namespace Collection_Game_Tool.PrizeLevels
                     AddButton.Opacity = 1;
                 }
             }
+            //Shouts PrizeLevels object so divisions can analyze it
+            shout(plsObject);
+        }
+
+        public void shout(object pass)
+        {
+            foreach (Listener l in listenerList)
+            {
+                l.onListen(pass);
+            }
+        }
+
+        public void addListener(Listener list)
+        {
+            listenerList.Add(list);
         }
     }
 }

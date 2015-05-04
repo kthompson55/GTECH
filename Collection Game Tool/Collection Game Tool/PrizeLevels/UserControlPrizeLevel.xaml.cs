@@ -29,6 +29,7 @@ namespace Collection_Game_Tool.PrizeLevels
         public UserControlPrizeLevel()
         {
             InitializeComponent();
+            //Sets up the model object and the data context for the binding in the xaml
             plObject = new PrizeLevel();
             Level.DataContext = plObject;
             TextBoxValue.DataContext = plObject;
@@ -44,28 +45,32 @@ namespace Collection_Game_Tool.PrizeLevels
         void MainView_Loaded(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this.Parent);
+            //Listens to the PrizeLevels window
             plObject.addListener((Window1)parentWindow);
         }
 
         public void Close_Prize_Level(object sender, RoutedEventArgs e)
         {
+            //Shouts itself to PrizeLevels so PrizeLevels can close the individual PrizeLevel
             shout(this);
         }
 
         private void boxChangedEventHandler(object sender, RoutedEventArgs args)
         {
+            //Shouts update to PrizeLevels so PrizeLevels can update the order of individual PrizeLevel if needed
             shout("Update");
             boxSelected();
         }
 
         public void shout(object pass)
         {
-            foreach (UserControlPrizeLevels ucpls in listenerList)
+            foreach (Listener ucpls in listenerList)
             {
                 ucpls.onListen(pass);
             }
         }
 
+        //Highlights box so that user can see it is currently being used
         private void boxSelected()
         {
             LevelGrid.Background = Brushes.Orange;
@@ -106,6 +111,7 @@ namespace Collection_Game_Tool.PrizeLevels
             return compare.plObject.prizeValue.CompareTo(plObject.prizeValue);
         }
 
+        //Tells the mainwindow to check validation if text has been updated
         private void Text_Changed(object sender, TextChangedEventArgs e)
         {
             plObject.shout("validate");

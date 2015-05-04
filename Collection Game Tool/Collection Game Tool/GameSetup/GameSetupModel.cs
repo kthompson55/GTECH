@@ -4,11 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Collection_Game_Tool.Services;
 
 namespace Collection_Game_Tool.GameSetup
 {
-    public class GameSetupModel : INotifyPropertyChanged
+    public class GameSetupModel : INotifyPropertyChanged, Teller
     {
+        List<Listener> audience = new List<Listener>();
+
         private short tp;
         public short totalPicks
         {
@@ -80,6 +83,19 @@ namespace Collection_Game_Tool.GameSetup
         public void toggleNearWin()
         {
             isNearWin = !isNearWin;
+        }
+
+        public void shout(object pass)
+        {
+            foreach (Listener fans in audience)
+            {
+                fans.onListen(pass);
+            }
+        }
+
+        public void addListener(Listener list)
+        {
+            audience.Add(list);
         }
     }
 }

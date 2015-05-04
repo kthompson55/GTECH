@@ -13,17 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Collection_Game_Tool.Services;
+using Collection_Game_Tool.Main;
 
 namespace Collection_Game_Tool.GameSetup
 {
     /// <summary>
     /// Interaction logic for GameSetupUC.xaml
     /// </summary>
-    public partial class GameSetupUC : UserControl
+    public partial class GameSetupUC : UserControl, Teller, Listener
     {
+        public int pickCheck; 
 
         public GameSetupModel gsObject;
         List<Listener> listenerList = new List<Listener>();
+        private string lastAcceptableMaxPermutationValue = 0 + "";
 
         public GameSetupUC()
         {
@@ -31,6 +34,7 @@ namespace Collection_Game_Tool.GameSetup
             gsObject = new GameSetupModel();
             gsObject.canCreate = true;
             CreateButton.DataContext = gsObject;
+            ErrorTextBlock.DataContext = GameToolError.Instance;
         }
 
         //When Create is clicked, validates data and creates a text file
@@ -39,7 +43,6 @@ namespace Collection_Game_Tool.GameSetup
             //validate data
             //open save dialog
             openSaveWindow();
-
         }
 
         private void openSaveWindow()
@@ -57,7 +60,7 @@ namespace Collection_Game_Tool.GameSetup
             {
                 // Save document
                 string filename = dlg.FileName;
-
+                gsObject.shout("generate/" + filename);
             }
         }
 
@@ -67,6 +70,7 @@ namespace Collection_Game_Tool.GameSetup
             {
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
+                shout(gsObject.totalPicks);
             }
         }
 
@@ -89,7 +93,19 @@ namespace Collection_Game_Tool.GameSetup
             if (gsObject != null)
             {
                 TextBox textBox = sender as TextBox;
-                gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
+                if (textBox.Text == "")
+                {
+                    textBox.Text = 0 +"";
+                }
+                else if (!WithinPermutationRange(textBox.Text))
+                {
+                    textBox.Text = lastAcceptableMaxPermutationValue;
+                }
+                else
+                {
+                    gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
+                }
+                gsObject.shout("validate");
             }
         }
 
@@ -103,6 +119,70 @@ namespace Collection_Game_Tool.GameSetup
         {
             TextBox textBox = sender as TextBox;
             textBox.SelectAll();
+        }
+
+        private void MaxPermutationsTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            lastAcceptableMaxPermutationValue = tb.Text;
+           
+        }
+
+        private bool WithinPermutationRange(string s)
+        {
+            uint philTheOrphan;
+            return UInt32.TryParse(s, out philTheOrphan);
+        }
+
+       
+        private void GameSetupUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this.Parent);
+            gsObject.addListener((Window1)parentWindow);
+        }
+
+        public void shout(object pass)
+        {
+            foreach (Listener list in listenerList)
+            {
+                list.onListen(pass);
+            }
+        }
+
+        public void addListener(Listener list)
+        {
+            listenerList.Add(list);
+        }
+
+        public void onListen(object pass)
+        {
+            if (pass is int)
+            {
+                int pick = (int)pass;
+            }
+        }
+
+        private void ErrorTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            adjustBorderVisibility();
+        }
+
+        private void WarningTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            adjustBorderVisibility();
+        }
+
+        private void adjustBorderVisibility()
+        {
+            if ((GameToolError.Instance.errorText == "" || GameToolError.Instance.errorText == null) && 
+                (GameToolError.Instance.warningText == "" || GameToolError.Instance.warningText == null))
+            {
+                ErrorBoxBorder.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                ErrorBoxBorder.Visibility = Visibility.Visible;
+            }
         }
     }
 }

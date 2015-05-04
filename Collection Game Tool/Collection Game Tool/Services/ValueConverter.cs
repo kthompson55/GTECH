@@ -9,6 +9,7 @@ namespace Collection_Game_Tool.Services
 {
     public class ValueConverter : IValueConverter
     {
+        //Converts double to String
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             double ret = 0;
@@ -20,6 +21,7 @@ namespace Collection_Game_Tool.Services
             return ret.ToString();
         }
 
+        //Converts String to double
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             String text = (string)value;

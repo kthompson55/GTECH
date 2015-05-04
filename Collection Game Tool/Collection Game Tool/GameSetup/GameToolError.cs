@@ -33,6 +33,15 @@ namespace Collection_Game_Tool.GameSetup
 
         };
 
+        private Dictionary<int, string> warningTemplates = new Dictionary<int, string>
+        {
+            {001,"{0} has no prize levels."},
+            {002,"{0} is empty."},
+            {003,"{0} is identical to {1}."},
+            {420, "{0} is blazing it. #YOLO"}
+
+        };
+
         private List<string> unresolvedErrors = new List<string>();
         private string _errorText;
         public string errorText
@@ -82,6 +91,62 @@ namespace Collection_Game_Tool.GameSetup
                 updatedErrorText += System.Environment.NewLine;
             }
             errorText = updatedErrorText;
+        }
+
+
+
+
+
+
+        private List<string> unresolvedWarnings = new List<string>();
+        private string _warningText;
+        public string warningText
+        {
+            get
+            {
+                return _warningText;
+            }
+            set
+            {
+                _warningText = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("warningText"));
+                }
+            }
+        }
+
+        public void reportWarning(int warningCode, List<string> illegalObjects)
+        {
+            string theWarning = String.Format(warningTemplates[warningCode], illegalObjects.ToArray());
+            if (!unresolvedWarnings.Contains(theWarning))
+            {
+                unresolvedWarnings.Add(theWarning);
+                updateWarningText();
+            }
+
+        }
+
+        public void resolveWarning(int warningCode, List<string> illegalObjects)
+        {
+            string theWarning = String.Format(warningTemplates[warningCode], illegalObjects);
+            if (!unresolvedWarnings.Contains(theWarning))
+            {
+                unresolvedWarnings.Remove(theWarning);
+                updateWarningText();
+            }
+
+        }
+
+        private void updateWarningText()
+        {
+            string updatedWarningText = "";
+            foreach (String s in unresolvedWarnings)
+            {
+                updatedWarningText += s;
+                updatedWarningText += System.Environment.NewLine;
+            }
+            warningText = updatedWarningText;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

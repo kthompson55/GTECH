@@ -164,7 +164,18 @@ namespace Collection_Game_Tool.GameSetup
 
         private void ErrorTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            if (GameToolError.Instance.errorText == "" || GameToolError.Instance.errorText == null)
+            adjustBorderVisibility();
+        }
+
+        private void WarningTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            adjustBorderVisibility();
+        }
+
+        private void adjustBorderVisibility()
+        {
+            if ((GameToolError.Instance.errorText == "" || GameToolError.Instance.errorText == null) && 
+                (GameToolError.Instance.warningText == "" || GameToolError.Instance.warningText == null))
             {
                 ErrorBoxBorder.Visibility = Visibility.Hidden;
             }

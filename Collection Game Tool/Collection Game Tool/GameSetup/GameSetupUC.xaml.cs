@@ -34,7 +34,8 @@ namespace Collection_Game_Tool.GameSetup
             gsObject = new GameSetupModel();
             gsObject.canCreate = true;
             CreateButton.DataContext = gsObject;
-            ErrorTextBlock.DataContext = GameToolError.Instance;
+            ErrorTextBlock.DataContext = ErrorService.Instance;
+            WarningTextBlock.DataContext = ErrorService.Instance;
         }
 
         //When Create is clicked, validates data and creates a text file
@@ -86,6 +87,7 @@ namespace Collection_Game_Tool.GameSetup
         private void NearWinCheckbox_Click(object sender, RoutedEventArgs e)
         {
             gsObject.toggleNearWin();
+           
         }
 
         private void MaxPermutationsTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -174,8 +176,8 @@ namespace Collection_Game_Tool.GameSetup
 
         private void adjustBorderVisibility()
         {
-            if ((GameToolError.Instance.errorText == "" || GameToolError.Instance.errorText == null) && 
-                (GameToolError.Instance.warningText == "" || GameToolError.Instance.warningText == null))
+            if ((ErrorService.Instance.errorText == "" || ErrorService.Instance.errorText == null) && 
+                (ErrorService.Instance.warningText == "" || ErrorService.Instance.warningText == null))
             {
                 ErrorBoxBorder.Visibility = Visibility.Hidden;
             }

@@ -72,8 +72,9 @@
     <Compile Include="GameSetup\GameSetupUC.xaml.cs">
       <DependentUpon>GameSetupUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameSetup\GameToolError.cs" />
+    <Compile Include="GameSetup\ErrorService.cs" />
     <Compile Include="PrizeLevels\PrizeLevel.cs" />
+    <Compile Include="Services\Error.cs" />
     <Compile Include="Services\PrizeLevels.cs" />
     <Compile Include="PrizeLevels\UserControlPrizeLevel.xaml.cs">
       <DependentUpon>UserControlPrizeLevel.xaml</DependentUpon>
@@ -89,6 +90,7 @@
     <Compile Include="Services\ServiceValidator.cs" />
     <Compile Include="Services\Teller.cs" />
     <Compile Include="Services\ValueConverter.cs" />
+    <Compile Include="Services\Warning.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Divisions\DivisionsModel.cs" />

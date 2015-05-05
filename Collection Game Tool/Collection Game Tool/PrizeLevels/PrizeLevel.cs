@@ -13,6 +13,19 @@ namespace Collection_Game_Tool.PrizeLevels
     {
         List<Listener> audience =new List<Listener>();
 
+        private int _id;
+        public int id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
         private int _prizeLevel;
         public int prizeLevel
         {

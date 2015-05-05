@@ -9,6 +9,7 @@
           Width="525">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
@@ -25,17 +26,31 @@
                    Foreground="#FFFFFF"/>
         </Grid>
 
+        <Grid Background="#e87e02"
+                    Grid.Row="1">
+            <Label Content="The different combinations to wn prize levels (30 max and 2 min)" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" 
+                   Margin="0"/>
+            <Label Content="Each division must be a unique combination of prizes and have the" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+            <Label Content="sane or lower number of player picks as set in Game Setup." 
+                   VerticalAlignment="Bottom" 
+                   HorizontalAlignment="Center" />
+        </Grid>
+
         <ScrollViewer x:Name="divisionsScroll" 
-                      Grid.Row="1"
-                      MaxHeight="840">
+                      Grid.Row="2"
+                      MaxHeight="790">
             <StackPanel x:Name="divisionsHolderPanel"
                         VerticalAlignment="Top"
                         Orientation="Vertical"
-                        SizeChanged="divisionsHolderPanel_SizeChanged_1">
+                        SizeChanged="divisionHolder_SizeChanged">
             </StackPanel>
         </ScrollViewer>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Button x:Name="addDivisionButton" 
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"

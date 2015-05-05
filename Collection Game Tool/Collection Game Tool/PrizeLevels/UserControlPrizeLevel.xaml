@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              Loaded="MainView_Loaded"
-             d:DesignHeight="40" d:DesignWidth="440"
+             d:DesignHeight="100" d:DesignWidth="440"
              xmlns:Services="clr-namespace:Collection_Game_Tool.Services">
     <UserControl.Resources>
         <Services:PrizeLevelConverter x:Key="LevelConverter"/>
@@ -15,33 +15,33 @@
     <Grid
         x:Name="OuterGrid">
         <Grid
-            Height="40"
-            Width="440"
+            Height="50"
+            Width="435"
             VerticalAlignment="Top"
             Name="LevelGrid">
             <Grid.Background>
-                <SolidColorBrush Color="LightGray"/>
+                <SolidColorBrush Color="LightGray"/> <!--#9e9d9d-->
             </Grid.Background>
-            <Border BorderBrush="Black" BorderThickness="2"/>
-            <Label
-                Name="Level"
-                Content="{Binding Path=prizeLevel, Converter={StaticResource LevelConverter}, FallbackValue='0'}"
-                Background="#FFFFFF"
-                Height="40"
-                Width="40"
-                HorizontalAlignment="Left"
-                Margin="15,2,0,2"
-                Foreground="#007CAA"
-                FontSize="20"
-                VerticalContentAlignment="Center"
-                HorizontalContentAlignment="Center"/>
+            <Border BorderBrush="Black" BorderThickness="2" />
+            <Border BorderBrush="#007baa" BorderThickness="3" Height="40" Width="40" HorizontalAlignment="Left" Margin="10,2,0,2">
+                <Grid Background="#FFFFFF"
+                      Width="36">
+                    <Label
+                    Name="Level"
+                    Content="{Binding Path=prizeLevel, Converter={StaticResource LevelConverter}, FallbackValue='0'}"
+                    Foreground="Black"
+                    FontSize="35"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center" HorizontalAlignment="Right"  Padding="0" Margin="0,-7,7,0" Width="24"/>
+                </Grid>
+            </Border>
             <Grid
                 Background="#007CAA"
                 Height="40"
                 Width="100"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Margin="70,2,0,2">
+                Margin="60,2,0,2">
                 <Label
                     Foreground="White"
                     FontSize="12"
@@ -56,9 +56,9 @@
                     MaxLength="34"
                     Text="{Binding prizeValue, Mode=TwoWay, Converter={StaticResource ValueConverter}}"
                     HorizontalAlignment="Right"
-                    Margin="0,0,5,0"
+                    Margin="0,8,5,7"
                     Height="25"
-                    Width="40"/>
+                    Width="47"/>
                 <!-- Max Length is set to 34 because that is what we deterimned
                         the amount of characters a double will take before overflowing
                         or causing an error-->
@@ -69,7 +69,7 @@
                 Width="130"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Margin="180,2,0,2">
+                Margin="175,2,0,2">
                 <Label
                     Foreground="White"
                     FontSize="12"
@@ -121,14 +121,14 @@
             <Grid>
                 <Button
                     Name="CloseButton"
-                    Width="15"
+                    Width="12"
                     Height="20"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
-                    Click="Close_Prize_Level">
-                    X
+                    Click="Close_Prize_Level" Margin="0,4,4,0">
+                    <Label Content="X" FontSize="10" Padding="0" Margin="0" VerticalAlignment="Top" Height="14"/>
                 </Button>
             </Grid>
         </Grid>

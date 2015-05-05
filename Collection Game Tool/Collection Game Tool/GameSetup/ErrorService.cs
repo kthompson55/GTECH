@@ -32,6 +32,9 @@ namespace Collection_Game_Tool.GameSetup
         {
             {"001","{0} dun goofed. Fix it."},
             {"002","{0} and {1} dun goofed. Fix it."},
+            {"004", "{0} Prize Level currently has a higher collection the Game Setup picks allows. ({1})"},
+            {"005", "{0} Prize Level has illegal characters found in its collection text box!"},
+            {"006", "{0} Prize Level's collection text box is out of range! ({1}-{2})"},
             {"420", "{0} is blazing it. #YOLO"}
 
         };

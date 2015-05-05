@@ -1,4 +1,5 @@
 ﻿using Collection_Game_Tool.Divisions;
+using Collection_Game_Tool.GameSetup;
 using Collection_Game_Tool.Main;
 using Collection_Game_Tool.Services;
 using System;
@@ -27,11 +28,14 @@ namespace Collection_Game_Tool.PrizeLevels
         public PrizeLevels plsObject;
         public int collectionCheck;
         private const double MARGIN = 60;
+        private string plsID;
 
         public UserControlPrizeLevels()
         {
             InitializeComponent();
             plsObject = new PrizeLevels();
+
+            plsID = null;
 
             //SetsUp the default 2 PrizeLevel
             UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
@@ -111,19 +115,39 @@ namespace Collection_Game_Tool.PrizeLevels
                     plsObject.sortPrizeLevels();
 
                     int collectionToShout = 0;
+                    int index=-1;
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
                         ucplList[i].OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
                         if (ucplList[i].plObject.numCollections>collectionToShout)
+                        {
                             collectionToShout = ucplList[i].plObject.numCollections;
+                            index=i;
+                        }
                         Prizes.Children.Add(ucplList[i]);
                     }
+                    //Shouts Collection Num to check against Prize Level Picks
                     shout(collectionToShout);
 
+                    PrizeLevelConverter plc = new PrizeLevelConverter();
                     if (collectionCheck < collectionToShout)
-                        shout("errorCollection");
+                    {
+                        plsID=ErrorService.Instance.reportError("004", new List<string>
+                        {
+                            (string)plc.Convert(ucplList[index].plObject.prizeLevel,typeof(string), null, new System.Globalization.CultureInfo("en-us")),
+                            collectionCheck.ToString()
+                        }, plsID);
+                    }
+                    else if (collectionCheck >= collectionToShout)
+                    {
+                        ErrorService.Instance.resolveError("004", new List<string>
+                        {
+                            (string)plc.Convert(ucplList[index].plObject.prizeLevel,typeof(string), null, new System.Globalization.CultureInfo("en-us")),
+                            collectionCheck.ToString()
+                        }, plsID);
+                    }
                 }
             }
             else if(pass is UserControlPrizeLevel)

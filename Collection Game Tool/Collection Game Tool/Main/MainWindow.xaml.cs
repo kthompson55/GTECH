@@ -76,57 +76,21 @@ namespace Collection_Game_Tool.Main
             divUC.divisionsScroll.MaxHeight = ((divUC.ActualHeight - 125) > 0) ? divUC.ActualHeight - 125 : 0;
         }
 
-        private bool divBool=true;
-        private bool setBool=true;
-        private bool validateBool=true;
-        private bool collectionBool = true;
         public void onListen(object pass)
         {
             if (pass is String)
             {
-                //Validate is used when something changes from any usercontrol, this is so it can check the validity of the variables within those controls
-                //Also sets the create file button to invalid if anything the ServiceValidator finds is invalid (ex. CollectionNumber in PrizeLevels is greater then 20)
-                if (((String)pass).Equals("validate") && gs != null)
-                {
-                    validateBool = ServiceValidator.IsValid(this);
-                }   //Error is used when something that can't be easily validated with the above statement is invalid
-                else if (((String)pass).Equals("error") && gs != null)
-                {
-                    divBool = false;
-                }   //Valid is used when something that can't be easily validated with the above statement is valid
-                else if (((String)pass).Equals("valid") && gs != null)
-                {
-                    divBool = true;
-                }
-                else if (((String)pass).Equals("errorPick") && gs != null)
-                {
-                    setBool = false;
-                }
-                else if (((String)pass).Equals("validPick") && gs != null)
-                {
-                    setBool = true;
-                }
-                else if (((String)pass).Equals("errorCollection") && gs != null)
-                {
-                    collectionBool = false;
-                }
-                else if (((String)pass).Equals("validCollection") && gs != null)
-                {
-                    collectionBool = true;
-                }   //generate/ is used to generate the final output file, this calls up the FileGenerationService to make the file
-                else if (((String)pass).Contains("generate/") && gs != null)
+                if (((String)pass).Contains("generate/") && gs != null)
                 {
                     String file = ((String)pass).Replace("generate/", "");
                     FileGenerationService fgs = new FileGenerationService();
                     fgs.buildGameData(divUC.divisionsList, pl.plsObject, gs.gsObject, file);
                 }
-
-                gs.gsObject.canCreate = (validateBool && divBool && setBool);
             }
             if (pass is int)
             {
                 gs.pickCheck = (int)pass;
-                pl.collectionCheck = gs.pickCheck;
+                pl.collectionCheck = (int)gs.TotalPicksSlider.Value;
             }
         }
     }

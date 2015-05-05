@@ -50,9 +50,9 @@
                 </Label>
                 <TextBox 
                     Name="TextBoxValue"
+                    TextChanged="Text_Changed"
                     PreviewMouseUp="boxChangedEventHandler"
                     PreviewTextInput="textBoxValue_PreviewTextInput"
-                    TextChanged="Text_Changed"
                     MaxLength="34"
                     Text="{Binding prizeValue, Mode=TwoWay, Converter={StaticResource ValueConverter}}"
                     HorizontalAlignment="Right"
@@ -86,10 +86,10 @@
                     Margin="0,0,5,0"
                     Height="25"
                     Width="40"
-                    ToolTip="Enter a value between 1 and 20">
-                    <Binding Path="numCollections" Mode="TwoWay">
+                    ToolTip="Enter a value between 0 and 20">
+                    <Binding Path="numCollections" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <Services:RangeRule Max="20" Min="0"/>
+                            <Services:RangeRule Max="20" Min="0" ValidatesOnTargetUpdated="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox>

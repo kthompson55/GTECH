@@ -1,8 +1,10 @@
-﻿using Collection_Game_Tool.Main;
+﻿using Collection_Game_Tool.GameSetup;
+using Collection_Game_Tool.Main;
 using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,7 @@ namespace Collection_Game_Tool.PrizeLevels
     {
         public PrizeLevel plObject;
         List<Listener> listenerList = new List<Listener>();
+        private string ucplID = null;
 
         public UserControlPrizeLevel()
         {
@@ -58,7 +61,6 @@ namespace Collection_Game_Tool.PrizeLevels
         private void boxChangedEventHandler(object sender, RoutedEventArgs args)
         {
             //Shouts update to PrizeLevels so PrizeLevels can update the order of individual PrizeLevel if needed
-            shout("Update");
             boxSelected();
         }
 
@@ -73,6 +75,8 @@ namespace Collection_Game_Tool.PrizeLevels
         //Highlights box so that user can see it is currently being used
         private void boxSelected()
         {
+            validateMyself();
+            shout("Update");
             LevelGrid.Background = Brushes.Orange;
         }
 
@@ -111,10 +115,39 @@ namespace Collection_Game_Tool.PrizeLevels
             return compare.plObject.prizeValue.CompareTo(plObject.prizeValue);
         }
 
-        //Tells the mainwindow to check validation if text has been updated
         private void Text_Changed(object sender, TextChangedEventArgs e)
         {
-            plObject.shout("validate");
+            boxSelected();
+        }
+
+        private void validateMyself()
+        {
+            if (Validation.GetHasError(CollectionBoxValue))
+            {
+                RangeRule rr = new RangeRule();
+                ValidationResult vr = rr.Validate(CollectionBoxValue.Text, new CultureInfo("en-US", false));
+
+                PrizeLevelConverter plc = new PrizeLevelConverter();
+                if (vr.Equals(new ValidationResult(false, "Illegal characters")))
+                {
+                    ucplID = ErrorService.Instance.reportError("005", new List<string>{
+                        (string)plc.Convert(plObject.prizeLevel,typeof(string), null, new System.Globalization.CultureInfo("en-us"))
+                    }, ucplID);
+                }
+                else if (vr.Equals(new ValidationResult(false, "Please enter a number in the given range.")))
+                {
+                    ucplID = ErrorService.Instance.reportError("006", new List<string>{
+                        (string)plc.Convert(plObject.prizeLevel,typeof(string), null, new System.Globalization.CultureInfo("en-us")),
+                        "0",
+                        "20"
+                    }, ucplID);
+                }
+            }
+            else
+            {
+                ErrorService.Instance.resolveError("005", null, ucplID);
+                ErrorService.Instance.resolveError("006", null, ucplID);
+            }
         }
     }
 }

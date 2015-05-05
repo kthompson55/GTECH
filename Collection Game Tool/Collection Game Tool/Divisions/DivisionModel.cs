@@ -50,12 +50,18 @@ namespace Collection_Game_Tool.Divisions
 
         public DivisionModel(SerializationInfo info, StreamingContext context)
         {
-            
+            DivisionNumber = info.GetInt32("DivisionNumber");
+            TotalPlayerPicks = info.GetInt32("TotalPlayerPicks");
+            TotalPrizeValue = info.GetDouble("TotalPrizeValue");
+            selectedPrizes = (List<PrizeLevel>)info.GetValue("SelectedPrizes", typeof(List<PrizeLevel>));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            throw new NotImplementedException();
+            info.AddValue("DivisionNumber", DivisionNumber);
+            info.AddValue("TotalPlayerPicks", TotalPlayerPicks);
+            info.AddValue("TotalPrizeValue", TotalPrizeValue);
+            info.AddValue("SelectedPrizes", selectedPrizes);
         }
 
         public void addPrizeLevel(PrizeLevel prizeLevelToAdd)

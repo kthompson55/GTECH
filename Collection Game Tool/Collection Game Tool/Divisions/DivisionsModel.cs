@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.Divisions
 {
-    public class DivisionsModel
+    [Serializable()]
+    public class DivisionsModel : ISerializable
     {
-        private List<DivisionModel> divisions = new List<DivisionModel>();
+        public List<DivisionModel> divisions { get; set; }
+
+        public DivisionsModel() { divisions = new List<DivisionModel>(); }
+
+        public DivisionsModel(SerializationInfo info, StreamingContext context)
+        {
+            divisions = (List<DivisionModel>)info.GetValue("Divisions", typeof(List<DivisionModel>));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Divisions", divisions);
+        }
 
         public int getNumberOfDivisions()
         {

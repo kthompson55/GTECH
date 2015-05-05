@@ -27,6 +27,7 @@ namespace Collection_Game_Tool.Main
     {
         private UserControlPrizeLevels pl;
         private GameSetupUC gs;
+        private DivisionPanelUC divs;
         public Window1()
         {
             InitializeComponent();
@@ -44,7 +45,7 @@ namespace Collection_Game_Tool.Main
             DivisionPanelUC divUC = new DivisionPanelUC();
             this.UserControls.Children.Add(divUC);
             divUC.prizes = pl.plsObject;
-
+            divs = divUC;
             
             //Listener stuff between divisions and Prize Levels
             pl.addListener(divUC);
@@ -108,7 +109,7 @@ namespace Collection_Game_Tool.Main
                 {
                     String file = ((String)pass).Replace("generate/", "");
                     FileGenerationService fgs = new FileGenerationService();
-                    fgs.buildGameData(null, pl.plsObject, gs.gsObject, file);
+                    fgs.buildGameData(divs.divisionsList, pl.plsObject, gs.gsObject, file);
                 }
 
                 gs.gsObject.canCreate = (validateBool && divBool && setBool);

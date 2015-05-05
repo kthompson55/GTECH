@@ -69,3 +69,5 @@ C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Too
 C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.g.resources
 C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Tool\obj\Debug\Collection_Game_Tool.Properties.Resources.resources
 C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.csproj.GenerateResource.Cache
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\PrizeLevelBox.g.cs
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\PrizeLevelBox.baml

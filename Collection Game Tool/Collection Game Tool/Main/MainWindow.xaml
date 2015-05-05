@@ -5,11 +5,12 @@
         xmlns:pl="clr-namespace:Collection_Game_Tool.PrizeLevels"
         xmlns:dv="clr-namespace:Collection_Game_Tool.Divisions"
         Title="Collection Game Tool" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
-        SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" >
+        SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+        LayoutUpdated="Window_LayoutUpdated_1">
 
     <StackPanel>
             
-        <StackPanel Orientation="Horizontal" Background="white">
+        <StackPanel x:Name="windowHeader" Orientation="Horizontal" Background="white">
             <Image Source="logo.png" Margin="10"></Image>
             <Label Foreground="#007CAA" Background="white" FontSize="48" FontWeight="Bold">Collection Game Generator</Label>
 

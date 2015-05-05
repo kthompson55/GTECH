@@ -88,7 +88,7 @@ namespace Collection_Game_Tool.Divisions
             divisionsScroll.ScrollToBottom();
         }
 
-        private void divisionsHolderPanel_SizeChanged_1(object sender, SizeChangedEventArgs e)
+        private void divisionHolder_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             determineScrollVisibility();
         }

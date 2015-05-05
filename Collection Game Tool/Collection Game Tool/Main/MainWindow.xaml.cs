@@ -27,7 +27,7 @@ namespace Collection_Game_Tool.Main
     {
         private UserControlPrizeLevels pl;
         private GameSetupUC gs;
-        DivisionPanelUC divUC;
+        private DivisionPanelUC divUC;
         public Window1()
         {
             InitializeComponent();
@@ -118,7 +118,7 @@ namespace Collection_Game_Tool.Main
                 {
                     String file = ((String)pass).Replace("generate/", "");
                     FileGenerationService fgs = new FileGenerationService();
-                    fgs.buildGameData(null, pl.plsObject, gs.gsObject, file);
+                    fgs.buildGameData(divUC.divisionsList, pl.plsObject, gs.gsObject, file);
                 }
 
                 gs.gsObject.canCreate = (validateBool && divBool && setBool);

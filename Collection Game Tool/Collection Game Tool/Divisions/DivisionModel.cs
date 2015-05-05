@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Collection_Game_Tool.PrizeLevels;
+using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.Divisions
 {
     [Serializable]
-    public class DivisionModel : IComparable, INotifyPropertyChanged
+    public class DivisionModel : IComparable, INotifyPropertyChanged, ISerializable
     {
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,6 +46,16 @@ namespace Collection_Game_Tool.Divisions
             TotalPlayerPicks = playerPicks;
             TotalPrizeValue = totalValue;
             selectedPrizes = levels;
+        }
+
+        public DivisionModel(SerializationInfo info, StreamingContext context)
+        {
+            
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new NotImplementedException();
         }
 
         public void addPrizeLevel(PrizeLevel prizeLevelToAdd)

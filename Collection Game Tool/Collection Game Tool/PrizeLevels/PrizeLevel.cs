@@ -6,9 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
+    [Serializable()]
     public class PrizeLevel : IComparable, Teller, INotifyPropertyChanged
     {
         List<Listener> audience =new List<Listener>();

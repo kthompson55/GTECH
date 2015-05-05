@@ -44,6 +44,7 @@ namespace Collection_Game_Tool.GameSetup
             //validate data
             //open save dialog
             openSaveWindow();
+            MaxPermutationsTextBox.Focus();
         }
 
         private void openSaveWindow()

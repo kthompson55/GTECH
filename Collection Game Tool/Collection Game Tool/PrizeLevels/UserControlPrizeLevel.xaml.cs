@@ -62,6 +62,12 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             //Shouts update to PrizeLevels so PrizeLevels can update the order of individual PrizeLevel if needed
             boxSelected();
+
+            if (sender is TextBox)
+            {
+                TextBox textBox = sender as TextBox;
+                textBox.SelectAll();
+            }
         }
 
         public void shout(object pass)

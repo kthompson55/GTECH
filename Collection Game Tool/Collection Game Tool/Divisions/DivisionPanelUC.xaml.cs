@@ -20,6 +20,7 @@ namespace Collection_Game_Tool.Divisions
     /// <summary>
     /// Interaction logic for DivisionPanelUC.xaml
     /// </summary>
+    [Serializable]
     public partial class DivisionPanelUC : UserControl, Listener, Teller
     {
         List<Listener> listenerList = new List<Listener>();
@@ -43,7 +44,7 @@ namespace Collection_Game_Tool.Divisions
             addListener((Window1)parentWindow);
         }
 
-        private void addDivision()
+        public void addDivision()
         {
             if (divisionsList.getSize() < MAX_DIVISIONS)
             {
@@ -55,6 +56,40 @@ namespace Collection_Game_Tool.Divisions
 
                 divisionsHolderPanel.Children.Add(divUC);
                 divisionsList.addDivision(divUC.DivModel);
+                this.addListener(divUC);
+            }
+
+            if (divisionsList.getSize() >= MAX_DIVISIONS)
+            {
+                addDivisionButton.IsEnabled = false;
+            }
+        }
+
+        public void loadInDivision(int number, DivisionModel div)
+        {
+            if (divisionsList.getSize() < MAX_DIVISIONS)
+            {
+                DivisionUC divUC = new DivisionUC(prizes, number);
+                divUC.DivModel.DivisionNumber = number;
+                divUC.DivModel = div;
+                divUC.DivModel.levelBoxes = div.levelBoxes;
+                divUC.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
+                divUC.SectionContainer = this;
+
+                divUC.totalPicksLabel.DataContext = divUC.DivModel;
+                divUC.totalValueLabel.DataContext = divUC.DivModel;
+                divUC.divisionNumberLabel.DataContext = divUC.DivModel;
+
+                for (int i = 0; i < divUC.DivModel.levelBoxes.Count; i++)
+                {
+                    ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelModel = divUC.DivModel.levelBoxes[i];
+                    ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelBox.DataContext = ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelModel;
+                    ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).prizeLevelLabel.DataContext = ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelModel;
+                }
+
+                divUC.updateDivision();
+
+                divisionsHolderPanel.Children.Add(divUC);
                 this.addListener(divUC);
             }
 
@@ -93,7 +128,7 @@ namespace Collection_Game_Tool.Divisions
             determineScrollVisibility();
         }
 
-        private void determineScrollVisibility()
+        public void determineScrollVisibility()
         {
             if (divisionsHolderPanel.ActualHeight >= divisionsScroll.MaxHeight)
             {
@@ -108,7 +143,7 @@ namespace Collection_Game_Tool.Divisions
         public void validateDivision(DivisionUC divToCompare)
         {
             bool valid = true;
-            for (int i = 0; i < divisionsList.getSize() && valid; i++)
+            for (int i = 0; i < divisionsHolderPanel.Children.Count && valid; i++)
             {
                 DivisionUC div = (DivisionUC)divisionsHolderPanel.Children[i];
                 if (divToCompare.DivModel.DivisionNumber != div.DivModel.DivisionNumber)
@@ -116,7 +151,7 @@ namespace Collection_Game_Tool.Divisions
                     bool isUnique = false;
                     for (int prizeIndex = 0; prizeIndex < prizes.getNumPrizeLevels() && !isUnique; prizeIndex++)
                     {
-                        if (divToCompare.PrizeBoxes[prizeIndex].IsSelected != div.PrizeBoxes[prizeIndex].IsSelected)
+                        if (divToCompare.DivModel.levelBoxes[prizeIndex].IsSelected != div.DivModel.levelBoxes[prizeIndex].IsSelected)
                         {
                             isUnique = true;
                         }

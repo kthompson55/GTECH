@@ -66,6 +66,7 @@
     <Compile Include="Divisions\DivisionUC.xaml.cs">
       <DependentUpon>DivisionUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Divisions\LevelBox.cs" />
     <Compile Include="Divisions\PrizeLevelBox.xaml.cs">
       <DependentUpon>PrizeLevelBox.xaml</DependentUpon>
     </Compile>
@@ -73,6 +74,7 @@
       <DependentUpon>GameSetupUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameSetup\ErrorService.cs" />
+    <Compile Include="Main\ProjectData.cs" />
     <Compile Include="PrizeLevels\PrizeLevel.cs" />
     <Compile Include="Services\Error.cs" />
     <Compile Include="Services\PrizeLevels.cs" />

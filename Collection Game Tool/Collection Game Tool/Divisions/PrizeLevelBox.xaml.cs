@@ -13,80 +13,31 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Collection_Game_Tool.PrizeLevels;
 
 namespace Collection_Game_Tool.Divisions
 {
     /// <summary>
     /// Interaction logic for PrizeLevelBox.xaml
     /// </summary>
-    public partial class PrizeLevelBox : UserControl, INotifyPropertyChanged
+    [Serializable]
+    public partial class PrizeLevelBox : UserControl
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public LevelBox levelModel { get; set; }
+        private DivisionUC division { get; set; }
 
-        public DivisionUC division;
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-            set
-            {
-                _isSelected = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsSelected"));
-            }
-        }
-
-        private bool _isAvailable;
-        public bool IsAvailable
-        {
-            get
-            {
-                return _isAvailable;
-            }
-            set
-            {
-                _isAvailable = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsAvailable"));
-            }
-        }
-
-        private int _prizeBoxLevel;
-        public int PrizeBoxLevel 
-        {
-            get
-            {
-                return _prizeBoxLevel;
-            }
-            set
-            {
-                _prizeBoxLevel = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PrizeBoxLevel"));
-            }
-        }
-
-        public PrizeLevelBox(DivisionUC div, bool available, int level)
+        public PrizeLevelBox(DivisionUC div, LevelBox box)
         {
             InitializeComponent();
-            levelBox.DataContext = this;
-            prizeLevelLabel.DataContext = this;
-
-            this.division = div;
-            IsSelected = false;
-            IsAvailable = available;
-            PrizeBoxLevel = level;
+            division = div;
+            levelModel = box;
+            levelBox.DataContext = levelModel;
+            prizeLevelLabel.DataContext = levelModel;
         }
 
         private void levelBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            IsSelected = !IsSelected;
+            levelModel.switchIsSelected();
             division.updateInfo();
         }
 

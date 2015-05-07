@@ -10,23 +10,14 @@ using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
-    [Serializable()]
+    [Serializable]
     public class PrizeLevel : IComparable, Teller, INotifyPropertyChanged
     {
-        List<Listener> audience =new List<Listener>();
+        [field: NonSerializedAttribute()]
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private int _id;
-        public int id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
+        [field: NonSerializedAttribute()]
+        List<Listener> audience =new List<Listener>();
 
         private int _prizeLevel;
         public int prizeLevel
@@ -112,7 +103,5 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             audience.Add(list);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

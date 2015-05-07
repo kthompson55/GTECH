@@ -7,22 +7,10 @@ using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.Divisions
 {
-    [Serializable()]
-    public class DivisionsModel : ISerializable
+    [Serializable]
+    public class DivisionsModel
     {
-        public List<DivisionModel> divisions { get; set; }
-
-        public DivisionsModel() { divisions = new List<DivisionModel>(); }
-
-        public DivisionsModel(SerializationInfo info, StreamingContext context)
-        {
-            divisions = (List<DivisionModel>)info.GetValue("Divisions", typeof(List<DivisionModel>));
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Divisions", divisions);
-        }
+        public List<DivisionModel> divisions = new List<DivisionModel>();
 
         public int getNumberOfDivisions()
         {

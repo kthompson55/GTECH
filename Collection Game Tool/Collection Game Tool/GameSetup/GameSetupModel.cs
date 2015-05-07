@@ -9,33 +9,34 @@ using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.GameSetup
 {
-    [Serializable()]
-    public class GameSetupModel : INotifyPropertyChanged, Teller, ISerializable
+    [Serializable]
+    public class GameSetupModel : INotifyPropertyChanged, Teller//, ISerializable
     {
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [field: NonSerializedAttribute()]
         List<Listener> audience = new List<Listener>();
 
         public GameSetupModel() { }
 
-        public GameSetupModel(SerializationInfo info, StreamingContext context)
-        {
-            totalPicks = (short)info.GetInt16("TotalPicks");
-            isNearWin = info.GetBoolean("IsNearWin");
-            nearWins = (short)info.GetInt16("NearWins");
-            maxPermutations = info.GetUInt32("MaxPermutations");
-            canCreate = info.GetBoolean("CanCreate");
-        }
+        //public GameSetupModel(SerializationInfo info, StreamingContext context)
+        //{
+        //    totalPicks = (short)info.GetInt16("TotalPicks");
+        //    isNearWin = info.GetBoolean("IsNearWin");
+        //    nearWins = (short)info.GetInt16("NearWins");
+        //    maxPermutations = info.GetUInt32("MaxPermutations");
+        //    canCreate = info.GetBoolean("CanCreate");
+        //}
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("TotalPicks", totalPicks);
-            info.AddValue("IsNearWin", isNearWin);
-            info.AddValue("NearWins", nearWins);
-            info.AddValue("MaxPermutations", maxPermutations);
-            info.AddValue("CanCreate", canCreate);
-        }
+        //public void GetObjectData(SerializationInfo info, StreamingContext context)
+        //{
+        //    info.AddValue("TotalPicks", totalPicks);
+        //    info.AddValue("IsNearWin", isNearWin);
+        //    info.AddValue("NearWins", nearWins);
+        //    info.AddValue("MaxPermutations", maxPermutations);
+        //    info.AddValue("CanCreate", canCreate);
+        //}
 
         private short tp;
         public short totalPicks

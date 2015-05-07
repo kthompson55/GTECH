@@ -64,6 +64,18 @@ namespace Collection_Game_Tool.PrizeLevels
             boxSelected();
         }
 
+        private void TextBox_Focus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.SelectAll();
+        }
+
+        private void TextBox_MouseCapture(object sender, MouseEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.SelectAll();
+        }
+
         public void shout(object pass)
         {
             foreach (Listener ucpls in listenerList)

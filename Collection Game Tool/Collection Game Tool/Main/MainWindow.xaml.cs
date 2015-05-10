@@ -31,7 +31,7 @@ namespace Collection_Game_Tool.Main
         private UserControlPrizeLevels pl;
         private GameSetupUC gs;
         private DivisionPanelUC divUC;
-        private ProjectData project;
+        private ProjectData savedProject;
         private string projectFileName;
         private bool isProjectSaved;
         private const string DEFAULT_EXT = ".cggproj";
@@ -42,7 +42,7 @@ namespace Collection_Game_Tool.Main
 
             projectFileName = null;
             isProjectSaved = false;
-            project = new ProjectData();
+            savedProject = new ProjectData();
 
             //Programmaticaly add UserControls to mainwindow.
             //Did this because couldn't find a way to access the usercontrol from within the xaml.
@@ -131,13 +131,13 @@ namespace Collection_Game_Tool.Main
         {
             if (isProjectSaved)
             {
-                project.currentGameSetup = gs.gsObject;
-                project.currentPrizeLevels = pl.plsObject;
-                project.currentDivisions = divUC.divisionsList;
+                savedProject.savedGameSetup = gs.gsObject;
+                savedProject.savedPrizeLevels = pl.plsObject;
+                savedProject.savedDivisions = divUC.divisionsList;
 
                 IFormatter formatter = new BinaryFormatter();
                 Stream stream = new FileStream(projectFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
-                formatter.Serialize(stream, project);
+                formatter.Serialize(stream, savedProject);
                 stream.Close();
             }
             else
@@ -176,39 +176,24 @@ namespace Collection_Game_Tool.Main
 
                 IFormatter format = new BinaryFormatter();
                 Stream stream = new FileStream(projectFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                project = (ProjectData)format.Deserialize(stream);
+                savedProject = (ProjectData)format.Deserialize(stream);
 
-                PrizeLevels.PrizeLevels prizes = project.currentPrizeLevels;
-                for (int i = pl.plsObject.getNumPrizeLevels(); i < prizes.getNumPrizeLevels(); i++)
+                pl.plsObject = savedProject.savedPrizeLevels;
+                pl.Prizes.Children.Clear();
+                for (int i = 0; i < pl.plsObject.getNumPrizeLevels(); i++)
                 {
-                    pl.Add_Prize_Level(null, null);
-                }
-                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
-                {
-                    pl.plsObject.getPrizeLevel(i).prizeValue = prizes.getPrizeLevel(i).prizeValue;
-                    pl.plsObject.getPrizeLevel(i).numCollections = prizes.getPrizeLevel(i).numCollections;
-                    pl.plsObject.getPrizeLevel(i).isInstantWin = prizes.getPrizeLevel(i).isInstantWin;
+                    pl.loadExistingPrizeLevel(pl.plsObject.prizeLevels[i]);
                 }
 
-                GameSetupModel setup = project.currentGameSetup;
-                gs.TotalPicksSlider.Value = setup.totalPicks;
-                gs.gsObject.totalPicks = setup.totalPicks;
-                gs.NearWinCheckbox.IsChecked = setup.isNearWin;
-                gs.gsObject.isNearWin = setup.isNearWin;
-                gs.NumNearWinsSlider.Value = setup.nearWins;
-                gs.gsObject.nearWins = setup.nearWins;
-                gs.MaxPermutationsTextBox.Text = setup.maxPermutations.ToString();
-                gs.gsObject.maxPermutations = setup.maxPermutations;
-                gs.gsObject.canCreate = setup.canCreate;
+                gs.loadExistingData(savedProject.savedGameSetup);
 
-                divUC.divisionsList = project.currentDivisions;
-                divUC.prizes = project.currentPrizeLevels;
+                divUC.divisionsList = savedProject.savedDivisions;
+                divUC.prizes = savedProject.savedPrizeLevels;
                 divUC.divisionsHolderPanel.Children.Clear();
 
                 for (int i = 0; i < divUC.divisionsList.getSize(); i++)
                 {
                     divUC.loadInDivision(i + 1, divUC.divisionsList.divisions[i]);
-                    ((DivisionUC)divUC.divisionsHolderPanel.Children[i]).updateDivision();
                 }
 
             }

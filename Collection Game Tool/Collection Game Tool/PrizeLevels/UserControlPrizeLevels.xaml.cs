@@ -100,6 +100,19 @@ namespace Collection_Game_Tool.PrizeLevels
             shout(plsObject);
         }
 
+        public void loadExistingPrizeLevel(PrizeLevel loadedPrizeLevel)
+        {
+            UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
+            ucpl.OuterGrid.Margin = new Thickness(0, Prizes.Children.Count * MARGIN, 0, 0);
+
+            ucpl.addListener(this);
+            Prizes.Children.Add(ucpl);
+            ucpl.plObject = loadedPrizeLevel;
+            ucpl.plObject.initializeListener();
+            ucpl.setDataContext();
+            ucpl.plObject.prizeLevel = Prizes.Children.Count;
+        }
+
         public void onListen(object pass)
         {
             if (pass is string)

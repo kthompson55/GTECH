@@ -69,28 +69,19 @@ namespace Collection_Game_Tool.Divisions
         {
             if (divisionsList.getSize() < MAX_DIVISIONS)
             {
-                DivisionUC divUC = new DivisionUC(prizes, number);
-                divUC.DivModel.DivisionNumber = number;
-                divUC.DivModel = div;
-                divUC.DivModel.levelBoxes = div.levelBoxes;
-                divUC.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
-                divUC.SectionContainer = this;
+                DivisionUC division = new DivisionUC(prizes, number);
+                division.DivModel = div;
+                division.setDataContextToModel();
+                division.DivModel.DivisionNumber = number;
+                division.DivModel.levelBoxes = div.levelBoxes;
+                division.Margin = new Thickness(marginAmount, marginAmount, 0, 0);
+                division.SectionContainer = this;
 
-                divUC.totalPicksLabel.DataContext = divUC.DivModel;
-                divUC.totalValueLabel.DataContext = divUC.DivModel;
-                divUC.divisionNumberLabel.DataContext = divUC.DivModel;
+                division.setupLoadedDivision();
+                division.updateDivision();
 
-                for (int i = 0; i < divUC.DivModel.levelBoxes.Count; i++)
-                {
-                    ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelModel = divUC.DivModel.levelBoxes[i];
-                    ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelBox.DataContext = ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelModel;
-                    ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).prizeLevelLabel.DataContext = ((PrizeLevelBox)divUC.prizeLevelsGrid.Children[i]).levelModel;
-                }
-
-                divUC.updateDivision();
-
-                divisionsHolderPanel.Children.Add(divUC);
-                this.addListener(divUC);
+                divisionsHolderPanel.Children.Add(division);
+                this.addListener(division);
             }
 
             if (divisionsList.getSize() >= MAX_DIVISIONS)

@@ -30,10 +30,8 @@ namespace Collection_Game_Tool.Divisions
         {
             InitializeComponent();
             DivModel = new DivisionModel();
+            setDataContextToModel();
             Prizes = initialPrizeLevels;
-            totalPicksLabel.DataContext = DivModel;
-            totalValueLabel.DataContext = DivModel;
-            divisionNumberLabel.DataContext = DivModel;
             DivModel.DivisionNumber = number;
 
             for (int i = 0; i < DivisionModel.MAX_PRIZE_BOXES; i++)
@@ -43,6 +41,23 @@ namespace Collection_Game_Tool.Divisions
                 PrizeLevelBox box = new PrizeLevelBox(this, DivModel.levelBoxes[i]);
                 if (i < initialPrizeLevels.getNumPrizeLevels()) box.levelModel.IsAvailable = true;
                 prizeLevelsGrid.Children.Add(box);
+            }
+        }
+
+        public void setDataContextToModel()
+        {
+            totalPicksLabel.DataContext = DivModel;
+            totalValueLabel.DataContext = DivModel;
+            divisionNumberLabel.DataContext = DivModel;
+        }
+
+        public void setupLoadedDivision()
+        {
+            for (int i = 0; i < DivModel.levelBoxes.Count; i++)
+            {
+                ((PrizeLevelBox)prizeLevelsGrid.Children[i]).levelModel = DivModel.levelBoxes[i];
+                ((PrizeLevelBox)prizeLevelsGrid.Children[i]).levelBox.DataContext = ((PrizeLevelBox)prizeLevelsGrid.Children[i]).levelModel;
+                ((PrizeLevelBox)prizeLevelsGrid.Children[i]).prizeLevelLabel.DataContext = ((PrizeLevelBox)prizeLevelsGrid.Children[i]).levelModel;
             }
         }
 

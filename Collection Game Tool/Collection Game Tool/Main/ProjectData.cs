@@ -11,8 +11,8 @@ namespace Collection_Game_Tool.Main
     [Serializable]
     class ProjectData
     {
-        public PrizeLevels.PrizeLevels currentPrizeLevels;
-        public GameSetupModel currentGameSetup;
-        public DivisionsModel currentDivisions;
+        public PrizeLevels.PrizeLevels savedPrizeLevels;
+        public GameSetupModel savedGameSetup;
+        public DivisionsModel savedDivisions;
     }
 }

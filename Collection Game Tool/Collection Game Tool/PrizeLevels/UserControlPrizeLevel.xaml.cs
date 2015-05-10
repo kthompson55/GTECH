@@ -25,7 +25,7 @@ namespace Collection_Game_Tool.PrizeLevels
     /// </summary>
     public partial class UserControlPrizeLevel : UserControl, Teller, IComparable
     {
-        public PrizeLevel plObject;
+        public PrizeLevel plObject { get; set; }
         List<Listener> listenerList = new List<Listener>();
         private string ucplID = null;
 
@@ -34,15 +34,20 @@ namespace Collection_Game_Tool.PrizeLevels
             InitializeComponent();
             //Sets up the model object and the data context for the binding in the xaml
             plObject = new PrizeLevel();
-            Level.DataContext = plObject;
-            TextBoxValue.DataContext = plObject;
-            CollectionBoxValue.DataContext = plObject;
-            InstantWinCheckBox.DataContext = plObject;
+            setDataContext();
             plObject.isInstantWin = false;
             plObject.numCollections = 1;
             plObject.prizeValue = 0;
 
             this.Loaded += new RoutedEventHandler(MainView_Loaded);
+        }
+
+        public void setDataContext()
+        {
+            Level.DataContext = plObject;
+            TextBoxValue.DataContext = plObject;
+            CollectionBoxValue.DataContext = plObject;
+            InstantWinCheckBox.DataContext = plObject;
         }
 
         void MainView_Loaded(object sender, RoutedEventArgs e)

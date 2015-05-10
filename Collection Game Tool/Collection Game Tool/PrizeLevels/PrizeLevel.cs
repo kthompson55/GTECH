@@ -17,7 +17,7 @@ namespace Collection_Game_Tool.PrizeLevels
         public event PropertyChangedEventHandler PropertyChanged;
 
         [field: NonSerializedAttribute()]
-        List<Listener> audience =new List<Listener>();
+        List<Listener> audience = new List<Listener>();
 
         private int _prizeLevel;
         public int prizeLevel
@@ -102,6 +102,11 @@ namespace Collection_Game_Tool.PrizeLevels
         public void addListener(Listener list)
         {
             audience.Add(list);
+        }
+
+        public void initializeListener()
+        {
+            audience = new List<Listener>();
         }
     }
 }

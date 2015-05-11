@@ -32,9 +32,11 @@ namespace Collection_Game_Tool.GameSetup
         {
             {"001","{0} dun goofed. Fix it."},
             {"002","{0} and {1} dun goofed. Fix it."},
-            {"004", "{0} Prize Level currently has a higher collection the Game Setup picks allows. ({1})"},
-            {"005", "{0} Prize Level has illegal characters found in its collection text box!"},
-            {"006", "{0} Prize Level's collection text box is out of range! ({1}-{2})"},
+            {"004", "Prize Level {0} currently has a higher collection then Game Setup picks allows. ({1})"},
+            {"005", "Prize Level {0} has illegal characters found in its collection text box!"},
+            {"006", "Prize Level {0}'s collection text box is out of range! ({1}-{2})"},
+            {"007", "Number of near win prizes is more then the amount of Prize Levels."},
+            {"008", "Prize Level {0}'s collection text box cannot be nothing."},
             {"420", "{0} is blazing it. #YOLO"}
 
         };
@@ -44,6 +46,7 @@ namespace Collection_Game_Tool.GameSetup
             {"001","{0} has no prize levels."},
             {"002","{0} is empty."},
             {"003","{0} is identical to {1}."},
+            {"004", "Prize Level {0} and Prize Level {1} are the same."},
             {"420", "{0} may be blazing it. #YOLO?"}
 
         };

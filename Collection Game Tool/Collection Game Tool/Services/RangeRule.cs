@@ -56,6 +56,10 @@ namespace Collection_Game_Tool.Services
             {
                 return new ValidationResult(false, "Please enter a number in the given range.");
             }
+            else if (value.Equals(""))
+            {
+                return new ValidationResult(false, "Cannot be nothing");
+            }
             else
             {
                 return new ValidationResult(true, null);

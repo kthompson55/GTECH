@@ -22,7 +22,8 @@ namespace Collection_Game_Tool.GameSetup
     /// </summary>
     public partial class GameSetupUC : UserControl, Teller, Listener
     {
-        public int pickCheck; 
+        public int pickCheck;
+        private String gsucID = null;
 
         public GameSetupModel gsObject;
         List<Listener> listenerList = new List<Listener>();
@@ -91,6 +92,15 @@ namespace Collection_Game_Tool.GameSetup
             {
                 Slider slider = sender as Slider;
                 gsObject.nearWins = Convert.ToInt16(slider.Value);
+
+                if (gsObject.nearWins > PrizeLevels.PrizeLevels.numPrizeLevels)
+                {
+                    gsucID = ErrorService.Instance.reportError("007", new List<string>{}, gsucID);
+                }
+                else if(gsObject.nearWins<=PrizeLevels.PrizeLevels.numPrizeLevels)
+                {
+                    ErrorService.Instance.resolveError("007", new List<string> { }, gsucID);
+                }
             }
         }
 

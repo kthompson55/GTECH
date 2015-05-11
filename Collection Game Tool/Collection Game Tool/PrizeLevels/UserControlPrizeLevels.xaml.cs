@@ -131,7 +131,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     int index=-1;
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
-                        ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
+                        ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));
                         ucplList[i].OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
                         if (ucplList[i].plObject.numCollections>collectionToShout)
@@ -187,7 +187,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     for (int i = 0; i < Prizes.Children.Count; i++)
                     {
                         UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
-                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
+                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));
                         ucpl.OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucpl.plObject.prizeLevel = (i + 1);
 

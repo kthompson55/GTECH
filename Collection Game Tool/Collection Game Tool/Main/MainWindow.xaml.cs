@@ -70,6 +70,7 @@ namespace Collection_Game_Tool.Main
 
             Screen screen = System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(this).Handle);
             this.MaxHeight = screen.WorkingArea.Height;
+            this.Height = this.MaxHeight - 50;
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)

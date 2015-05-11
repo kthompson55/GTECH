@@ -11,7 +11,7 @@
                 BorderThickness="2,2,0,2"
                 Height="45"
                 VerticalAlignment="Top">
-            <Grid x:Name="divisionNumberBox" Background="#848484" Width="45" Height="45" >
+            <Grid x:Name="divisionNumberBox" Background="#ADADAD" Width="45" Height="45" >
                 <Label x:Name="divisionNumberLabel" 
                        Content="{Binding Path=DivisionNumber, Mode=TwoWay, FallbackValue=0}" 
                        VerticalAlignment="Center" 
@@ -27,7 +27,7 @@
             
             <StackPanel x:Name="divisionPanel"
                         Orientation="Horizontal"
-                        Background="#848484"
+                        Background="#ADADAD"
                         MaxWidth="540"
                         MaxHeight="90">
                 

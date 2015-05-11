@@ -38,12 +38,22 @@ namespace Collection_Game_Tool.GameSetup
             WarningTextBlock.DataContext = ErrorService.Instance;
         }
 
+        public void loadExistingData(GameSetupModel savedSetup)
+        {
+            TotalPicksSlider.Value = savedSetup.totalPicks;
+            NearWinCheckbox.IsChecked = savedSetup.isNearWin;
+            NumNearWinsSlider.Value = savedSetup.nearWins;
+            MaxPermutationsTextBox.Text = savedSetup.maxPermutations.ToString();
+            gsObject = savedSetup;
+        }
+
         //When Create is clicked, validates data and creates a text file
         public void createButton_Click(object sender, RoutedEventArgs e)
         {
             //validate data
             //open save dialog
             openSaveWindow();
+            MaxPermutationsTextBox.Focus();
         }
 
         private void openSaveWindow()

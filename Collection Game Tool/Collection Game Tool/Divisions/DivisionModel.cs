@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Collection_Game_Tool.PrizeLevels;
+using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.Divisions
 {
@@ -14,37 +15,19 @@ namespace Collection_Game_Tool.Divisions
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<PrizeLevel> selectedPrizes { get; set; }
+        public List<PrizeLevel> selectedPrizes = new List<PrizeLevel>();
+        public List<LevelBox> levelBoxes = new List<LevelBox>();
+        public const int MAX_PRIZE_BOXES = 12;
+
         private int _divisionNumber;
         private int _totalPlayerPicks;
         private double _totalPrizeValue;
-
-        private int _id;
-        public int id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
 
         public DivisionModel()
         {
             DivisionNumber = 0;
             TotalPlayerPicks = 0;
             TotalPrizeValue = 0.00;
-            selectedPrizes = new List<PrizeLevel>();
-        }
-
-        public DivisionModel(int playerPicks, double totalValue, List<PrizeLevel> levels)
-        {
-            TotalPlayerPicks = playerPicks;
-            TotalPrizeValue = totalValue;
-            selectedPrizes = levels;
         }
 
         public void addPrizeLevel(PrizeLevel prizeLevelToAdd)

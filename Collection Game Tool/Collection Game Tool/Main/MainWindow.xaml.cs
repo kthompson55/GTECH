@@ -17,6 +17,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace Collection_Game_Tool.Main
 {
@@ -28,9 +31,18 @@ namespace Collection_Game_Tool.Main
         private UserControlPrizeLevels pl;
         private GameSetupUC gs;
         private DivisionPanelUC divUC;
+        private ProjectData savedProject;
+        private string projectFileName;
+        private bool isProjectSaved;
+        private const string DEFAULT_EXT = ".cggproj";
+
         public Window1()
         {
             InitializeComponent();
+
+            projectFileName = null;
+            isProjectSaved = false;
+            savedProject = new ProjectData();
 
             //Programmaticaly add UserControls to mainwindow.
             //Did this because couldn't find a way to access the usercontrol from within the xaml.
@@ -64,16 +76,19 @@ namespace Collection_Game_Tool.Main
         {
             this.MaxWidth = this.Width;
             this.MinWidth = this.Width;
+            toolMenu.Width = this.ActualWidth - 10;
         }
 
         private void Window_LayoutUpdated_1(object sender, EventArgs e)
         {
-            double controlsHeight = this.ActualHeight - windowHeader.ActualHeight - 35;
+            double controlsHeight = this.ActualHeight - toolMenu.ActualHeight - windowHeader.ActualHeight - 35;
             if (controlsHeight < 0) controlsHeight = 0;
             pl.Height = controlsHeight;
             gs.Height = controlsHeight;
             divUC.Height = controlsHeight;
-            divUC.divisionsScroll.MaxHeight = ((divUC.ActualHeight - 125) > 0) ? divUC.ActualHeight - 125 : 0;
+            divUC.divisionsScroll.MaxHeight = ((controlsHeight - 130) > 0) ? controlsHeight - 130 : 0;
+            toolMenu.Width = this.ActualWidth - 10;
+            divUC.determineScrollVisibility();
         }
 
         public void onListen(object pass)
@@ -91,6 +106,113 @@ namespace Collection_Game_Tool.Main
             {
                 gs.pickCheck = (int)pass;
                 pl.collectionCheck = (int)gs.TotalPicksSlider.Value;
+            }
+        }
+
+        private void SaveItem_Clicked(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("SaveItem_Clicked");
+            SaveProject();
+        }
+
+        private void SaveAsItem_Clicked(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("SaveAsItem_Clicked");
+            SaveProjectAs();
+        }
+
+        private void OpenItem_Clicked(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("OpenItem_Clicked");
+            OpenProject();
+        }
+
+        private void SaveProject()
+        {
+            if (isProjectSaved)
+            {
+                savedProject.savedGameSetup = gs.gsObject;
+                savedProject.savedPrizeLevels = pl.plsObject;
+                savedProject.savedDivisions = divUC.divisionsList;
+
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(projectFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                formatter.Serialize(stream, savedProject);
+                stream.Close();
+            }
+            else
+            {
+                SaveProjectAs();
+            }
+        }
+
+        private void SaveProjectAs()
+        {
+            Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.DefaultExt = DEFAULT_EXT;
+            dialog.Filter = "Collection Game Generator Project (" + DEFAULT_EXT + ")|*"+DEFAULT_EXT;
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                projectFileName = dialog.FileName;
+                isProjectSaved = true;
+                SaveProject();
+            }
+        }
+
+        private void OpenProject()
+        {
+            Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
+            openDialog.DefaultExt = DEFAULT_EXT;
+            openDialog.Filter = "Collection Game Generator Project (" + DEFAULT_EXT + ")|*"+DEFAULT_EXT;
+            Nullable<bool> result = openDialog.ShowDialog();
+            bool isCorrectFileType = System.Text.RegularExpressions.Regex.IsMatch(openDialog.FileName, DEFAULT_EXT);
+
+            if (result == true && isCorrectFileType)
+            {
+                isProjectSaved = true;
+                projectFileName = openDialog.FileName;
+
+                IFormatter format = new BinaryFormatter();
+                Stream stream = new FileStream(projectFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                savedProject = (ProjectData)format.Deserialize(stream);
+
+                pl.plsObject = savedProject.savedPrizeLevels;
+                pl.Prizes.Children.Clear();
+                for (int i = 0; i < pl.plsObject.getNumPrizeLevels(); i++)
+                {
+                    pl.loadExistingPrizeLevel(pl.plsObject.prizeLevels[i]);
+                }
+
+                gs.loadExistingData(savedProject.savedGameSetup);
+
+                divUC.divisionsList = savedProject.savedDivisions;
+                divUC.prizes = savedProject.savedPrizeLevels;
+                divUC.divisionsHolderPanel.Children.Clear();
+
+                for (int i = 0; i < divUC.divisionsList.getSize(); i++)
+                {
+                    divUC.loadInDivision(i + 1, divUC.divisionsList.divisions[i]);
+                }
+
+            }
+            else if (result == true && !isCorrectFileType)
+            {
+                System.Windows.MessageBox.Show("The file must be of type .cggproj");
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result = System.Windows.MessageBox.Show("Would you like to save the project's data before exiting?", "Exiting Application", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                SaveProject();
+            }
+            else if (result == MessageBoxResult.Cancel)
+            {
+                e.Cancel = true;
             }
         }
     }

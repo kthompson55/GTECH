@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Collection_Game_Tool.PrizeLevels
 {
+    [Serializable]
     public class PrizeLevels
     {
-        private List<PrizeLevel> prizeLevels = new List<PrizeLevel>();
+        public List<PrizeLevel> prizeLevels = new List<PrizeLevel>();
 
         public PrizeLevel getPrizeLevel(int index)
         {

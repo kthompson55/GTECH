@@ -5,12 +5,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Collection_Game_Tool.Services;
+using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.GameSetup
 {
-    public class GameSetupModel : INotifyPropertyChanged, Teller
+    [Serializable]
+    public class GameSetupModel : INotifyPropertyChanged, Teller//, ISerializable
     {
+        [field: NonSerializedAttribute()]
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [field: NonSerializedAttribute()]
         List<Listener> audience = new List<Listener>();
+
+        public GameSetupModel() { }
+
+        //public GameSetupModel(SerializationInfo info, StreamingContext context)
+        //{
+        //    totalPicks = (short)info.GetInt16("TotalPicks");
+        //    isNearWin = info.GetBoolean("IsNearWin");
+        //    nearWins = (short)info.GetInt16("NearWins");
+        //    maxPermutations = info.GetUInt32("MaxPermutations");
+        //    canCreate = info.GetBoolean("CanCreate");
+        //}
+
+        //public void GetObjectData(SerializationInfo info, StreamingContext context)
+        //{
+        //    info.AddValue("TotalPicks", totalPicks);
+        //    info.AddValue("IsNearWin", isNearWin);
+        //    info.AddValue("NearWins", nearWins);
+        //    info.AddValue("MaxPermutations", maxPermutations);
+        //    info.AddValue("CanCreate", canCreate);
+        //}
 
         private short tp;
         public short totalPicks
@@ -77,8 +103,6 @@ namespace Collection_Game_Tool.GameSetup
                     PropertyChanged(this, new PropertyChangedEventArgs("canCreate"));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void toggleNearWin()
         {

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Collection_Game_Tool.Divisions
 {
+    [Serializable]
     public class DivisionsModel
     {
-        private List<DivisionModel> divisions = new List<DivisionModel>();
+        public List<DivisionModel> divisions = new List<DivisionModel>();
 
         public int getNumberOfDivisions()
         {

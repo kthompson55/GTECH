@@ -129,6 +129,8 @@ namespace Collection_Game_Tool.PrizeLevels
 
                     int collectionToShout = 0;
                     int index=-1;
+                    bool sameFound = false;
+                    PrizeLevelConverter plc = new PrizeLevelConverter();
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));
@@ -140,11 +142,30 @@ namespace Collection_Game_Tool.PrizeLevels
                             index=i;
                         }
                         Prizes.Children.Add(ucplList[i]);
+
+                        //This searches for prize levels that are the same
+                        if (i != (ucplList.Count - 1))
+                        {
+                            for (int j = i + 1; j < ucplList.Count; j++)
+                            {
+                                if (((ucplList[i].plObject.isInstantWin && ucplList[j].plObject.isInstantWin) || (!ucplList[i].plObject.isInstantWin && !ucplList[j].plObject.isInstantWin)) &&
+                                    (ucplList[i].plObject.numCollections == ucplList[j].plObject.numCollections) &&
+                                    (ucplList[i].plObject.prizeValue == ucplList[j].plObject.prizeValue))
+                                {
+                                    plsID = ErrorService.Instance.reportWarning("004", new List<string>{
+                                        (string)plc.Convert(ucplList[i].plObject.prizeLevel, typeof(string), null, new System.Globalization.CultureInfo("en-us")),
+                                        (string)plc.Convert(ucplList[j].plObject.prizeLevel, typeof(string), null, new System.Globalization.CultureInfo("en-us"))
+                                    }, plsID);
+                                    sameFound = true;
+                                }
+                            }
+                        }
                     }
+                    if (!sameFound)
+                        ErrorService.Instance.resolveWarning("004", null, plsID);
                     //Shouts Collection Num to check against Prize Level Picks
                     shout(collectionToShout);
 
-                    PrizeLevelConverter plc = new PrizeLevelConverter();
                     if (collectionCheck < collectionToShout)
                     {
                         plsID=ErrorService.Instance.reportError("004", new List<string>

@@ -159,11 +159,19 @@ namespace Collection_Game_Tool.PrizeLevels
                         "20"
                     }, ucplID);
                 }
+                else if(vr.Equals(new ValidationResult(false, "Cannot be nothing")))
+                {
+                    ucplID = ErrorService.Instance.reportError("008", new List<string>{
+                        (string)plc.Convert(plObject.prizeLevel, typeof(string),null, new System.Globalization.CultureInfo("en-us"))
+                    },
+                    ucplID);
+                }
             }
             else
             {
                 ErrorService.Instance.resolveError("005", null, ucplID);
                 ErrorService.Instance.resolveError("006", null, ucplID);
+                ErrorService.Instance.resolveError("008", null, ucplID);
             }
         }
     }

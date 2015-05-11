@@ -77,7 +77,7 @@
     <Compile Include="Main\ProjectData.cs" />
     <Compile Include="PrizeLevels\PrizeLevel.cs" />
     <Compile Include="Services\Error.cs" />
-    <Compile Include="Services\PrizeLevels.cs" />
+    <Compile Include="PrizeLevels\PrizeLevels.cs" />
     <Compile Include="PrizeLevels\UserControlPrizeLevel.xaml.cs">
       <DependentUpon>UserControlPrizeLevel.xaml</DependentUpon>
     </Compile>

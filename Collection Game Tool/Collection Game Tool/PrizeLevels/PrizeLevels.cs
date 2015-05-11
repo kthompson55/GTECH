@@ -9,6 +9,7 @@ namespace Collection_Game_Tool.PrizeLevels
     [Serializable]
     public class PrizeLevels
     {
+        static public int numPrizeLevels;
         public List<PrizeLevel> prizeLevels = new List<PrizeLevel>();
 
         public PrizeLevel getPrizeLevel(int index)
@@ -22,18 +23,24 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             if(obj!=null)
                 prizeLevels.Add(obj);
+
+            numPrizeLevels = prizeLevels.Count;
         }
 
         public void removePrizeLevel(int index)
         {
             if (!(index >= prizeLevels.Count || index < 0))
                 prizeLevels.RemoveAt(index);
+
+            numPrizeLevels = prizeLevels.Count;
         }
 
         public void addPrizeLevelAt(PrizeLevel obj, int index)
         {
             if (!(index >= prizeLevels.Count || index < 0) && obj!=null)
                 prizeLevels.Insert(index, obj);
+
+            numPrizeLevels = prizeLevels.Count;
         }
 
         public int getNumPrizeLevels()

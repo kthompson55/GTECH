@@ -89,7 +89,10 @@ namespace Collection_Game_Tool.Main
             divUC.Height = controlsHeight;
             divUC.divisionsScroll.MaxHeight = ((controlsHeight - 130) > 0) ? controlsHeight - 130 : 0;
             toolMenu.Width = this.ActualWidth - 10;
-            divUC.determineScrollVisibility();
+
+            Console.WriteLine("PrizeLevels: " + pl.prizeLevelScroll.ActualHeight);
+            Console.WriteLine("Game Setup: " + gs.gameSetupScroll.ActualHeight);
+            Console.WriteLine("Divisions: " + divUC.divisionsScroll.ActualHeight);
         }
 
         public void onListen(object pass)

@@ -37,6 +37,8 @@ namespace Collection_Game_Tool.GameSetup
             CreateButton.DataContext = gsObject;
             ErrorTextBlock.DataContext = ErrorService.Instance;
             WarningTextBlock.DataContext = ErrorService.Instance;
+            errorPanelScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            //gameSetupScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
         }
 
         public void loadExistingData(GameSetupModel savedSetup)

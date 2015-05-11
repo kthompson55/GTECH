@@ -56,6 +56,7 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl2.CloseButton.Opacity = 0.0f;
 
             this.Loaded += new RoutedEventHandler(UserControlPrizeLevels_Loaded);
+            prizeLevelScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
         }
 
         private void UserControlPrizeLevels_Loaded(object sender, RoutedEventArgs e)
@@ -96,6 +97,8 @@ namespace Collection_Game_Tool.PrizeLevels
                 AddButton.IsEnabled = false;
                 AddButton.Opacity = 0.3;
             }
+
+            prizeLevelScroll.ScrollToBottom();
             //Shouts the PrizeLevels object so that they can be analyzed in Divisions
             shout(plsObject);
         }

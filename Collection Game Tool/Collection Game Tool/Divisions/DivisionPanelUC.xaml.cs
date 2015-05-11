@@ -34,7 +34,7 @@ namespace Collection_Game_Tool.Divisions
             InitializeComponent();
             divisionsList = new DivisionsModel();
             marginAmount = 10;
-            determineScrollVisibility();
+            divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             this.Loaded += new RoutedEventHandler(DivisionPanelUC_Loaded);
         }
 
@@ -114,22 +114,10 @@ namespace Collection_Game_Tool.Divisions
             divisionsScroll.ScrollToBottom();
         }
 
-        private void divisionHolder_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            determineScrollVisibility();
-        }
-
-        public void determineScrollVisibility()
-        {
-            if (divisionsHolderPanel.ActualHeight >= divisionsScroll.MaxHeight)
-            {
-                divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            }
-            else
-            {
-                divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
-            }
-        }
+        //private void divisionHolder_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    determineScrollVisibility();
+        //}
 
         public void validateDivision(DivisionUC divToCompare)
         {

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
-    <Grid Width="525"> <!--465">-->
+    <Grid Width="480"> <!--465">-->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
@@ -52,7 +52,6 @@
                       MaxHeight="790">
             <Grid 
                 Name="Prizes"
-                Grid.Row="2"
                 VerticalAlignment="Top"
                 Margin="0,10,0,0">
             </Grid>

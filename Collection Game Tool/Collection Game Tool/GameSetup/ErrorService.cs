@@ -37,6 +37,7 @@ namespace Collection_Game_Tool.GameSetup
             {"006", "Prize Level {0}'s collection text box is out of range! ({1}-{2})"},
             {"007", "Number of near win prizes is more then the amount of Prize Levels."},
             {"008", "Prize Level {0}'s collection text box cannot be nothing."},
+            {"009", "Division {0} is not a unique Division."},
             {"420", "{0} is blazing it. #YOLO"}
 
         };

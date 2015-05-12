@@ -56,6 +56,7 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl2.CloseButton.Opacity = 0.0f;
 
             this.Loaded += new RoutedEventHandler(UserControlPrizeLevels_Loaded);
+            prizeLevelScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
         }
 
         private void UserControlPrizeLevels_Loaded(object sender, RoutedEventArgs e)
@@ -96,6 +97,8 @@ namespace Collection_Game_Tool.PrizeLevels
                 AddButton.IsEnabled = false;
                 AddButton.Opacity = 0.3;
             }
+
+            prizeLevelScroll.ScrollToBottom();
             //Shouts the PrizeLevels object so that they can be analyzed in Divisions
             shout(plsObject);
         }
@@ -133,7 +136,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     PrizeLevelConverter plc = new PrizeLevelConverter();
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
-                        ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#858585"));
+                        ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));
                         ucplList[i].OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
                         if (ucplList[i].plObject.numCollections>collectionToShout)
@@ -206,7 +209,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     for (int i = 0; i < Prizes.Children.Count; i++)
                     {
                         UserControlPrizeLevel ucpl = (UserControlPrizeLevel)Prizes.Children[i];
-                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("LightGray"));
+                        ucpl.LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));
                         ucpl.OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucpl.plObject.prizeLevel = (i + 1);
 

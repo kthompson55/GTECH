@@ -23,7 +23,7 @@
                     </Trigger>
                     <DataTrigger Binding="{Binding Path=IsAvailable, Mode=OneWay}" Value="false">
                         <Setter Property="IsEnabled" Value="false"/>
-                        <Setter Property="Background" Value="#b9b9b9"/>
+                        <Setter Property="Background" Value="#848484"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=IsSelected, Mode=OneWay}" Value="true">
                         <Setter Property="Background" Value="#009dd9"/>

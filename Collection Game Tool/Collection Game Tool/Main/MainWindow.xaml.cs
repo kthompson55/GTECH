@@ -71,6 +71,7 @@ namespace Collection_Game_Tool.Main
 
             Screen screen = System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(this).Handle);
             this.MaxHeight = screen.WorkingArea.Height;
+            this.Height = this.MaxHeight - 50;
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -88,10 +89,10 @@ namespace Collection_Game_Tool.Main
             if (controlsHeight < 0) controlsHeight = 0;
             pl.Height = controlsHeight;
             gs.Height = controlsHeight;
+            gs.GameSetupMainPanel.Height = gs.Height;
             divUC.Height = controlsHeight;
             divUC.divisionsScroll.MaxHeight = ((controlsHeight - 130) > 0) ? controlsHeight - 130 : 0;
             toolMenu.Width = this.ActualWidth - 10;
-            divUC.determineScrollVisibility();
         }
 
         public void onListen(object pass)

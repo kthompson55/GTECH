@@ -15,6 +15,7 @@ namespace Collection_Game_Tool.Divisions
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public String errorID;
         public List<PrizeLevel> selectedPrizes = new List<PrizeLevel>();
         public List<LevelBox> levelBoxes = new List<LevelBox>();
         public const int MAX_PRIZE_BOXES = 12;
@@ -25,6 +26,7 @@ namespace Collection_Game_Tool.Divisions
 
         public DivisionModel()
         {
+            errorID = null;
             DivisionNumber = 0;
             TotalPlayerPicks = 0;
             TotalPrizeValue = 0.00;

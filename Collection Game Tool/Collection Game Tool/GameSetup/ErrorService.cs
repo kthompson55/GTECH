@@ -48,6 +48,8 @@ namespace Collection_Game_Tool.GameSetup
             {"002","{0} is empty."},
             {"003","{0} is identical to {1}."},
             {"004", "Prize Level {0} and Prize Level {1} are the same."},
+            {"005", "Division {0} has no selected prize levels."},
+            {"006", "There are no divisions in this project."},
             {"420", "{0} may be blazing it. #YOLO?"}
 
         };
@@ -75,11 +77,13 @@ namespace Collection_Game_Tool.GameSetup
             if(senderId == null) senderId = currentId++ + "";
             string theErrorMessage = String.Format(errorTemplates[errorCode], illegalObjects.ToArray());
             Error theError = new Error(senderId, errorCode);
-            if(!unresolvedErrors.ContainsKey(theError))
+            if (unresolvedErrors.ContainsKey(theError))
             {
-                unresolvedErrors.Add(theError, theErrorMessage);
-                updateErrorText();
+                unresolvedErrors.Remove(theError);
             }
+            unresolvedErrors.Add(theError, theErrorMessage);
+            updateErrorText();
+            
             return senderId;
         }
 
@@ -130,11 +134,12 @@ namespace Collection_Game_Tool.GameSetup
             if (senderId == null) senderId = currentId++ + "";
             string theWarningMessage = String.Format(warningTemplates[warningCode], illegalObjects.ToArray());
             Warning theWarning = new Warning(senderId, warningCode);
-            if (!unresolvedWarnings.ContainsKey(theWarning))
+            if (unresolvedWarnings.ContainsKey(theWarning))
             {
-                unresolvedWarnings.Add(theWarning, theWarningMessage);
-                updateWarningText();
+                unresolvedWarnings.Remove(theWarning);
             }
+            unresolvedWarnings.Add(theWarning, theWarningMessage);
+            updateWarningText();
             return senderId;
         }
 

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600"> <!--450-->
-    <Grid Background="#B9B9B9"
+    <Grid Background="#C9C9C9"
           Width="525">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -45,8 +45,7 @@
                       MaxHeight="790">
             <StackPanel x:Name="divisionsHolderPanel"
                         VerticalAlignment="Top"
-                        Orientation="Vertical"
-                        SizeChanged="divisionHolder_SizeChanged">
+                        Orientation="Vertical">
             </StackPanel>
         </ScrollViewer>
 

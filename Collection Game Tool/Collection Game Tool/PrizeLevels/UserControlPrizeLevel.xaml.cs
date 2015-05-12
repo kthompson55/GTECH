@@ -74,6 +74,7 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             TextBox textBox = sender as TextBox;
             textBox.SelectAll();
+            boxSelected();
         }
 
         private void TextBox_MouseCapture(object sender, MouseEventArgs e)

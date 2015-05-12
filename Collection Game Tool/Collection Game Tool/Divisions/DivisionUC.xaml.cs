@@ -96,7 +96,7 @@ namespace Collection_Game_Tool.Divisions
                 DivModel.TotalPrizeValue = DivModel.calculateDivisionValue();
             }
 
-            SectionContainer.validateDivision(DivModel);
+            SectionContainer.validateDivision();
         }
 
         public void updateDivision()

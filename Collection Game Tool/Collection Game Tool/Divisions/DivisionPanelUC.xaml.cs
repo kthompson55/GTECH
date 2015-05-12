@@ -60,7 +60,7 @@ namespace Collection_Game_Tool.Divisions
                 divisionsHolderPanel.Children.Add(divUC);
                 divisionsList.addDivision(divUC.DivModel);
                 this.addListener(divUC);
-                validateDivision(divUC.DivModel);
+                validateDivision();
             }
 
             if (divisionsList.getSize() >= MAX_DIVISIONS)
@@ -88,7 +88,7 @@ namespace Collection_Game_Tool.Divisions
 
                 divisionsHolderPanel.Children.Add(division);
                 this.addListener(division);
-                validateDivision(division.DivModel);
+                validateDivision();
             }
 
             if (divisionsList.getSize() >= MAX_DIVISIONS)
@@ -125,56 +125,57 @@ namespace Collection_Game_Tool.Divisions
             divisionsScroll.ScrollToBottom();
         }
 
-        public void validateDivision(DivisionModel divToCompare)
+        public void validateDivision()
         {
-            bool empty = true;
-            for (int i = 0; i < DivisionModel.MAX_PRIZE_BOXES && empty; i++)
+            for (int index = 0; index < divisionsList.getSize(); index++)
             {
-                if (divToCompare.levelBoxes[i].IsSelected)
+                DivisionModel divToCompare = ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel;
+                bool empty = true;
+                for (int i = 0; i < DivisionModel.MAX_PRIZE_BOXES && empty; i++)
                 {
-                    empty = false;
-                }
-            }
-
-            if (!empty)
-            {
-                ErrorService.Instance.resolveWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
-                bool valid = true;
-                for (int i = 0; i < divisionsHolderPanel.Children.Count && valid; i++)
-                {
-                    DivisionModel currentDiv = ((DivisionUC)divisionsHolderPanel.Children[i]).DivModel;
-                    if (divToCompare.DivisionNumber != currentDiv.DivisionNumber)
+                    if (divToCompare.levelBoxes[i].IsSelected)
                     {
-                        bool isUnique = false;
-                        for (int prizeIndex = 0; prizeIndex < prizes.getNumPrizeLevels() && !isUnique; prizeIndex++)
-                        {
-                            if (divToCompare.levelBoxes[prizeIndex].IsSelected != currentDiv.levelBoxes[prizeIndex].IsSelected)
-                            {
-                                isUnique = true;
-                            }
-                        }
-
-                        if (!isUnique)
-                        {
-                            valid = false;
-                        }
-                        else
-                        {
-                            ErrorService.Instance.resolveError("009", null, divToCompare.errorID);
-                        }
+                        empty = false;
                     }
                 }
 
-                if (!valid)
+                if (!empty)
                 {
-                    divToCompare.errorID = ErrorService.Instance.reportError("009", new List<string>{
-                    divToCompare.DivisionNumber.ToString()
-                }, divToCompare.errorID);
+                    ErrorService.Instance.resolveWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
+                    bool valid = true;
+                    for (int i = 0; i < divisionsHolderPanel.Children.Count && valid; i++)
+                    {
+                        DivisionModel currentDiv = ((DivisionUC)divisionsHolderPanel.Children[i]).DivModel;
+                        if (divToCompare.DivisionNumber != currentDiv.DivisionNumber)
+                        {
+                            bool isUnique = false;
+                            for (int prizeIndex = 0; prizeIndex < prizes.getNumPrizeLevels() && !isUnique; prizeIndex++)
+                            {
+                                if (divToCompare.levelBoxes[prizeIndex].IsSelected != currentDiv.levelBoxes[prizeIndex].IsSelected)
+                                {
+                                    isUnique = true;
+                                }
+                            }
+
+                            if (!isUnique)
+                            {
+                                divToCompare.errorID = ErrorService.Instance.reportError("009", new List<string>{
+                                divToCompare.DivisionNumber.ToString()
+                            }, divToCompare.errorID);
+
+                                valid = false;
+                            }
+                        }
+                    }
+
+                    if (valid)
+                        ErrorService.Instance.resolveError("009", null, divToCompare.errorID);
                 }
-            }
-            else
-            {
-                divToCompare.errorID = ErrorService.Instance.reportWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
+                else
+                {
+                    ErrorService.Instance.resolveError("009", null, divToCompare.errorID);
+                    divToCompare.errorID = ErrorService.Instance.reportWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
+                }
             }
         }
 

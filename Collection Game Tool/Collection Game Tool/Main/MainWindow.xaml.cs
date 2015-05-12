@@ -65,6 +65,7 @@ namespace Collection_Game_Tool.Main
             //Listeners for GameSetup so they can see player picks for validation
             gs.addListener(pl);
             gs.addListener(divUC);
+            gs.addListener(this);
             
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
 
@@ -77,6 +78,8 @@ namespace Collection_Game_Tool.Main
             this.MaxWidth = this.Width;
             this.MinWidth = this.Width;
             toolMenu.Width = this.ActualWidth - 10;
+
+            pl.setCollectionCheck((int)gs.TotalPicksSlider.Value);
         }
 
         private void Window_LayoutUpdated_1(object sender, EventArgs e)
@@ -104,8 +107,7 @@ namespace Collection_Game_Tool.Main
             }
             if (pass is int)
             {
-                gs.pickCheck = (int)pass;
-                pl.collectionCheck = (int)gs.TotalPicksSlider.Value;
+                pl.setCollectionCheck((int)gs.TotalPicksSlider.Value);
             }
         }
 

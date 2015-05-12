@@ -141,13 +141,13 @@
                     </Border>
 
                     <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
-                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="Red" CornerRadius="10">
+                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" >
                         <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
-                            <StackPanel>
-                                <Label Foreground="Red">Errors:</Label>
-                                <TextBlock x:Name="ErrorTextBlock" MaxWidth="400" Foreground="Red" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
-                                <Label Foreground="Yellow">Warnings:</Label>
-                                <TextBlock x:Name="WarningTextBlock" MaxWidth="400" Foreground="Yellow" TextWrapping="Wrap" TargetUpdated="WarningTextBlock_TargetUpdated" Text="{Binding Path=warningText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+                            <StackPanel Background="White">
+                                <Label FontWeight="Bold" FontSize="14" Background="#D60804" Foreground="White">Errors:</Label>
+                                <TextBlock x:Name="ErrorTextBlock" MaxWidth="400" Foreground="Black" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+                                <Label FontWeight="Bold" FontSize="14" Background="#FFEE00" Foreground="Black">Warnings:</Label>
+                                <TextBlock x:Name="WarningTextBlock" MaxWidth="400" Foreground="Black" TextWrapping="Wrap" TargetUpdated="WarningTextBlock_TargetUpdated" Text="{Binding Path=warningText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
                             </StackPanel>
                         </ScrollViewer>
 

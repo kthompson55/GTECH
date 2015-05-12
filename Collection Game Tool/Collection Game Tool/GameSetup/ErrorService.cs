@@ -77,11 +77,13 @@ namespace Collection_Game_Tool.GameSetup
             if(senderId == null) senderId = currentId++ + "";
             string theErrorMessage = String.Format(errorTemplates[errorCode], illegalObjects.ToArray());
             Error theError = new Error(senderId, errorCode);
-            if(!unresolvedErrors.ContainsKey(theError))
+            if (unresolvedErrors.ContainsKey(theError))
             {
-                unresolvedErrors.Add(theError, theErrorMessage);
-                updateErrorText();
+                unresolvedErrors.Remove(theError);
             }
+            unresolvedErrors.Add(theError, theErrorMessage);
+            updateErrorText();
+            
             return senderId;
         }
 
@@ -132,11 +134,12 @@ namespace Collection_Game_Tool.GameSetup
             if (senderId == null) senderId = currentId++ + "";
             string theWarningMessage = String.Format(warningTemplates[warningCode], illegalObjects.ToArray());
             Warning theWarning = new Warning(senderId, warningCode);
-            if (!unresolvedWarnings.ContainsKey(theWarning))
+            if (unresolvedWarnings.ContainsKey(theWarning))
             {
-                unresolvedWarnings.Add(theWarning, theWarningMessage);
-                updateWarningText();
+                unresolvedWarnings.Remove(theWarning);
             }
+            unresolvedWarnings.Add(theWarning, theWarningMessage);
+            updateWarningText();
             return senderId;
         }
 

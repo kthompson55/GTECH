@@ -20,7 +20,7 @@
             VerticalAlignment="Top"
             Name="LevelGrid">
             <Grid.Background>
-                <SolidColorBrush Color="LightGray"/> <!--#9e9d9d-->
+                <SolidColorBrush Color="#ADADAD"/> <!--#9e9d9d-->
             </Grid.Background>
             <Border BorderBrush="Black" BorderThickness="2" />
             <Border BorderBrush="#007baa" BorderThickness="3" Height="40" Width="40" HorizontalAlignment="Left" Margin="10,2,0,2">

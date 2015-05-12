@@ -44,6 +44,9 @@ C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Too
 C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.g.resources
 C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Tool\obj\Debug\Collection_Game_Tool.Properties.Resources.resources
 C:\Users\tlousignont\Documents\GTECHPro\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.csproj.GenerateResource.Cache
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe.config
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.pdb
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionPanelUC.baml
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionUC.baml
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\PrizeLevels\UserControlPrizeLevels.baml
@@ -58,9 +61,6 @@ C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool_MarkupCompile.cache
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool_MarkupCompile.lref
-C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe.config
-C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe
-C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.pdb
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\PrizeLevelBox.baml
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\GameSetupUC.baml
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Main\MainWindow.baml

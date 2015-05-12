@@ -7,145 +7,155 @@
              xmlns:Services="clr-namespace:Collection_Game_Tool.Services"
              mc:Ignorable="d" 
              Loaded="GameSetupUserControl_Loaded"
-             d:DesignHeight="600" d:DesignWidth="300">
-    <StackPanel x:Name="GameSetupMainPanel" Background="#B9B9B9">
-        <StackPanel.Resources>
-            <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
-            <Style x:Key="instructionStyle" TargetType="Label">
-                <Setter Property="Background" Value="#e87e02" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="FontWeight" Value="Bold" />
-            </Style>
-            <Style x:Key="titleStyle" TargetType="Label">
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="Background" Value="#007CAA" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontWeight" Value="Bold" />
-            </Style>
-            <Style x:Key="dataLabelStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="14" />
-            </Style>
-            <Style x:Key="externalBorderStyle" TargetType="Border">
-                <Setter Property="BorderBrush" Value="Black" />
-                <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="Margin" Value="0,0,0,10"/>
-            </Style>
-            
-        </StackPanel.Resources>
-        <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
-        <Label Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
+             d:DesignHeight="800" d:DesignWidth="300">
+    <Border BorderBrush="Black" BorderThickness="2,0,2,0">
+        <StackPanel x:Name="GameSetupMainPanel" 
+                    Background="#C9C9C9">
+            <StackPanel.Resources>
+                <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
+                <Style x:Key="instructionStyle" TargetType="Label">
+                    <Setter Property="Background" Value="#e87e02" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Style>
+                <Style x:Key="titleStyle" TargetType="Label">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Background" Value="#007CAA" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="18" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Style>
+                <Style x:Key="dataLabelStyle" TargetType="Label">
+                    <Setter Property="FontSize" Value="14" />
+                </Style>
+                <Style x:Key="externalBorderStyle" TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="Margin" Value="0,0,0,10"/>
+                </Style>
 
-        <StackPanel x:Name="GameSetupOptionsPanel" Margin="10,0">
-            <Border Style="{StaticResource externalBorderStyle}">
-                <StackPanel x:Name="GSPlayerPicksPanel" 
-                        Background="LightGray">
-                    <Label Style="{StaticResource titleStyle}">Player Picks</Label>
-                    <Label Style="{StaticResource instructionStyle}">The number of picks the player gets to attempt to win a prize</Label>
-                    <Separator/>
-                    <StackPanel Orientation="Horizontal" Background="LightGray">
-                        <Label Style="{StaticResource dataLabelStyle}">Total Number:</Label>
-                        <Label x:Name="NumPicksLabel" 
-                               Content="{Binding ElementName=TotalPicksSlider, Path=Value}" 
-                               ContentStringFormat="{}{0:#}" 
-                               FontSize="14" 
-                               FontWeight="Bold"
-                               HorizontalContentAlignment="Center" 
-                               VerticalAlignment="Center" 
-                               Background="White" 
-                               Width="30"
-                               Margin="0,0,30,0"></Label>
-                        <StackPanel Orientation="Horizontal" Margin="10,0">
-                            <Label FontSize="14">1</Label>
-                            <Slider x:Name="TotalPicksSlider" 
-                                    ValueChanged="TotalPicksSlider_ValueChanged" 
-                                    MinWidth="200" Maximum="20" Minimum="1" 
-                                    Background="LightGray" 
-                                    IsSelectionRangeEnabled="True" 
-                                    VerticalAlignment="Center" ></Slider>
-                            <Label FontSize="14">20</Label>
+            </StackPanel.Resources>
+            <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
+            <Label Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
+
+            <ScrollViewer x:Name="gameSetupScroll">
+                <!--VerticalScrollBarVisibility="Auto"-->
+                <StackPanel x:Name="GameSetupOptionsPanel" 
+                            Margin="10,0"
+                            Height="600">
+                    <Border Style="{StaticResource externalBorderStyle}">
+                        <StackPanel x:Name="GSPlayerPicksPanel" 
+                                Background="LightGray">
+                            <Label Style="{StaticResource titleStyle}">Player Picks</Label>
+                            <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+                                <Label Style="{StaticResource instructionStyle}">The number of picks the player gets to attempt to win a prize</Label>
+                            </Border>
+                            <StackPanel Orientation="Horizontal" Background="#ADADAD">
+                                <Label Style="{StaticResource dataLabelStyle}">Total Number:</Label>
+                                <Label x:Name="NumPicksLabel" 
+                                       Content="{Binding ElementName=TotalPicksSlider, Path=Value}" 
+                                       ContentStringFormat="{}{0:#}" 
+                                       FontSize="14" 
+                                       FontWeight="Bold"
+                                       HorizontalContentAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Background="White" 
+                                       Width="30"
+                                       Margin="0,0,30,0"></Label>
+                                <StackPanel Orientation="Horizontal" Margin="10,0">
+                                    <Label FontSize="14">1</Label>
+                                    <Slider x:Name="TotalPicksSlider" 
+                                            ValueChanged="TotalPicksSlider_ValueChanged" 
+                                            MinWidth="200" Maximum="20" Minimum="1"
+                                            IsSelectionRangeEnabled="True" 
+                                            VerticalAlignment="Center" ></Slider>
+                                    <Label FontSize="14">20</Label>
+                                </StackPanel>
+
+                            </StackPanel>
+
                         </StackPanel>
+                    </Border>
 
-                    </StackPanel>
+                    <Border Style="{StaticResource externalBorderStyle}">
+                        <StackPanel x:Name="GSNearWinPanel" Background="#ADADAD">
+                            <Label Style="{StaticResource titleStyle}">Near Win Experience</Label>
+                            <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+                                <Label Style="{StaticResource instructionStyle}">If checked, defines how many levels come within one collection of winning a prize</Label>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Style="{StaticResource dataLabelStyle}">Enforce Near Win Experience:</Label>
+                                    <CheckBox x:Name="NearWinCheckbox" Click="NearWinCheckbox_Click" VerticalAlignment="Center"></CheckBox>
+                                </StackPanel>
+                            </Border>
+                            <StackPanel IsEnabled="{Binding ElementName=NearWinCheckbox, Path=IsChecked}" Orientation="Horizontal" x:Name="GSNearWinOptional" Background="#ADADAD">
+                                <Label Style="{StaticResource dataLabelStyle}">Total Near Wins:</Label>
+                                <Label x:Name="NumNearWinsLabel" 
+                                       Content="{Binding ElementName=NumNearWinsSlider, Path=Value}" 
+                                       FontSize="14" 
+                                       FontWeight="Bold"
+                                       ContentStringFormat="{}{0:#}" 
+                                       HorizontalContentAlignment="Center" 
+                                       Background="White" 
+                                       Width="30"
+                                       Margin="0,0,30,0"></Label>
+                                <StackPanel Orientation="Horizontal" Margin="10,0">
+                                    <Label FontSize="14">2</Label>
+                                    <Slider x:Name="NumNearWinsSlider" 
+                                            ValueChanged="NumNearWinsSlider_ValueChanged" 
+                                            MinWidth="200" Maximum="12" Minimum="2" 
+                                            IsSelectionRangeEnabled="True" 
+                                            VerticalAlignment="Center" ></Slider>
+                                    <Label FontSize="14">12</Label>
+                                </StackPanel>
+                            </StackPanel>
 
-                </StackPanel>
-            </Border>
-
-            <Border Style="{StaticResource externalBorderStyle}">
-                <StackPanel x:Name="GSNearWinPanel" Background="LightGray">
-                    <Label Style="{StaticResource titleStyle}">Near Win Experience</Label>
-                    <Label Style="{StaticResource instructionStyle}">If checked, defines how many levels come within one collection of winning a prize</Label>
-                    <Separator/>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Style="{StaticResource dataLabelStyle}">Enforce Near Win Experience:</Label>
-                        <CheckBox x:Name="NearWinCheckbox" Click="NearWinCheckbox_Click" VerticalAlignment="Center"></CheckBox>
-                    </StackPanel>
-                    <Separator/>
-                    <StackPanel IsEnabled="{Binding ElementName=NearWinCheckbox, Path=IsChecked}" Orientation="Horizontal" x:Name="GSNearWinOptional" Background="LightGray">
-                        <Label Style="{StaticResource dataLabelStyle}">Total Near Wins:</Label>
-                        <Label x:Name="NumNearWinsLabel" 
-                               Content="{Binding ElementName=NumNearWinsSlider, Path=Value}" 
-                               FontSize="14" 
-                               FontWeight="Bold"
-                               ContentStringFormat="{}{0:#}" 
-                               HorizontalContentAlignment="Center" 
-                               Background="White" 
-                               Width="30"
-                               Margin="0,0,30,0"></Label>
-                        <StackPanel Orientation="Horizontal" Margin="10,0">
-                            <Label FontSize="14">2</Label>
-                            <Slider x:Name="NumNearWinsSlider" 
-                                    ValueChanged="NumNearWinsSlider_ValueChanged" 
-                                    MinWidth="200" Maximum="12" Minimum="2" 
-                                    Background="LightGray" 
-                                    IsSelectionRangeEnabled="True" 
-                                    VerticalAlignment="Center" ></Slider>
-                            <Label FontSize="14">12</Label>
                         </StackPanel>
-                    </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource externalBorderStyle}">
+
+                        <StackPanel x:Name="GSPermutationsPanel" Background="#ADADAD">
+                            <Label Style="{StaticResource titleStyle}">Game Win Permutations</Label>
+                            <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+                                <Label Style="{StaticResource instructionStyle}">The number of division combinations to calculate that lead to a win</Label>
+                            </Border>
+                            <DockPanel>
+                                <Label Style="{StaticResource dataLabelStyle}">Maximum Permutations:</Label>
+                                <TextBox x:Name="MaxPermutationsTextBox" 
+                                     GotFocus="MaxPermutationsTextBox_GotFocus" 
+                                     GotMouseCapture="MaxPermutationsTextBox_GotMouseCapture" 
+                                     TextChanged="MaxPermutationsTextBox_TextChanged"
+                                     PreviewTextInput="MaxPermutationsTextBox_PreviewTextInput"
+                                     FontSize="14"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Left"
+                                     Width="100"
+                                         >1</TextBox>
+
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
+                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="Red" CornerRadius="10">
+                        <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
+                            <StackPanel>
+                                <Label Foreground="Red">Errors:</Label>
+                                <TextBlock x:Name="ErrorTextBlock" MaxWidth="400" Foreground="Red" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+                                <Label Foreground="Yellow">Warnings:</Label>
+                                <TextBlock x:Name="WarningTextBlock" MaxWidth="400" Foreground="Yellow" TextWrapping="Wrap" TargetUpdated="WarningTextBlock_TargetUpdated" Text="{Binding Path=warningText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                    </Border>
 
                 </StackPanel>
-            </Border>
+            </ScrollViewer>
 
-            <Border Style="{StaticResource externalBorderStyle}">
-
-                <StackPanel x:Name="GSPermutationsPanel" Background="LightGray">
-                    <Label Style="{StaticResource titleStyle}">Game Win Permutations</Label>
-                    <Label Style="{StaticResource instructionStyle}">The number of division combinations to calculate that lead to a win</Label>
-                    <Separator/>
-                    <DockPanel>
-                        <Label Style="{StaticResource dataLabelStyle}">Maximum Permutations:</Label>
-                        <TextBox x:Name="MaxPermutationsTextBox" 
-                             GotFocus="MaxPermutationsTextBox_GotFocus" 
-                             GotMouseCapture="MaxPermutationsTextBox_GotMouseCapture" 
-                             TextChanged="MaxPermutationsTextBox_TextChanged"
-                             PreviewTextInput="MaxPermutationsTextBox_PreviewTextInput"
-                             FontSize="14"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="100"
-                                 >1</TextBox>
-
-                    </DockPanel>
-                </StackPanel>
-            </Border>
-
-            <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
-            <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="Red" CornerRadius="10">
-                <ScrollViewer MaxHeight="350">
-                    <StackPanel>
-                        <Label Foreground="Red">Errors:</Label>
-                        <TextBlock x:Name="ErrorTextBlock" MaxWidth="400" Foreground="Red" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
-                        <Label Foreground="Yellow">Warnings:</Label>
-                        <TextBlock x:Name="WarningTextBlock" MaxWidth="400" Foreground="Yellow" TextWrapping="Wrap" TargetUpdated="WarningTextBlock_TargetUpdated" Text="{Binding Path=warningText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
-                    </StackPanel>
-                </ScrollViewer>
-                
-            </Border>
-            
         </StackPanel>
-        
-    </StackPanel>
+    </Border>
 </UserControl>

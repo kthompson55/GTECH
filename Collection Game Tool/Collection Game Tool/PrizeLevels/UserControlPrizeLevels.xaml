@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
-    <Grid Width="465">
+    <Grid Width="480"> <!--465">-->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
@@ -13,7 +13,7 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <SolidColorBrush Color="#B9B9B9"/>
+            <SolidColorBrush Color="#C9C9C9"/>
         </Grid.Background>
         <Label Grid.Row="0"
                VerticalAlignment="Stretch"
@@ -47,12 +47,15 @@
                 needed to win, and can be set to be won instantly in the game.
             </Label>
         </Grid>
-        <Grid 
-            Name="Prizes"
-            Grid.Row="2"
-            VerticalAlignment="Top"
-            Margin="0,10,0,0">
-        </Grid>
+        <ScrollViewer x:Name="prizeLevelScroll" 
+                      Grid.Row="2"
+                      MaxHeight="790">
+            <Grid 
+                Name="Prizes"
+                VerticalAlignment="Top"
+                Margin="0,10,0,0">
+            </Grid>
+        </ScrollViewer>
         <Button
             Name="AddButton"
             Grid.Row="3"

@@ -61,6 +61,7 @@ namespace Collection_Game_Tool.PrizeLevels
         {
             //Shouts itself to PrizeLevels so PrizeLevels can close the individual PrizeLevel
             shout(this);
+            shout("Update");
         }
 
         private void boxChangedEventHandler(object sender, RoutedEventArgs args)
@@ -104,21 +105,25 @@ namespace Collection_Game_Tool.PrizeLevels
 
         private void textBoxValue_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            shout("Update");
             e.Handled = !TextBoxTextAllowed(e.Text);
         }
 
         private void textBoxCollection_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            shout("Update");
             e.Handled = !CollectionBoxTextAllowed(e.Text);
         }
 
         private bool TextBoxTextAllowed(string p)
         {
+            shout("Update");
             return Array.TrueForAll<Char>(p.ToCharArray(), delegate(Char c) { return Char.IsDigit(c) || Char.IsControl(c) || c.Equals('.'); });
         }
 
         private bool CollectionBoxTextAllowed(string p)
         {
+            shout("Update");
             return Array.TrueForAll<Char>(p.ToCharArray(), delegate(Char c) { return Char.IsDigit(c) || Char.IsControl(c); });
         }
 
@@ -173,6 +178,8 @@ namespace Collection_Game_Tool.PrizeLevels
                 ErrorService.Instance.resolveError("006", null, ucplID);
                 ErrorService.Instance.resolveError("008", null, ucplID);
             }
+
+            shout("Update");
         }
     }
 }

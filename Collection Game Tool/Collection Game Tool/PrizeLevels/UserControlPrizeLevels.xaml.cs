@@ -26,7 +26,7 @@ namespace Collection_Game_Tool.PrizeLevels
     {
         List<Listener> listenerList = new List<Listener>();
         public PrizeLevels plsObject;
-        public int collectionCheck;
+        private int collectionCheck;
         private const double MARGIN = 60;
         private string plsID;
 
@@ -166,8 +166,6 @@ namespace Collection_Game_Tool.PrizeLevels
                     }
                     if (!sameFound)
                         ErrorService.Instance.resolveWarning("004", null, plsID);
-                    //Shouts Collection Num to check against Prize Level Picks
-                    shout(collectionToShout);
 
                     if (collectionCheck < collectionToShout)
                     {
@@ -246,6 +244,12 @@ namespace Collection_Game_Tool.PrizeLevels
         public void addListener(Listener list)
         {
             listenerList.Add(list);
+        }
+
+        public void setCollectionCheck(int CC)
+        {
+            collectionCheck = CC;
+            ((UserControlPrizeLevel)Prizes.Children[0]).shout("Update");
         }
     }
 }

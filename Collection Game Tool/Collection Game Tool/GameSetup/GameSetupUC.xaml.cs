@@ -189,11 +189,25 @@ namespace Collection_Game_Tool.GameSetup
         private void ErrorTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             adjustBorderVisibility();
+            adjustCreateButtonEnabled();
         }
 
         private void WarningTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             adjustBorderVisibility();
+        }
+
+
+        private void adjustCreateButtonEnabled()
+        {
+            if (ErrorService.Instance.errorText == "" || ErrorService.Instance.errorText == null)
+            {
+                CreateButton.IsEnabled = true;
+            }
+            else
+            {
+                CreateButton.IsEnabled = false;
+            }
         }
 
         private void adjustBorderVisibility()

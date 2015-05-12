@@ -48,6 +48,8 @@ namespace Collection_Game_Tool.GameSetup
             {"002","{0} is empty."},
             {"003","{0} is identical to {1}."},
             {"004", "Prize Level {0} and Prize Level {1} are the same."},
+            {"005", "Division {0} has no selected prize levels."},
+            {"006", "There are no divisions in this project."},
             {"420", "{0} may be blazing it. #YOLO?"}
 
         };

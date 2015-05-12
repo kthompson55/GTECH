@@ -44,6 +44,7 @@ namespace Collection_Game_Tool.Divisions
         {
             Window parentWindow = Window.GetWindow(this.Parent);
             addListener((Window1)parentWindow);
+            addDivision();
         }
 
         public void addDivision()
@@ -59,12 +60,15 @@ namespace Collection_Game_Tool.Divisions
                 divisionsHolderPanel.Children.Add(divUC);
                 divisionsList.addDivision(divUC.DivModel);
                 this.addListener(divUC);
+                validateDivision(divUC.DivModel);
             }
 
             if (divisionsList.getSize() >= MAX_DIVISIONS)
             {
                 addDivisionButton.IsEnabled = false;
             }
+
+            isSectionEmpty();
         }
 
         public void loadInDivision(int number, DivisionModel div)
@@ -84,12 +88,14 @@ namespace Collection_Game_Tool.Divisions
 
                 divisionsHolderPanel.Children.Add(division);
                 this.addListener(division);
+                validateDivision(division.DivModel);
             }
 
             if (divisionsList.getSize() >= MAX_DIVISIONS)
             {
                 addDivisionButton.IsEnabled = false;
             }
+            isSectionEmpty();
         }
 
         public void removeDivision(int index)
@@ -100,6 +106,7 @@ namespace Collection_Game_Tool.Divisions
                 div.DivModel.DivisionNumber = (int)div.DivModel.DivisionNumber - 1;
             }
 
+            ErrorService.Instance.resolveWarning("005", new List<string> { ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel.DivisionNumber.ToString() }, dpucID);
             listenerList.Remove((DivisionUC)divisionsHolderPanel.Children[index]);
             divisionsList.removeDivision(index);
             divisionsHolderPanel.Children.RemoveAt(index);
@@ -108,6 +115,8 @@ namespace Collection_Game_Tool.Divisions
             {
                 addDivisionButton.IsEnabled = true;
             }
+
+            isSectionEmpty();
         }
 
         private void addDivisionButton_Click(object sender, RoutedEventArgs e)
@@ -116,44 +125,68 @@ namespace Collection_Game_Tool.Divisions
             divisionsScroll.ScrollToBottom();
         }
 
-        //private void divisionHolder_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    determineScrollVisibility();
-        //}
-
-        public void validateDivision(DivisionUC divToCompare)
+        public void validateDivision(DivisionModel divToCompare)
         {
-            bool valid = true;
-            for (int i = 0; i < divisionsHolderPanel.Children.Count && valid; i++)
+            bool empty = true;
+            for (int i = 0; i < DivisionModel.MAX_PRIZE_BOXES && empty; i++)
             {
-                DivisionUC div = (DivisionUC)divisionsHolderPanel.Children[i];
-                if (divToCompare.DivModel.DivisionNumber != div.DivModel.DivisionNumber)
+                if (divToCompare.levelBoxes[i].IsSelected)
                 {
-                    bool isUnique = false;
-                    for (int prizeIndex = 0; prizeIndex < prizes.getNumPrizeLevels() && !isUnique; prizeIndex++)
-                    {
-                        if (divToCompare.DivModel.levelBoxes[prizeIndex].IsSelected != div.DivModel.levelBoxes[prizeIndex].IsSelected)
-                        {
-                            isUnique = true;
-                        }
-                    }
-
-                    if (!isUnique)
-                    {
-                        valid = false;
-                    }
-                    else
-                    {
-                        ErrorService.Instance.resolveError("009", null, dpucID);
-                    }
+                    empty = false;
                 }
             }
 
-            if(!valid)
+            if (!empty)
             {
-                dpucID=ErrorService.Instance.reportError("009", new List<string>{
-                    divToCompare.DivModel.DivisionNumber.ToString()
+                ErrorService.Instance.resolveWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, dpucID);
+                bool valid = true;
+                for (int i = 0; i < divisionsHolderPanel.Children.Count && valid; i++)
+                {
+                    DivisionModel currentDiv = ((DivisionUC)divisionsHolderPanel.Children[i]).DivModel;
+                    if (divToCompare.DivisionNumber != currentDiv.DivisionNumber)
+                    {
+                        bool isUnique = false;
+                        for (int prizeIndex = 0; prizeIndex < prizes.getNumPrizeLevels() && !isUnique; prizeIndex++)
+                        {
+                            if (divToCompare.levelBoxes[prizeIndex].IsSelected != currentDiv.levelBoxes[prizeIndex].IsSelected)
+                            {
+                                isUnique = true;
+                            }
+                        }
+
+                        if (!isUnique)
+                        {
+                            valid = false;
+                        }
+                        else
+                        {
+                            ErrorService.Instance.resolveError("009", null, dpucID);
+                        }
+                    }
+                }
+
+                if (!valid)
+                {
+                    dpucID = ErrorService.Instance.reportError("009", new List<string>{
+                    divToCompare.DivisionNumber.ToString()
                 }, dpucID);
+                }
+            }
+            else
+            {
+                dpucID = ErrorService.Instance.reportWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, dpucID);
+            }
+        }
+
+        private void isSectionEmpty()
+        {
+            if (divisionsList.getSize() <= 0)
+            {
+                dpucID = ErrorService.Instance.reportWarning("006", new List<string>(), dpucID);
+            }
+            else
+            {
+                ErrorService.Instance.resolveWarning("006", null, dpucID);
             }
         }
 

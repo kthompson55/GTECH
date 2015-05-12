@@ -1,4 +1,5 @@
-﻿using Collection_Game_Tool.Main;
+﻿using Collection_Game_Tool.GameSetup;
+using Collection_Game_Tool.Main;
 using Collection_Game_Tool.Services;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace Collection_Game_Tool.Divisions
         private double marginAmount;
         public PrizeLevels.PrizeLevels prizes { get; set; }
         private const int MAX_DIVISIONS = 30;
+        private string dpucID;
 
         public DivisionPanelUC()
         {
@@ -140,16 +142,18 @@ namespace Collection_Game_Tool.Divisions
                     {
                         valid = false;
                     }
+                    else
+                    {
+                        ErrorService.Instance.resolveError("009", null, dpucID);
+                    }
                 }
             }
 
-            if (valid)
+            if(!valid)
             {
-                shout("valid");
-            }
-            else
-            {
-                shout("error");
+                dpucID=ErrorService.Instance.reportError("009", new List<string>{
+                    divToCompare.DivModel.DivisionNumber.ToString()
+                }, dpucID);
             }
         }
 

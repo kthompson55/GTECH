@@ -7,9 +7,10 @@
              xmlns:Services="clr-namespace:Collection_Game_Tool.Services"
              mc:Ignorable="d" 
              Loaded="GameSetupUserControl_Loaded"
-             d:DesignHeight="600" d:DesignWidth="300">
+             d:DesignHeight="800" d:DesignWidth="300">
     <Border BorderBrush="Black" BorderThickness="2,0,2,0">
-        <StackPanel x:Name="GameSetupMainPanel" Background="#C9C9C9">
+        <StackPanel x:Name="GameSetupMainPanel" 
+                    Background="#C9C9C9">
             <StackPanel.Resources>
                 <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
                 <Style x:Key="instructionStyle" TargetType="Label">
@@ -39,12 +40,11 @@
             <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
             <Label Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
 
-            <ScrollViewer x:Name="gameSetupScroll" 
-                          MaxHeight="600">
+            <ScrollViewer x:Name="gameSetupScroll">
                 <!--VerticalScrollBarVisibility="Auto"-->
                 <StackPanel x:Name="GameSetupOptionsPanel" 
                             Margin="10,0"
-                            MinHeight="599">
+                            Height="600">
                     <Border Style="{StaticResource externalBorderStyle}">
                         <StackPanel x:Name="GSPlayerPicksPanel" 
                                 Background="LightGray">

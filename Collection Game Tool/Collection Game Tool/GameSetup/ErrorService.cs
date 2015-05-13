@@ -38,6 +38,7 @@ namespace Collection_Game_Tool.GameSetup
             {"007", "Number of near win prizes is greater than the amount of Prize Levels."},
             {"008", "Prize Level {0}'s collection text box cannot be empty."},
             {"009", "Division {0} is not a unique Division."},
+            {"010", "The collections field in Division {0} needs to be less than or equal to the set player picks in the Game Setup"},
             {"420", "{0} is blazing it. #YOLO"}
 
         };

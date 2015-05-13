@@ -9,9 +9,14 @@
              Loaded="GameSetupUserControl_Loaded"
              d:DesignHeight="800" d:DesignWidth="300">
     <Border BorderBrush="Black" BorderThickness="2,0,2,0">
-        <StackPanel x:Name="GameSetupMainPanel" 
+        <Grid x:Name="GameSetupMainPanel" 
                     Background="#C9C9C9">
-            <StackPanel.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
                 <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
                 <Style x:Key="instructionStyle" TargetType="Label">
                     <Setter Property="Background" Value="#e87e02" />
@@ -36,15 +41,14 @@
                     <Setter Property="Margin" Value="0,0,0,10"/>
                 </Style>
 
-            </StackPanel.Resources>
-            <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
-            <Label Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
+            </Grid.Resources>
+            <Label Grid.Row="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#007CAA" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
+            <Label Grid.Row="1" Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
 
-            <ScrollViewer x:Name="gameSetupScroll">
+            <ScrollViewer Grid.Row="2" x:Name="gameSetupScroll" MaxHeight="800" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto">
                 <!--VerticalScrollBarVisibility="Auto"-->
                 <StackPanel x:Name="GameSetupOptionsPanel" 
-                            Margin="10,0"
-                            Height="600">
+                            Margin="10,0">
                     <Border Style="{StaticResource externalBorderStyle}">
                         <StackPanel x:Name="GSPlayerPicksPanel" 
                                 Background="LightGray">
@@ -156,6 +160,6 @@
                 </StackPanel>
             </ScrollViewer>
 
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

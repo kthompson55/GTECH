@@ -49,16 +49,11 @@
                                 <Setter Property="FontSize" Value="15"/>
                                 <Setter Property="Padding" Value="4" />
                             </Style>
-                            <Style x:Key="divisionValueStyle" TargetType="{x:Type Label}">
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="FontSize" Value="15"/>
-                                <Setter Property="Padding" Value="4" />
-                            </Style>
                         </UniformGrid.Resources>
                         <Label Style="{StaticResource divisionInfoStyle}" HorizontalAlignment="Right" Content="Collections:"/>
-                        <Label x:Name="totalPicksLabel" Style="{StaticResource divisionValueStyle}" Content="{Binding Path=TotalPlayerPicks, Mode=TwoWay, FallbackValue=0}"/>
+                        <Label x:Name="totalPicksLabel" Style="{StaticResource divisionInfoStyle}" Content="{Binding Path=TotalPlayerPicks, Mode=TwoWay, FallbackValue=0}"/>
                         <Label Style="{StaticResource divisionInfoStyle}" HorizontalAlignment="Right" Content="Total Value:"/>
-                        <Label x:Name="totalValueLabel" Style="{StaticResource divisionValueStyle}" Content="{Binding Path=TotalPrizeValue, Mode=TwoWay, FallbackValue=0}"/>
+                        <Label x:Name="totalValueLabel" Style="{StaticResource divisionInfoStyle}" Content="{Binding Path=TotalPrizeValue, Mode=TwoWay, FallbackValue=0}"/>
                     </UniformGrid>
 
                     <StackPanel x:Name="divisionButtons" Orientation="Horizontal" Height="31" Background="#e87e02" Width="201" >

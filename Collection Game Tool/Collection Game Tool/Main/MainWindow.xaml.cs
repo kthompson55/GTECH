@@ -61,6 +61,7 @@ namespace Collection_Game_Tool.Main
             
             //Listener stuff between divisions and Prize Levels
             pl.addListener(divUC);
+            gs.addListener(divUC);
 
             //Listeners for GameSetup so they can see player picks for validation
             gs.addListener(pl);

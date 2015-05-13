@@ -26,6 +26,7 @@ namespace Collection_Game_Tool.Divisions
     {
         List<Listener> listenerList = new List<Listener>();
         public DivisionsModel divisionsList;
+        private int allottedPlayerPicks;
         private double marginAmount;
         public PrizeLevels.PrizeLevels prizes { get; set; }
         private const int MAX_DIVISIONS = 30;
@@ -34,6 +35,7 @@ namespace Collection_Game_Tool.Divisions
         public DivisionPanelUC()
         {
             InitializeComponent();
+            allottedPlayerPicks = 1;
             divisionsList = new DivisionsModel();
             marginAmount = 10;
             divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
@@ -127,7 +129,9 @@ namespace Collection_Game_Tool.Divisions
 
         public void validateDivision()
         {
-            for (int index = 0; index < divisionsList.getSize(); index++)
+            checkDivisionsPicks();
+
+            for (int index = 0; index < divisionsHolderPanel.Children.Count; index++)
             {
                 DivisionModel divToCompare = ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel;
                 bool empty = true;
@@ -191,11 +195,32 @@ namespace Collection_Game_Tool.Divisions
             }
         }
 
+        private void checkDivisionsPicks()
+        {
+            for (int index = 0; index < divisionsHolderPanel.Children.Count; index++)
+            {
+                DivisionModel currentDivision = ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel;
+                if (currentDivision.TotalPlayerPicks <= allottedPlayerPicks)
+                {
+                    ErrorService.Instance.resolveError("010", null, currentDivision.errorID);
+                }
+                else
+                {
+                    currentDivision.errorID = ErrorService.Instance.reportError("010", new List<string> { currentDivision.DivisionNumber.ToString() }, currentDivision.errorID);                    
+                }
+            }
+        }
+
         public void onListen(object pass)
         {
             if (pass is PrizeLevels.PrizeLevels)
             {
                 prizes = (PrizeLevels.PrizeLevels)pass;
+            }
+            else if (pass is int)
+            {
+                allottedPlayerPicks = (int)pass;
+                checkDivisionsPicks();
             }
             shout(pass);
         }

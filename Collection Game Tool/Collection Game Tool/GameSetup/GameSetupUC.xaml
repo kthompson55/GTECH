@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Services="clr-namespace:Collection_Game_Tool.Services"
+             xmlns:local="clr-namespace:Collection_Game_Tool.GameSetup"
+
              mc:Ignorable="d" 
              Loaded="GameSetupUserControl_Loaded"
              d:DesignHeight="800" d:DesignWidth="300">
@@ -94,7 +96,7 @@
                                     <CheckBox x:Name="NearWinCheckbox" Click="NearWinCheckbox_Click" VerticalAlignment="Center"></CheckBox>
                                 </StackPanel>
                             </Border>
-                            <StackPanel IsEnabled="{Binding ElementName=NearWinCheckbox, Path=IsChecked}" Orientation="Horizontal" x:Name="GSNearWinOptional" Background="#ADADAD">
+                            <StackPanel IsEnabled="{Binding ElementName=NearWinCheckbox, Path=IsChecked}" Orientation="Horizontal" x:Name="GSNearWinOptional" Background="#ADADAD" >
                                 <Label Style="{StaticResource dataLabelStyle}">Total Near Wins:</Label>
                                 <Label x:Name="NumNearWinsLabel" 
                                        Content="{Binding ElementName=NumNearWinsSlider, Path=Value}" 
@@ -143,7 +145,17 @@
                         </StackPanel>
                     </Border>
 
-                    <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
+                    <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="0,30,0,0" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
+                    <StackPanel x:Name="GeneratingFileAnimation" Margin="10" Visibility="Hidden">
+                        <Label FontSize="20" HorizontalAlignment="Center">Generating File</Label>
+                        <Viewbox Width="50" Height="50"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center">
+                            <local:CircularProgressBar />
+                        </Viewbox>
+                        <Label x:Name="GeneratingCompleteMessage" FontSize="20" Margin="10" HorizontalAlignment="Center">File Generated!</Label>
+
+                    </StackPanel>
                     <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" >
                         <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
                             <StackPanel Background="White">

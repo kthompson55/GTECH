@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Collection_Game_Tool.Services
+namespace Collection_Game_Tool.Services 
 {
-    public class FileGenerationService
+    public class FileGenerationService : Teller
     {
+        private List<Listener> audiance = new List<Listener>();
         private int extraPermutationBuffer = 10000;
 
-        public FileGenerationService() {}
+        public FileGenerationService() { }
 
         public void buildGameData(
-            Divisions.DivisionsModel divisions, 
+            Divisions.DivisionsModel divisions,
             PrizeLevels.PrizeLevels prizeLevels,
             GameSetup.GameSetupModel gameInfo,
             string fileName)
@@ -42,6 +43,7 @@ namespace Collection_Game_Tool.Services
                 t.Join();
             }
             writeFile(fileName, divisionLevles);
+            shout("File Created");
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace Collection_Game_Tool.Services
             if (gameInfo.isNearWin)
             {
                 numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations / gameInfo.nearWins);
-               baseLossconditions.AddRange(getBaseNearWinLosspermutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
+                baseLossconditions.AddRange(getBaseNearWinLosspermutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
             }
             else
             {
@@ -153,13 +155,14 @@ namespace Collection_Game_Tool.Services
             int numberOfMaximumCombinations = prizeLevels.getNumPrizeLevels();
 
             List<int> prizeLevelsIndexes = new List<int>();
-            for(int i = 0; i < numberOfPrizeLevels; i++){
+            for (int i = 0; i < numberOfPrizeLevels; i++)
+            {
                 prizeLevelsIndexes.Add(i);
             }
             // Max possible Base
             for (int i = 1; i <= nearWinPrizeLevels; i++)
             {
-                for (int j= 0; j < numberOfMaximumCombinations; j++)
+                for (int j = 0; j < numberOfMaximumCombinations; j++)
                 {
                     Random rand = new Random();
                     int[] tempPrizeLevelCombinations = new int[i];
@@ -184,7 +187,7 @@ namespace Collection_Game_Tool.Services
                         numberOfPicksForPrizeLevelCombintation = 0;
                         tempPrizeLevelIndexes = new List<int>(prizeLevelsIndexes);
                     } while (!newBaseComboAdded);
-                }  
+                }
             }
             return prizeLevelCombinations;
         }
@@ -200,26 +203,18 @@ namespace Collection_Game_Tool.Services
                     foreach (int[] i in li)
                     {
                         StringBuilder sb = new StringBuilder();
-                        sb.Append(divisionIndicator + " ");
+                        sb.Append((divisionIndicator + 1) + " ");
 
                         for (int j = 0; j < i.Length; j++)
                         {
-                            if (j != 0)
+                            if (i[j] > 0)
                             {
-                                if (i[j] > 0)
-                                {
-                                    sb.Append(", " + i[j]);
-                                }
-                                else
-                                {
-                                    sb.Append("," + "W:" + (i[j] * -1));
-                                }
+                                sb.Append(", " + charFromInt(i[j]) + i[j]);
                             }
                             else
                             {
-                                sb.Append(i[j]);
+                                sb.Append("," + "W:" + charFromInt((i[j] * -1)) + (i[j] * -1));
                             }
-
                         }
                         lines.Add(sb.ToString());
                     }
@@ -257,7 +252,7 @@ namespace Collection_Game_Tool.Services
                 permuitationArray = findNextPermutation(permuitationArray);
                 ableToFindNextdivision = !(permuitationArray[0] == -1);
             }
-            
+
             List<int[]> maximumPermutations = fillBlankDivisionpermutationsWithNonWinningData(
                 divisionIncompleteWinpermutations,
                 nonWinningPicks,
@@ -378,9 +373,10 @@ namespace Collection_Game_Tool.Services
             List<int> extraPicks = new List<int>();
             foreach (int i in permutation)
             {
-                if (i - 1 != -1 && !usedIndexs.Contains((i-1)))
+                int j = Math.Abs(i);
+                if (j - 1 != -1 && !usedIndexs.Contains((j - 1)))
                 {
-                     usedIndexs.Add(i -1);
+                    usedIndexs.Add(j - 1);
                 }
             }
             int numberOfPrizeLevels = prizeLevels.getNumPrizeLevels();
@@ -445,7 +441,7 @@ namespace Collection_Game_Tool.Services
                     {
                         neededPicks.Add(indexinPrizeLevels);
                     }
-                }   
+                }
             }
             return neededPicks;
         }
@@ -466,7 +462,7 @@ namespace Collection_Game_Tool.Services
 
             if (i <= 0)
             {
-                int[] fail = {-1};
+                int[] fail = { -1 };
                 return fail;
             }
 
@@ -528,6 +524,25 @@ namespace Collection_Game_Tool.Services
                 permutation[i] = int.Parse(split[i]);
             }
             return permutation;
+        }
+
+        private char charFromInt(int value)
+        {
+            char character = (char)(value + 64);
+            return character;
+        }
+
+        public void shout(object pass)
+        {
+            foreach (Listener list in audiance)
+            {
+                list.onListen(pass);
+            }
+        }
+
+        public void addListener(Listener list)
+        {
+            audiance.Add(list);
         }
     }
 }

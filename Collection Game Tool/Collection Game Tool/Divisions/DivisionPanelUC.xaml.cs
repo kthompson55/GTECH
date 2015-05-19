@@ -108,7 +108,6 @@ namespace Collection_Game_Tool.Divisions
                 div.DivModel.DivisionNumber = (int)div.DivModel.DivisionNumber - 1;
             }
 
-            ErrorService.Instance.resolveWarning("005", new List<string> { ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel.DivisionNumber.ToString() }, ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel.errorID);
             listenerList.Remove((DivisionUC)divisionsHolderPanel.Children[index]);
             divisionsList.removeDivision(index);
             divisionsHolderPanel.Children.RemoveAt(index);

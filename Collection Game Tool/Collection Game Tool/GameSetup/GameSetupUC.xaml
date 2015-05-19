@@ -144,7 +144,7 @@
                     </Border>
 
                     <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="30" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
-                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" >
+                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" Margin="0,0,0,10">
                         <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
                             <StackPanel Background="White">
                                 <Label FontWeight="Bold" FontSize="14" Background="#D60804" Foreground="White">Errors:</Label>

@@ -30,29 +30,29 @@ namespace Collection_Game_Tool.GameSetup
 
         private Dictionary<string, string> errorTemplates = new Dictionary<string, string>
         {
-            {"001","{0} dun goofed. Fix it."},
-            {"002","{0} and {1} dun goofed. Fix it."},
-            {"004", "Prize Level {0} currently has a higher collection than Game Setup picks allows. ({1})"},
-            {"005", "Prize Level {0} has illegal characters found in its collection text box!"},
-            {"006", "Prize Level {0}'s collection text box is out of range! ({1}-{2})"},
-            {"007", "Number of near win prizes is greater than the amount of Prize Levels."},
-            {"008", "Prize Level {0}'s collection text box cannot be empty."},
-            {"009", "Division {0} is not a unique Division."},
-            {"010", "The collections field in Division {0} needs to be less than or equal to the set player picks in the Game Setup"},
-            {"011", "The collection in Division {0} is invalid, the possible collection must be higher so that the division cannot win other prizes."},
-            {"420", "{0} is blazing it. #YOLO"}
+            {"001","{0} dun goofed. Fix it.\n"},
+            {"002","{0} and {1} dun goofed. Fix it.\n"},
+            {"004", "Prize Level {0} currently has a higher collection than Game Setup picks allows. ({1})\n"},
+            {"005", "Prize Level {0} has illegal characters found in its collection text box!\n"},
+            {"006", "Prize Level {0}'s collection text box is out of range! ({1}-{2})\n"},
+            {"007", "Number of near win prizes is greater than the amount of Prize Levels.\n"},
+            {"008", "Prize Level {0}'s collection text box cannot be empty.\n"},
+            {"009", "Division {0} is not a unique Division.\n"},
+            {"010", "The collections field in Division {0} needs to be less than or equal to the set player picks in the Game Setup.\n"},
+            {"011", "The collection in Division {0} is invalid, the possible collection must be higher so that the division cannot win other prizes.\n"},
+            {"420", "{0} is blazing it. #YOLO\n"}
 
         };
 
         private Dictionary<string, string> warningTemplates = new Dictionary<string, string>
         {
-            {"001","{0} has no prize levels."},
-            {"002","{0} is empty."},
-            {"003","{0} is identical to {1}."},
-            {"004", "Prize Level {0} and Prize Level {1} are the same."},
-            {"005", "Division {0} has no selected prize levels."},
-            {"006", "There are no divisions in this project."},
-            {"420", "{0} may be blazing it. #YOLO?"}
+            {"001","{0} has no prize levels.\n"},
+            {"002","{0} is empty.\n"},
+            {"003","{0} is identical to {1}.\n"},
+            {"004", "Prize Level {0} and Prize Level {1} are the same.\n"},
+            {"005", "Division {0} has no selected prize levels.\n"},
+            {"006", "There are no divisions in this project.\n"},
+            {"420", "{0} may be blazing it. #YOLO?\n"}
 
         };
 

@@ -90,7 +90,7 @@ namespace Collection_Game_Tool.Main
             if (controlsHeight < 0) controlsHeight = 0;
             pl.Height = controlsHeight;
             gs.Height = controlsHeight;
-            gs.GameSetupMainPanel.Height = gs.Height;
+            gs.GameSetupMainPanel.Height = gs.ActualHeight;
             divUC.Height = controlsHeight;
             divUC.divisionsScroll.MaxHeight = ((controlsHeight - 130) > 0) ? controlsHeight - 130 : 0;
             toolMenu.Width = this.ActualWidth - 10;

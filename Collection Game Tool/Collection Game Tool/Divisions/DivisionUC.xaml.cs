@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Collection_Game_Tool.PrizeLevels;
 using Collection_Game_Tool.Services;
+using Collection_Game_Tool.GameSetup;
 
 namespace Collection_Game_Tool.Divisions
 {
@@ -71,12 +72,18 @@ namespace Collection_Game_Tool.Divisions
 
             DivModel.TotalPlayerPicks = DivModel.calculateTotalCollections();
             DivModel.TotalPrizeValue = DivModel.calculateDivisionValue();
+            SectionContainer.validateDivision();
         }
 
         private void deleteDivisionButton_Click(object sender, RoutedEventArgs e)
         {
+            ErrorService.Instance.resolveWarning("005", null, DivModel.errorID);
+            ErrorService.Instance.resolveError("009", null, DivModel.errorID);
+            ErrorService.Instance.resolveError("010", null, DivModel.errorID);
+            ErrorService.Instance.resolveError("011", null, DivModel.errorID);
             int index = getIndex();
             SectionContainer.removeDivision(index);
+            SectionContainer.validateDivision();
         }
 
         public void updateInfo()

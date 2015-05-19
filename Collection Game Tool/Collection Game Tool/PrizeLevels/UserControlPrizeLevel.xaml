@@ -115,7 +115,7 @@
                     Name="InstantWinCheckBox"
                     Checked="boxChangedEventHandler"
                     Unchecked="boxChangedEventHandler"
-                    Content="{Binding Path=isInstantWin, Mode=TwoWay}"
+                    IsChecked="{Binding Path=isInstantWin, Mode=TwoWay}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Margin="0,0,0,0"

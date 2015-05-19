@@ -180,6 +180,27 @@ namespace Collection_Game_Tool.Divisions
                     ErrorService.Instance.resolveError("009", null, divToCompare.errorID);
                     divToCompare.errorID = ErrorService.Instance.reportWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
                 }
+
+                int maxCollections = 0;
+                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
+                {
+                    if (prizes.getPrizeLevel(i).isInstantWin)
+                    {
+                        maxCollections += 1;
+                    }
+                    else
+                    {
+                        maxCollections += prizes.getPrizeLevel(i).numCollections;
+                    }
+                }
+                maxCollections += divToCompare.getPrizeLevelsAtDivision().Count - prizes.getNumPrizeLevels();
+
+                if (GameSetupUC.pickCheck > maxCollections)
+                {
+                    divToCompare.errorID = ErrorService.Instance.reportError("011", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
+                }
+                else
+                    ErrorService.Instance.resolveError("011", null, divToCompare.errorID);
             }
         }
 
@@ -216,6 +237,7 @@ namespace Collection_Game_Tool.Divisions
             if (pass is PrizeLevels.PrizeLevels)
             {
                 prizes = (PrizeLevels.PrizeLevels)pass;
+                validateDivision();
             }
             else if (pass is int)
             {

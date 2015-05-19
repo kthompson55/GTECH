@@ -39,6 +39,7 @@ namespace Collection_Game_Tool.GameSetup
             {"008", "Prize Level {0}'s collection text box cannot be empty."},
             {"009", "Division {0} is not a unique Division."},
             {"010", "The collections field in Division {0} needs to be less than or equal to the set player picks in the Game Setup"},
+            {"011", "The collection in Division {0} is invalid, the possible collection must be higher so that the division cannot win other prizes."},
             {"420", "{0} is blazing it. #YOLO"}
 
         };

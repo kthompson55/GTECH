@@ -134,6 +134,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     int index=-1;
                     bool sameFound = false;
                     PrizeLevelConverter plc = new PrizeLevelConverter();
+                    
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));

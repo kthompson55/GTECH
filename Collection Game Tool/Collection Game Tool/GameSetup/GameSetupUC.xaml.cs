@@ -49,6 +49,10 @@ namespace Collection_Game_Tool.GameSetup
             NumNearWinsSlider.Value = savedSetup.nearWins;
             MaxPermutationsTextBox.Text = savedSetup.maxPermutations.ToString();
             gsObject = savedSetup;
+            gsObject.initializeListener();
+            Window parentWindow = Window.GetWindow(this.Parent);
+            gsObject.addListener((Window1)parentWindow);
+            pickCheck = gsObject.totalPicks;
         }
 
         //When Create is clicked, validates data and creates a text file
@@ -82,9 +86,10 @@ namespace Collection_Game_Tool.GameSetup
         private void showGeneratingAnimation()
         {
             GeneratingFileAnimation.Visibility = Visibility.Visible;
+            hideGenerationCompleteMessage();
         }
 
-        private void hideGeneratingAnimation()
+        public void hideGeneratingAnimation()
         {
             GeneratingFileAnimation.Visibility = Visibility.Hidden;
             showGenerationCompleteMessage();
@@ -207,7 +212,7 @@ namespace Collection_Game_Tool.GameSetup
             {
                 int pick = (int)pass;
             }
-            else if (pass  is string && pass == "FileFinished")
+            else if (pass is string && ((String)pass).Equals("FileFinished"))
             {
                 hideGeneratingAnimation();
             }

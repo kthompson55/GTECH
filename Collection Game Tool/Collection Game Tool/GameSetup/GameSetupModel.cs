@@ -38,6 +38,11 @@ namespace Collection_Game_Tool.GameSetup
         //    info.AddValue("CanCreate", canCreate);
         //}
 
+        public void initializeListener()
+        {
+            audience = new List<Listener>();
+        }
+
         private short tp;
         public short totalPicks
         {

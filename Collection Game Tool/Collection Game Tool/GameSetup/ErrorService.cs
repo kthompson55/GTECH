@@ -40,9 +40,7 @@ namespace Collection_Game_Tool.GameSetup
             {"009", "Division {0} is not a unique Division.\n"},
             {"010", "The collections field in Division {0} needs to be less than or equal to the set player picks in the Game Setup.\n"},
             {"011", "The collection in Division {0} is invalid, the possible collection must be higher so that the division cannot win other prizes.\n"},
-            {"012", "With the current setup the player cannot lose. Either decrease the amount of player picks, or increase the amount of collections one of the prize levels has."},
-            {"420", "{0} is blazing it. #YOLO\n"}
-
+            {"012", "With the current setup the player cannot lose. Either decrease the amount of player picks, or increase the amount of collections one of the prize levels has."}
         };
 
         private Dictionary<string, string> warningTemplates = new Dictionary<string, string>
@@ -52,9 +50,7 @@ namespace Collection_Game_Tool.GameSetup
             {"003","{0} is identical to {1}.\n"},
             {"004", "Prize Level {0} and Prize Level {1} are the same.\n"},
             {"005", "Division {0} has no selected prize levels.\n"},
-            {"006", "There are no divisions in this project.\n"},
-            {"420", "{0} may be blazing it. #YOLO?\n"}
-
+            {"006", "There are no divisions in this project.\n"}
         };
 
         private Dictionary<Error,string> unresolvedErrors = new Dictionary<Error, string>();

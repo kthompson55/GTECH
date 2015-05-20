@@ -108,6 +108,7 @@ namespace Collection_Game_Tool.Divisions
                 div.DivModel.DivisionNumber = (int)div.DivModel.DivisionNumber - 1;
             }
 
+            ErrorService.Instance.resolveWarning("005", new List<string> { ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel.DivisionNumber.ToString() }, ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel.errorID);
             listenerList.Remove((DivisionUC)divisionsHolderPanel.Children[index]);
             divisionsList.removeDivision(index);
             divisionsHolderPanel.Children.RemoveAt(index);
@@ -179,27 +180,6 @@ namespace Collection_Game_Tool.Divisions
                     ErrorService.Instance.resolveError("009", null, divToCompare.errorID);
                     divToCompare.errorID = ErrorService.Instance.reportWarning("005", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
                 }
-
-                int maxCollections = 0;
-                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
-                {
-                    if (prizes.getPrizeLevel(i).isInstantWin)
-                    {
-                        maxCollections += 1;
-                    }
-                    else
-                    {
-                        maxCollections += prizes.getPrizeLevel(i).numCollections;
-                    }
-                }
-                maxCollections += divToCompare.getPrizeLevelsAtDivision().Count - prizes.getNumPrizeLevels();
-
-                if (GameSetupUC.pickCheck > maxCollections)
-                {
-                    divToCompare.errorID = ErrorService.Instance.reportError("011", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
-                }
-                else
-                    ErrorService.Instance.resolveError("011", null, divToCompare.errorID);
             }
         }
 
@@ -236,7 +216,6 @@ namespace Collection_Game_Tool.Divisions
             if (pass is PrizeLevels.PrizeLevels)
             {
                 prizes = (PrizeLevels.PrizeLevels)pass;
-                validateDivision();
             }
             else if (pass is int)
             {

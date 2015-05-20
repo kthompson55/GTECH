@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Collection_Game_Tool.Services;
 using Collection_Game_Tool.Main;
+using System.Windows.Threading;
 
 namespace Collection_Game_Tool.GameSetup
 {
@@ -22,7 +23,7 @@ namespace Collection_Game_Tool.GameSetup
     /// </summary>
     public partial class GameSetupUC : UserControl, Teller, Listener
     {
-        static public int pickCheck;
+        public static int pickCheck;
         private String gsucID = null;
 
         public GameSetupModel gsObject;
@@ -53,7 +54,6 @@ namespace Collection_Game_Tool.GameSetup
         //When Create is clicked, validates data and creates a text file
         public void createButton_Click(object sender, RoutedEventArgs e)
         {
-            //validate data
             //open save dialog
             openSaveWindow();
             MaxPermutationsTextBox.Focus();
@@ -74,8 +74,30 @@ namespace Collection_Game_Tool.GameSetup
             {
                 // Save document
                 string filename = dlg.FileName;
+                showGeneratingAnimation();
                 gsObject.shout("generate/" + filename);
             }
+        }
+
+        private void showGeneratingAnimation()
+        {
+            GeneratingFileAnimation.Visibility = Visibility.Visible;
+        }
+
+        private void hideGeneratingAnimation()
+        {
+            GeneratingFileAnimation.Visibility = Visibility.Hidden;
+            showGenerationCompleteMessage();
+        }
+        private void hideGenerationCompleteMessage()
+        {
+            GeneratingCompleteMessage.Visibility = Visibility.Hidden;
+
+        }
+        private void showGenerationCompleteMessage()
+        {
+            GeneratingCompleteMessage.Visibility = Visibility.Visible;
+
         }
 
         private void TotalPicksSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -85,7 +107,6 @@ namespace Collection_Game_Tool.GameSetup
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
                 shout((int)gsObject.totalPicks);
-                pickCheck = gsObject.totalPicks;
             }
         }
 
@@ -184,6 +205,10 @@ namespace Collection_Game_Tool.GameSetup
             if (pass is int)
             {
                 int pick = (int)pass;
+            }
+            else if (pass  is string && pass == "FileFinished")
+            {
+                hideGeneratingAnimation();
             }
         }
 

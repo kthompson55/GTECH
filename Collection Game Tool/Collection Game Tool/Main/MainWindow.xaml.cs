@@ -104,7 +104,7 @@ namespace Collection_Game_Tool.Main
                 {
                     String file = ((String)pass).Replace("generate/", "");
                     FileGenerationService fgs = new FileGenerationService();
-                    fgs.buildGameData(divUC.divisionsList, pl.plsObject, gs.gsObject, file);
+                    fgs.buildGameData(divUC.divisionsList, pl.plsObject, gs.gsObject, file, gs);
                 }
             }
             if (pass is int)

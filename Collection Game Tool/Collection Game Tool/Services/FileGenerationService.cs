@@ -18,8 +18,9 @@ namespace Collection_Game_Tool.Services
             Divisions.DivisionsModel divisions,
             PrizeLevels.PrizeLevels prizeLevels,
             GameSetup.GameSetupModel gameInfo,
-            string fileName)
+            string fileName, GameSetup.GameSetupUC gameSetupUC)
         {
+            addListener(gameSetupUC);
             int numberOfDivisions = divisions.getNumberOfDivisions() + 1;
             List<int[]>[] divisionLevles = new List<int[]>[numberOfDivisions];
             List<Thread> threads = new List<Thread>();
@@ -43,7 +44,7 @@ namespace Collection_Game_Tool.Services
                 t.Join();
             }
             writeFile(fileName, divisionLevles);
-            shout("File Created");
+            shout("FileFinished");
         }
 
         /// <summary>

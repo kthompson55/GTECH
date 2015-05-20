@@ -75,7 +75,8 @@
                                             ValueChanged="TotalPicksSlider_ValueChanged" 
                                             MinWidth="200" Maximum="20" Minimum="1"
                                             IsSelectionRangeEnabled="True" 
-                                            VerticalAlignment="Center" ></Slider>
+                                            VerticalAlignment="Center" 
+                                            IsSnapToTickEnabled="True" TickPlacement="Both" TickFrequency="1"></Slider>
                                     <Label FontSize="14">20</Label>
                                 </StackPanel>
 
@@ -113,7 +114,8 @@
                                             ValueChanged="NumNearWinsSlider_ValueChanged" 
                                             MinWidth="200" Maximum="12" Minimum="2" 
                                             IsSelectionRangeEnabled="True" 
-                                            VerticalAlignment="Center" ></Slider>
+                                            VerticalAlignment="Center" 
+                                            IsSnapToTickEnabled="True" TickPlacement="Both" TickFrequency="1"></Slider>
                                     <Label FontSize="14">12</Label>
                                 </StackPanel>
                             </StackPanel>

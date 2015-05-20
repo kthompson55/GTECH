@@ -80,7 +80,10 @@ namespace Collection_Game_Tool.Divisions
             int collections = 0;
             foreach (PrizeLevel p in selectedPrizes)
             {
-                collections += p.numCollections;
+                if (p.isInstantWin)
+                    collections += 1;
+                else
+                    collections += p.numCollections;
             }
             return collections;
         }

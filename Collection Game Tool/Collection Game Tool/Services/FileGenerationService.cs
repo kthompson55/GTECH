@@ -210,11 +210,11 @@ namespace Collection_Game_Tool.Services
                         {
                             if (i[j] > 0)
                             {
-                                sb.Append(", " + charFromInt(i[j]) + i[j]);
+                                sb.Append(", " + charFromInt(i[j]));
                             }
                             else
                             {
-                                sb.Append("," + "W:" + charFromInt((i[j] * -1)) + (i[j] * -1));
+                                sb.Append("," + "W:" + charFromInt((i[j] * -1)));
                             }
                         }
                         lines.Add(sb.ToString());

@@ -54,7 +54,7 @@
             <Button x:Name="addDivisionButton" 
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Content="Add New Division"
+                    Content="Add Division"
                     Click="addDivisionButton_Click"/>
         </Grid>
 

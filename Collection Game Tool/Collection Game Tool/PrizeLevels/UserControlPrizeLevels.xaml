@@ -62,7 +62,7 @@
             VerticalAlignment="Center"
             Width="100"
             Click="Add_Prize_Level">
-            Add Prize Level +
+            Add Prize Level
         </Button>
     </Grid>
 </UserControl>

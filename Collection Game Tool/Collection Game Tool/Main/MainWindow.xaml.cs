@@ -110,8 +110,8 @@ namespace Collection_Game_Tool.Main
             if (pass is int)
             {
                 pl.setCollectionCheck((int)gs.TotalPicksSlider.Value);
-                divUC.validateDivision();
             }
+            divUC.validateDivision();
         }
 
         private void SaveItem_Clicked(object sender, RoutedEventArgs e)

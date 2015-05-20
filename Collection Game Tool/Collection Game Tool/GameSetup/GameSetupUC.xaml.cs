@@ -107,6 +107,7 @@ namespace Collection_Game_Tool.GameSetup
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
                 shout((int)gsObject.totalPicks);
+                pickCheck = gsObject.totalPicks;
             }
         }
 

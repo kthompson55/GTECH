@@ -104,6 +104,7 @@ namespace Collection_Game_Tool.Main
                 {
                     String file = ((String)pass).Replace("generate/", "");
                     FileGenerationService fgs = new FileGenerationService();
+                    UserControls.IsEnabled = false;
                     BackgroundWorker bgWorker = new BackgroundWorker() { WorkerReportsProgress=true};
                     bgWorker.DoWork += (s, e) =>
                     {
@@ -112,6 +113,7 @@ namespace Collection_Game_Tool.Main
                     bgWorker.RunWorkerCompleted += (s, e) =>
                     {
                         gs.hideGeneratingAnimation();
+                        UserControls.IsEnabled = true;
                     };
                     bgWorker.RunWorkerAsync();  
                 }

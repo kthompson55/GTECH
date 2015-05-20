@@ -36,7 +36,7 @@ namespace Collection_Game_Tool.PrizeLevels
             plObject = new PrizeLevel();
             setDataContext();
             plObject.isInstantWin = false;
-            plObject.numCollections = 1;
+            plObject.numCollections = 2;
             plObject.prizeValue = 0;
 
             this.Loaded += new RoutedEventHandler(MainView_Loaded);

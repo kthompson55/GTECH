@@ -145,6 +145,7 @@
                         </StackPanel>
                     </Border>
 
+
                     <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="0,30,0,0" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
                     <StackPanel x:Name="GeneratingFileAnimation" Margin="10" Visibility="Hidden">
                         <Label FontSize="20" HorizontalAlignment="Center">Generating File</Label>
@@ -153,10 +154,12 @@
                          VerticalAlignment="Center">
                             <local:CircularProgressBar />
                         </Viewbox>
-                        <Label x:Name="GeneratingCompleteMessage" FontSize="20" Margin="10" HorizontalAlignment="Center">File Generated!</Label>
 
                     </StackPanel>
-                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" >
+                    <Label x:Name="GeneratingCompleteMessage" FontSize="20" Margin="10" HorizontalAlignment="Center" Visibility="Hidden">File Generated!</Label>
+
+
+                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" Margin="0,0,0,10">
                         <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
                             <StackPanel Background="White">
                                 <Label FontWeight="Bold" FontSize="14" Background="#D60804" Foreground="White">Errors:</Label>

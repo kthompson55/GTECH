@@ -62,7 +62,7 @@ namespace Collection_Game_Tool.GameSetup
                 inw = value;
             }
         }
-        private short nw;
+        private short nw = 2;
         public short nearWins 
         {
             get
@@ -75,7 +75,7 @@ namespace Collection_Game_Tool.GameSetup
             }
         } //Max 12
 
-        private uint mp;
+        private uint mp = 1;
         public uint maxPermutations 
         {
             get

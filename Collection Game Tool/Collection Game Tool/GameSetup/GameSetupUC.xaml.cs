@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Collection_Game_Tool.Services;
 using Collection_Game_Tool.Main;
+using System.Windows.Threading;
 
 namespace Collection_Game_Tool.GameSetup
 {
@@ -22,7 +23,7 @@ namespace Collection_Game_Tool.GameSetup
     /// </summary>
     public partial class GameSetupUC : UserControl, Teller, Listener
     {
-        public int pickCheck;
+        public static int pickCheck;
         private String gsucID = null;
 
         public GameSetupModel gsObject;

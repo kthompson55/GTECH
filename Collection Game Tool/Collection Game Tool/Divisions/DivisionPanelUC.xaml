@@ -4,19 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600"> <!--450-->
-    <Grid Background="#C9C9C9"
+             d:DesignHeight="300" d:DesignWidth="600">
+    <!--450-->
+    <Grid Background="#575757"
           Width="535">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.Resources>
 
-        <Grid x:Name="divisionSectionHeader" 
-              Background="#007CAA"
-              Grid.Row="0">
+        </Grid.Resources>
+
+        <Grid Grid.Row="0" x:Name="divisionSectionHeader" 
+              Background="#0068ad">
             <Label x:Name="divisionTitle" 
                    Content="Divisions" 
                    VerticalAlignment="Center" 
@@ -26,37 +29,51 @@
                    Foreground="#FFFFFF"/>
         </Grid>
 
-        <Grid Background="#e87e02"
-                    Grid.Row="1">
+        <Grid Grid.Row="1" Background="#009ad8">
             <Label Content="The different combinations to wn prize levels (30 max and 2 min)" 
                    VerticalAlignment="Top" 
                    HorizontalAlignment="Center" 
-                   Margin="0"/>
+                   Margin="0" Foreground="White"/>
             <Label Content="Each division must be a unique combination of prizes and have the" 
                    VerticalAlignment="Center" 
-                   HorizontalAlignment="Center" />
+                   HorizontalAlignment="Center" Foreground="White"/>
             <Label Content="sane or lower number of player picks as set in Game Setup." 
                    VerticalAlignment="Bottom" 
-                   HorizontalAlignment="Center" />
+                   HorizontalAlignment="Center" Foreground="White"/>
         </Grid>
 
-        <ScrollViewer x:Name="divisionsScroll" 
-                      Grid.Row="2"
+        <Grid Grid.Row="2" HorizontalAlignment="Left" Width="535" Background="#959494">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="addDivisionButton"
+                        Height="30"
+                        Width="200"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="5,0,5,0"
+                        Background="#009ad8"
+                        Click="addDivisionButton_Click">
+                <Label Content="Add Division" FontFamily="Arial Bold" FontSize="15" Foreground="#FFFFFF"/>
+            </Button>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" 
+                           Content="Number of Divisions (30 Max):" FontFamily="Arial" FontSize="18"/>
+                <Label x:Name="divisionCounterLabel" 
+                           Content="30" FontFamily="Arial" FontSize="18" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="3" x:Name="divisionsScroll" 
                       MaxHeight="790"
-                      Margin="0,0,14,0">
+                      Padding="0,0,0,10">
             <StackPanel x:Name="divisionsHolderPanel"
                         VerticalAlignment="Top"
                         Orientation="Vertical">
             </StackPanel>
         </ScrollViewer>
-
-        <Grid Grid.Row="3">
-            <Button x:Name="addDivisionButton" 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Content="Add Division"
-                    Click="addDivisionButton_Click"/>
-        </Grid>
 
     </Grid>
 </UserControl>

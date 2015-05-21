@@ -40,6 +40,7 @@ namespace Collection_Game_Tool.Divisions
             marginAmount = 10;
             divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             this.Loaded += new RoutedEventHandler(DivisionPanelUC_Loaded);
+            divisionCounterLabel.Content = divisionsHolderPanel.Children.Count;
         }
 
         private void DivisionPanelUC_Loaded(object sender, RoutedEventArgs e)
@@ -70,6 +71,7 @@ namespace Collection_Game_Tool.Divisions
                 addDivisionButton.IsEnabled = false;
             }
 
+            divisionCounterLabel.Content = divisionsHolderPanel.Children.Count;
             isSectionEmpty();
         }
 
@@ -98,6 +100,7 @@ namespace Collection_Game_Tool.Divisions
                 addDivisionButton.IsEnabled = false;
             }
             isSectionEmpty();
+            divisionCounterLabel.Content = divisionsHolderPanel.Children.Count;
         }
 
         public void removeDivision(int index)
@@ -119,6 +122,7 @@ namespace Collection_Game_Tool.Divisions
             }
 
             isSectionEmpty();
+            divisionCounterLabel.Content = divisionsHolderPanel.Children.Count;
         }
 
         private void addDivisionButton_Click(object sender, RoutedEventArgs e)

@@ -48,6 +48,7 @@ namespace Collection_Game_Tool.GameSetup
         public void loadExistingData(GameSetupModel savedSetup)
         {
             TotalPicksSlider.Value = savedSetup.totalPicks;
+            gsObject.totalPicks = savedSetup.totalPicks;
             NearWinCheckbox.IsChecked = savedSetup.isNearWin;
             NumNearWinsSlider.Value = savedSetup.nearWins;
             MaxPermutationsTextBox.Text = savedSetup.maxPermutations.ToString();

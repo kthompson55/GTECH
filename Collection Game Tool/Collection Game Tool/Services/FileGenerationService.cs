@@ -278,14 +278,19 @@ namespace Collection_Game_Tool.Services
                     isInstantWinPresent = true;
                 }
             }
-            int[] permuitationArray;
+
+            int[] picks = getNeededPicksForDivision(true, division, prizeLevels).ToArray();
+            divisionIncompleteWinpermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermuitations, getBaseCombinaiton(totalNumberOfPicks, picks).ToArray()));
+            int[] nonWinningPicks = getExtraPicks(divisionIncompleteWinpermutations[0], prizeLevels);
+            if (nonWinningPicks.Length + picks.Length < totalNumberOfPicks && isInstantWinPresent)
+            {
+                divisionIncompleteWinpermutations.Clear();
+            }
             if (maxNumberOfNeededPicksForDivision <= totalNumberOfPicks && isInstantWinPresent)
             {
                 divisionIncompleteWinpermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermuitations, getBaseCombinaiton(totalNumberOfPicks, getNeededPicksForDivision(false, division, prizeLevels).ToArray()).ToArray()));
             }
-            divisionIncompleteWinpermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermuitations, getBaseCombinaiton(totalNumberOfPicks, getNeededPicksForDivision(true, division, prizeLevels).ToArray()).ToArray()));
 
-            int[] nonWinningPicks = getExtraPicks(divisionIncompleteWinpermutations[0], prizeLevels);
             List<int[]> maximumPermutations = fillBlankDivisionpermutationsWithNonWinningData(
                 divisionIncompleteWinpermutations,
                 nonWinningPicks,

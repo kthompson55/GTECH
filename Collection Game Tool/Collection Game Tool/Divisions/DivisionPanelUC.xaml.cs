@@ -200,7 +200,7 @@ namespace Collection_Game_Tool.Divisions
                 maxCollections -= GameSetupUC.pickCheck;
                 for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
                 {
-                    if(divToCompare.getPrizeLevelsAtDivision().Contains(prizes.getPrizeLevel(i)))
+                    if(!divToCompare.getPrizeLevelsAtDivision().Contains(prizes.getPrizeLevel(i)))
                         maxCollections-=(prizes.getPrizeLevel(i).numCollections-1);
                 }
 
@@ -211,6 +211,35 @@ namespace Collection_Game_Tool.Divisions
                 }
                 else
                     ErrorService.Instance.resolveError("011", null, divToCompare.errorID);
+
+                //Check if a Division can have an Instant Win
+                int minimumCollections = GameSetupUC.pickCheck;
+                for (int i = 0; i < divToCompare.getPrizeLevelsAtDivision().Count; i++)
+                {
+                    if (divToCompare.getPrizeLevel(i).isInstantWin)
+                    {
+                        minimumCollections -= 1;
+                    }
+                    else
+                    {
+                        minimumCollections -= divToCompare.getPrizeLevel(i).numCollections;
+                    }
+                }
+                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
+                {
+                    if (!divToCompare.getPrizeLevelsAtDivision().Contains(prizes.getPrizeLevel(i)))
+                    {
+                        minimumCollections -= prizes.getPrizeLevel(i).numCollections - 1;
+                    }
+                }
+                if (minimumCollections > 0)
+                {
+                    divToCompare.errorID=ErrorService.Instance.reportWarning("007", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
+                }
+                else
+                {
+                    ErrorService.Instance.resolveWarning("007", null, divToCompare.errorID);
+                }
             }
 
             int allCollections = 0;
@@ -244,7 +273,7 @@ namespace Collection_Game_Tool.Divisions
             for (int index = 0; index < divisionsHolderPanel.Children.Count; index++)
             {
                 DivisionModel currentDivision = ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel;
-                if (currentDivision.TotalPlayerPicks <= allottedPlayerPicks)
+                if (currentDivision.TotalPlayerPicks <= GameSetupUC.pickCheck)
                 {
                     ErrorService.Instance.resolveError("010", null, currentDivision.errorID);
                 }

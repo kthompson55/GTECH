@@ -71,3 +71,5 @@ C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.exe
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.pdb
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.csprojResolveAssemblyReference.cache
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\CircularProgressBar.baml
+C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\CircularProgressBar.g.cs

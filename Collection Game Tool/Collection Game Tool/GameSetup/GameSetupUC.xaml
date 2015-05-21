@@ -165,7 +165,7 @@
                     <Label x:Name="GeneratingCompleteMessage" FontSize="20" Margin="10" HorizontalAlignment="Center" Visibility="Hidden">File Generated!</Label>
 
 
-                    <Border x:Name="ErrorBoxBorder" BorderThickness="2" BorderBrush="#D60804" Margin="0,0,0,10">
+                    <Border x:Name="ErrorBoxBorder" BorderThickness="4" BorderBrush="Black" Margin="0,0,0,10"><!--D60804-->
                         <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
                             <StackPanel Background="White">
                                 <Label FontWeight="Bold" FontSize="14" Background="#D60804" Foreground="White">Errors:</Label>

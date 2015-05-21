@@ -50,7 +50,8 @@ namespace Collection_Game_Tool.GameSetup
             {"003","{0} is identical to {1}.\n"},
             {"004", "Prize Level {0} and Prize Level {1} are the same.\n"},
             {"005", "Division {0} has no selected prize levels.\n"},
-            {"006", "There are no divisions in this project.\n"}
+            {"006", "There are no divisions in this project.\n"},
+            {"007", "Division {0} will never have an instant win even though it has a Prize Level that can be an instant win."}
         };
 
         private Dictionary<Error,string> unresolvedErrors = new Dictionary<Error, string>();

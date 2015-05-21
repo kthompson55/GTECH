@@ -187,7 +187,7 @@ namespace Collection_Game_Tool.GameSetup
         private bool WithinPermutationRange(string s)
         {
             uint philTheOrphan;
-            return UInt32.TryParse(s, out philTheOrphan);
+            return (UInt32.TryParse(s, out philTheOrphan) && philTheOrphan <= 100000);
         }
 
        

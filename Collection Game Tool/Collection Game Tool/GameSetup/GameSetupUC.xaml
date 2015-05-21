@@ -72,6 +72,7 @@
                                 <StackPanel Orientation="Horizontal" Margin="10,0">
                                     <Label FontSize="14">1</Label>
                                     <Slider x:Name="TotalPicksSlider" 
+                                            Value="2"
                                             ValueChanged="TotalPicksSlider_ValueChanged" 
                                             MinWidth="200" Maximum="20" Minimum="1"
                                             IsSelectionRangeEnabled="True" 

@@ -131,7 +131,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     plsObject.sortPrizeLevels();
 
                     int collectionToShout = 0;
-                    int index=-1;
+                    int index=0;
                     bool sameFound = false;
                     PrizeLevelConverter plc = new PrizeLevelConverter();
                     

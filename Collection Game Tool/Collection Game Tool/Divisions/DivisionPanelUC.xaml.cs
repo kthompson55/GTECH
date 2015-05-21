@@ -182,20 +182,26 @@ namespace Collection_Game_Tool.Divisions
                 }
 
                 int maxCollections = 0;
-                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
+                for (int i = 0; i < divToCompare.getPrizeLevelsAtDivision().Count; i++)
                 {
-                    if (prizes.getPrizeLevel(i).isInstantWin)
+                    if (divToCompare.getPrizeLevel(i).isInstantWin)
                     {
                         maxCollections += 1;
                     }
                     else
                     {
-                        maxCollections += prizes.getPrizeLevel(i).numCollections;
+                        maxCollections += divToCompare.getPrizeLevel(i).numCollections;
                     }
                 }
-                maxCollections += divToCompare.getPrizeLevelsAtDivision().Count - prizes.getNumPrizeLevels();
+                maxCollections -= GameSetupUC.pickCheck;
+                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
+                {
+                    if(divToCompare.getPrizeLevelsAtDivision().Contains(prizes.getPrizeLevel(i)))
+                        maxCollections-=(prizes.getPrizeLevel(i).numCollections-1);
+                }
 
-                if (GameSetupUC.pickCheck > maxCollections)
+
+                if (0 < maxCollections)
                 {
                     divToCompare.errorID = ErrorService.Instance.reportError("011", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
                 }

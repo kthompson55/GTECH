@@ -77,7 +77,7 @@ namespace Collection_Game_Tool.Divisions
 
         public void loadInDivision(int number, DivisionModel div)
         {
-            if (divisionsList.getSize() < MAX_DIVISIONS)
+            if (divisionsHolderPanel.Children.Count < MAX_DIVISIONS)
             {
                 DivisionUC division = new DivisionUC(prizes, number);
                 division.DivModel = div;
@@ -95,7 +95,7 @@ namespace Collection_Game_Tool.Divisions
                 validateDivision();
             }
 
-            if (divisionsList.getSize() >= MAX_DIVISIONS)
+            if (divisionsHolderPanel.Children.Count >= MAX_DIVISIONS)
             {
                 addDivisionButton.IsEnabled = false;
             }

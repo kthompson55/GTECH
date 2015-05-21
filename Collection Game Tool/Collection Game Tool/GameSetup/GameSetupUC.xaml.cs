@@ -55,7 +55,6 @@ namespace Collection_Game_Tool.GameSetup
             gsObject.initializeListener();
             Window parentWindow = Window.GetWindow(this.Parent);
             gsObject.addListener((Window1)parentWindow);
-            gsObject.totalPicks = 2;
             pickCheck = gsObject.totalPicks;
         }
 

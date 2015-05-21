@@ -33,9 +33,12 @@ namespace Collection_Game_Tool.GameSetup
         public GameSetupUC()
         {
             InitializeComponent();
+            TotalPicksSlider.Value = 2;
             gsObject = new GameSetupModel();
             gsObject.canCreate = true;
             CreateButton.DataContext = gsObject;
+            gsObject.totalPicks = 2;
+            pickCheck = gsObject.totalPicks;
             ErrorTextBlock.DataContext = ErrorService.Instance;
             WarningTextBlock.DataContext = ErrorService.Instance;
             errorPanelScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
@@ -52,6 +55,7 @@ namespace Collection_Game_Tool.GameSetup
             gsObject.initializeListener();
             Window parentWindow = Window.GetWindow(this.Parent);
             gsObject.addListener((Window1)parentWindow);
+            gsObject.totalPicks = 2;
             pickCheck = gsObject.totalPicks;
         }
 
@@ -111,8 +115,8 @@ namespace Collection_Game_Tool.GameSetup
             {
                 Slider slider = sender as Slider;
                 gsObject.totalPicks = Convert.ToInt16(slider.Value);
-                shout((int)gsObject.totalPicks);
                 pickCheck = gsObject.totalPicks;
+                shout((int)gsObject.totalPicks);
             }
         }
 

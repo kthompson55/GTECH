@@ -207,6 +207,9 @@ namespace Collection_Game_Tool.Divisions
                 }
                 else
                     ErrorService.Instance.resolveError("011", null, divToCompare.errorID);
+
+                //Check if a Division can have a warning
+
             }
 
             int allCollections = 0;
@@ -240,7 +243,7 @@ namespace Collection_Game_Tool.Divisions
             for (int index = 0; index < divisionsHolderPanel.Children.Count; index++)
             {
                 DivisionModel currentDivision = ((DivisionUC)divisionsHolderPanel.Children[index]).DivModel;
-                if (currentDivision.TotalPlayerPicks <= allottedPlayerPicks)
+                if (currentDivision.TotalPlayerPicks <= GameSetupUC.pickCheck)
                 {
                     ErrorService.Instance.resolveError("010", null, currentDivision.errorID);
                 }

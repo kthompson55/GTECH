@@ -57,6 +57,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
             this.Loaded += new RoutedEventHandler(UserControlPrizeLevels_Loaded);
             prizeLevelScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            prizeLevelCounterLabel.Content = Prizes.Children.Count;
         }
 
         private void UserControlPrizeLevels_Loaded(object sender, RoutedEventArgs e)
@@ -101,6 +102,7 @@ namespace Collection_Game_Tool.PrizeLevels
             prizeLevelScroll.ScrollToBottom();
             //Shouts the PrizeLevels object so that they can be analyzed in Divisions
             shout(plsObject);
+            prizeLevelCounterLabel.Content = Prizes.Children.Count;
         }
 
         public void loadExistingPrizeLevel(PrizeLevel loadedPrizeLevel)
@@ -114,6 +116,7 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl.plObject.initializeListener();
             ucpl.setDataContext();
             ucpl.plObject.prizeLevel = Prizes.Children.Count;
+            prizeLevelCounterLabel.Content = Prizes.Children.Count;
         }
 
         public void onListen(object pass)
@@ -137,7 +140,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     
                     for (int i = 0; i < ucplList.Count; i++ )
                     {
-                        ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD"));
+                        ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD")); //  fff000
                         ucplList[i].OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
                         if (ucplList[i].plObject.numCollections>collectionToShout)
@@ -232,6 +235,7 @@ namespace Collection_Game_Tool.PrizeLevels
             }
             //Shouts PrizeLevels object so divisions can analyze it
             shout(plsObject);
+            prizeLevelCounterLabel.Content = Prizes.Children.Count;
         }
 
         public void shout(object pass)

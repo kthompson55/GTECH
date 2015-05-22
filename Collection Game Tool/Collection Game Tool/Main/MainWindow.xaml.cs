@@ -34,6 +34,7 @@ namespace Collection_Game_Tool.Main
         private ProjectData savedProject;
         private string projectFileName;
         private bool isProjectSaved;
+        private bool hasSaved;
         private const string DEFAULT_EXT = ".cggproj";
 
         public Window1()
@@ -42,6 +43,7 @@ namespace Collection_Game_Tool.Main
 
             projectFileName = null;
             isProjectSaved = false;
+            hasSaved = false;
             savedProject = new ProjectData();
 
             //Programmaticaly add UserControls to mainwindow.
@@ -130,12 +132,14 @@ namespace Collection_Game_Tool.Main
         {
             Console.WriteLine("SaveItem_Clicked");
             SaveProject();
+            hasSaved = true;
         }
 
         private void SaveAsItem_Clicked(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("SaveAsItem_Clicked");
             SaveProjectAs();
+            hasSaved = true;
         }
 
         private void OpenItem_Clicked(object sender, RoutedEventArgs e)
@@ -153,7 +157,7 @@ namespace Collection_Game_Tool.Main
                 savedProject.savedDivisions = divUC.divisionsList;
 
                 IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream(projectFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                Stream stream = new FileStream(projectFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                 formatter.Serialize(stream, savedProject);
                 stream.Close();
             }
@@ -192,10 +196,11 @@ namespace Collection_Game_Tool.Main
                 projectFileName = openDialog.FileName;
 
                 IFormatter format = new BinaryFormatter();
-                Stream stream = new FileStream(projectFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Stream stream = new FileStream(projectFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
                 savedProject = (ProjectData)format.Deserialize(stream);
 
                 pl.plsObject = savedProject.savedPrizeLevels;
+                PrizeLevels.PrizeLevels.numPrizeLevels = savedProject.savedPrizeLevels.getNumPrizeLevels();
                 pl.Prizes.Children.Clear();
                 for (int i = 0; i < pl.plsObject.getNumPrizeLevels(); i++)
                 {
@@ -222,14 +227,17 @@ namespace Collection_Game_Tool.Main
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = System.Windows.MessageBox.Show("Would you like to save the project's data before exiting?", "Exiting Application", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (!hasSaved)
             {
-                SaveProject();
-            }
-            else if (result == MessageBoxResult.Cancel)
-            {
-                e.Cancel = true;
+                MessageBoxResult result = System.Windows.MessageBox.Show("Would you like to save the project's data before exiting?", "Exiting Without Saving", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveProject();
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
             }
         }
     }

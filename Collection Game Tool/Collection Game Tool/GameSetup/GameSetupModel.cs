@@ -20,24 +20,6 @@ namespace Collection_Game_Tool.GameSetup
 
         public GameSetupModel() { }
 
-        //public GameSetupModel(SerializationInfo info, StreamingContext context)
-        //{
-        //    totalPicks = (short)info.GetInt16("TotalPicks");
-        //    isNearWin = info.GetBoolean("IsNearWin");
-        //    nearWins = (short)info.GetInt16("NearWins");
-        //    maxPermutations = info.GetUInt32("MaxPermutations");
-        //    canCreate = info.GetBoolean("CanCreate");
-        //}
-
-        //public void GetObjectData(SerializationInfo info, StreamingContext context)
-        //{
-        //    info.AddValue("TotalPicks", totalPicks);
-        //    info.AddValue("IsNearWin", isNearWin);
-        //    info.AddValue("NearWins", nearWins);
-        //    info.AddValue("MaxPermutations", maxPermutations);
-        //    info.AddValue("CanCreate", canCreate);
-        //}
-
         public void initializeListener()
         {
             audience = new List<Listener>();

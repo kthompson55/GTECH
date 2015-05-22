@@ -93,7 +93,7 @@ namespace Collection_Game_Tool.PrizeLevels
                 ucpl.CloseButton.Opacity = 1;
             }
 
-            if (plsObject.getNumPrizeLevels() == 12)
+            if (plsObject.getNumPrizeLevels() >= 12)
             {
                 AddButton.IsEnabled = false;
                 AddButton.Opacity = 0.3;
@@ -117,6 +117,12 @@ namespace Collection_Game_Tool.PrizeLevels
             ucpl.setDataContext();
             ucpl.plObject.prizeLevel = Prizes.Children.Count;
             prizeLevelCounterLabel.Content = Prizes.Children.Count;
+
+            if (Prizes.Children.Count >= 12)
+            {
+                AddButton.IsEnabled = false;
+                AddButton.Opacity = 0.3;
+            }
         }
 
         public void onListen(object pass)

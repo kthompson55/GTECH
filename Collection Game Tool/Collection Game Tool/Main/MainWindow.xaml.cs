@@ -153,7 +153,7 @@ namespace Collection_Game_Tool.Main
                 savedProject.savedDivisions = divUC.divisionsList;
 
                 IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream(projectFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                Stream stream = new FileStream(projectFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                 formatter.Serialize(stream, savedProject);
                 stream.Close();
             }
@@ -192,10 +192,11 @@ namespace Collection_Game_Tool.Main
                 projectFileName = openDialog.FileName;
 
                 IFormatter format = new BinaryFormatter();
-                Stream stream = new FileStream(projectFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Stream stream = new FileStream(projectFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
                 savedProject = (ProjectData)format.Deserialize(stream);
 
                 pl.plsObject = savedProject.savedPrizeLevels;
+                PrizeLevels.PrizeLevels.numPrizeLevels = savedProject.savedPrizeLevels.getNumPrizeLevels();
                 pl.Prizes.Children.Clear();
                 for (int i = 0; i < pl.plsObject.getNumPrizeLevels(); i++)
                 {

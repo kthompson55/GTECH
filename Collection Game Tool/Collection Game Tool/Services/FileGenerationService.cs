@@ -10,10 +10,18 @@ namespace Collection_Game_Tool.Services
     public class FileGenerationService : Teller
     {
         private List<Listener> audiance = new List<Listener>();
-        private int extraPermutationBuffer = 10000;
+        private int extraPermutationBuffer = 5000;
 
         public FileGenerationService() { }
 
+        /// <summary>
+        /// Method needed to create the File
+        /// </summary>
+        /// <param name="divisions"></param>
+        /// <param name="prizeLevels"></param>
+        /// <param name="gameInfo"></param>
+        /// <param name="fileName"></param>
+        /// <param name="gameSetupUC"></param>
         public void buildGameData(
             Divisions.DivisionsModel divisions,
             PrizeLevels.PrizeLevels prizeLevels,
@@ -39,9 +47,11 @@ namespace Collection_Game_Tool.Services
                 t.Start();
                 threads.Add(t);
             }
-            foreach (Thread t in threads)
+            for (int i = 0; i < threads.Count; i++)
             {
-                t.Join();
+                threads.ElementAt(i).Join();
+                Console.Out.Write("Finished thread");
+
             }
             writeFile(fileName, divisionLevles, buildHeader(prizeLevels));
             shout("FileFinished");
@@ -247,10 +257,11 @@ namespace Collection_Game_Tool.Services
             List<string> headerLines = new List<string>();
             headerLines.Add("The first number is the division indicator.");
             headerLines.Add("Prize level indicators and values:");
+            int prizeLevel = 1;
             foreach (PrizeLevels.PrizeLevel p in prizes.prizeLevels)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("First prize level:");
+                sb.Append( prizeLevel++ + "prize level:");
                 sb.Append("Character: " + charFromInt(prizes.getLevelOfPrize(p) + 1));
                 sb.Append(" Value: " + p.prizeValue);
                 headerLines.Add(sb.ToString());
@@ -350,7 +361,7 @@ namespace Collection_Game_Tool.Services
             PrizeLevels.PrizeLevels prizeLevels)
         {
             HashSet<string> permiutationList = new HashSet<string>();
-            for (int i = 0; i < permutations.Count && i < desiredAmountOfPermutations + 500; i++)
+            for (int i = 0; i < permutations.Count && i < desiredAmountOfPermutations + 500 && permiutationList.Count <= desiredAmountOfPermutations; i++)
             {
                 HashSet<string> extrasForPerm = createExtrapermutationsFormBase(permutations[i], getExtraPicks(permutations[i], prizeLevels), (int)desiredAmountOfPermutations);
                 permiutationList.UnionWith(extrasForPerm);
@@ -381,15 +392,19 @@ namespace Collection_Game_Tool.Services
             int[] copyOfBase = new int[basePermiutation.Length];
             basePermiutation.CopyTo(copyOfBase, 0);
             int numberOfFailuers = 0;
-            while (extrapermutations.Count < maxNumberOfPermiutaitons && numberOfFailuers < maxNumberOfPermiutaitons + 15000)
+            while (extrapermutations.Count < maxNumberOfPermiutaitons && numberOfFailuers < maxNumberOfPermiutaitons + 500)
             {
-                if (!extrapermutations.Add(permutationToString(fillPermiutation(copyOfExtraPicks.ToList(), copyOfBase))))
+                List<int[]> filledPermiutationsForBase = fillPermiutationWithAllPossibleValues(copyOfExtraPicks, copyOfBase);
+                for (int i = 0; i < filledPermiutationsForBase.Count; i++)
                 {
-                    numberOfFailuers++;
-                }
-                else
-                {
-                    numberOfFailuers = 0;
+                    if (!extrapermutations.Add(permutationToString(filledPermiutationsForBase[i])))
+                    {
+                        numberOfFailuers++;
+                    }
+                    else
+                    {
+                        numberOfFailuers = 0;
+                    }
                 }
             }
             return extrapermutations;
@@ -401,24 +416,28 @@ namespace Collection_Game_Tool.Services
         /// <param name="extraPicks"> List of extra picks that will be used to fill in zero values</param>
         /// <param name="permutation"> Base permutation to be filled in </param>
         /// <returns> Returns a filled in permutation with no zero values</returns>
-        private int[] fillPermiutation(
-            List<int> extraPicks,
+        private List<int[]> fillPermiutationWithAllPossibleValues(
+            int[] extraPicks,
             int[] permutation)
         {
-            List<int> extraPicksCopy = new List<int>(extraPicks);
-            int[] filledPermiutation = new int[permutation.Length];
-            permutation.CopyTo(filledPermiutation, 0);
-            Random rand = new Random();
-            for (int i = 0; i < filledPermiutation.Length; i++)
+            List<int[]> filledPermiutationCollection = new List<int[]>();
+            int[] extraCopy = new int[extraPicks.Length];
+            extraPicks.CopyTo(extraCopy, 0);
+            for (int i = 0; i < extraPicks.Length; i++)
             {
-                if (filledPermiutation[i] == 0)
+                int[] filledPermiutation = new int[permutation.Length];
+                permutation.CopyTo(filledPermiutation, 0);
+                for (int j = 0; j < filledPermiutation.Length; j++)
                 {
-                    int extraPickIndex = rand.Next(0, extraPicksCopy.Count);
-                    filledPermiutation[i] = extraPicksCopy.ElementAt(extraPickIndex);
-                    extraPicksCopy.RemoveAt(extraPickIndex);
+                    if (filledPermiutation[j] == 0)
+                    {
+                        filledPermiutation[j] = extraCopy[(i + j) % extraPicks.Length];
+
+                    }
+                    filledPermiutationCollection.Add(filledPermiutation);
                 }
             }
-            return filledPermiutation;
+            return filledPermiutationCollection;
         }
 
         /// <summary>

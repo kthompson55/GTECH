@@ -392,19 +392,16 @@ namespace Collection_Game_Tool.Services
             int[] copyOfBase = new int[basePermiutation.Length];
             basePermiutation.CopyTo(copyOfBase, 0);
             int numberOfFailuers = 0;
-            while (extrapermutations.Count < maxNumberOfPermiutaitons && numberOfFailuers < maxNumberOfPermiutaitons + 500)
+            List<int[]> filledPermiutationsForBase = fillPermiutationWithAllPossibleValues(copyOfExtraPicks, copyOfBase);
+            for (int i = 0; i < filledPermiutationsForBase.Count && filledPermiutationsForBase.Count < maxNumberOfPermiutaitons; i++)
             {
-                List<int[]> filledPermiutationsForBase = fillPermiutationWithAllPossibleValues(copyOfExtraPicks, copyOfBase);
-                for (int i = 0; i < filledPermiutationsForBase.Count; i++)
+                if (!extrapermutations.Add(permutationToString(filledPermiutationsForBase[i])))
                 {
-                    if (!extrapermutations.Add(permutationToString(filledPermiutationsForBase[i])))
-                    {
-                        numberOfFailuers++;
-                    }
-                    else
-                    {
-                        numberOfFailuers = 0;
-                    }
+                    numberOfFailuers++;
+                }
+                else
+                {
+                    numberOfFailuers = 0;
                 }
             }
             return extrapermutations;

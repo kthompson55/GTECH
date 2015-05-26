@@ -206,6 +206,7 @@ namespace Collection_Game_Tool.Main
                 {
                     pl.loadExistingPrizeLevel(pl.plsObject.prizeLevels[i]);
                 }
+                pl.checkLoadedPrizeLevels();
 
                 gs.loadExistingData(savedProject.savedGameSetup);
 

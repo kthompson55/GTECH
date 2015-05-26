@@ -74,7 +74,7 @@ namespace Collection_Game_Tool.Services
             int numberOfPermutationsForNearWinAmount = (int)gameInfo.maxPermutations;
             if (gameInfo.isNearWin)
             {
-                numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations / gameInfo.nearWins);
+                numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations);
                 baseLossconditions.AddRange(getBaseNearWinLosspermutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
             }
             else
@@ -130,7 +130,7 @@ namespace Collection_Game_Tool.Services
                     ableToFindNextdivision = !(bsaePermuitation[0] == -1);
                 }
             }
-            return createExtrapermutations(lossPermituations, maxNumberOfpermutationsPerNearWin, prizeLevels); ;
+            return createExtrapermutations(lossPermituations, maxNumberOfpermutationsPerNearWin + extraPermutationBuffer, prizeLevels); ;
         }
 
         private List<int[]> getBaseNearWinLosspermutations(

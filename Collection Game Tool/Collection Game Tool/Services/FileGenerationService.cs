@@ -266,6 +266,7 @@ namespace Collection_Game_Tool.Services
                 sb.Append(" Value: " + p.prizeValue);
                 headerLines.Add(sb.ToString());
             }
+            headerLines.Add("The last division is always the loss division.");
             return headerLines;
         }
 

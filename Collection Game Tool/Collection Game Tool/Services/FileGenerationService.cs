@@ -185,8 +185,8 @@ namespace Collection_Game_Tool.Services
                         for (int k = 0; k < i; k++)
                         {
                             int randomPrizeLevelSelection = rand.Next(0, tempPrizeLevelIndexes.Count);
-                            numberOfPicksForPrizeLevelCombintation += prizeLevels.getPrizeLevel(randomPrizeLevelSelection).numCollections - 1;
-                            tempPrizeLevelCombinations[k] = randomPrizeLevelSelection;
+                            numberOfPicksForPrizeLevelCombintation += prizeLevels.getPrizeLevel(tempPrizeLevelIndexes[randomPrizeLevelSelection]).numCollections - 1;
+                            tempPrizeLevelCombinations[k] = tempPrizeLevelIndexes[randomPrizeLevelSelection];
                             tempPrizeLevelIndexes.RemoveAt(randomPrizeLevelSelection);
                         }
                         if (!prizeLevelCombinations.Any(tempPrizeLevelCombinations.SequenceEqual) && numberOfPicksForPrizeLevelCombintation <= totalNumberOfPicks)

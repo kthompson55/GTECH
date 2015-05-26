@@ -74,7 +74,7 @@ namespace Collection_Game_Tool.Services
             int numberOfPermutationsForNearWinAmount = (int)gameInfo.maxPermutations;
             if (gameInfo.isNearWin)
             {
-                numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations / gameInfo.nearWins);
+                numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations);
                 baseLossconditions.AddRange(getBaseNearWinLosspermutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
             }
             else
@@ -130,7 +130,7 @@ namespace Collection_Game_Tool.Services
                     ableToFindNextdivision = !(bsaePermuitation[0] == -1);
                 }
             }
-            return createExtrapermutations(lossPermituations, maxNumberOfpermutationsPerNearWin, prizeLevels); ;
+            return createExtrapermutations(lossPermituations, maxNumberOfpermutationsPerNearWin + extraPermutationBuffer, prizeLevels); ;
         }
 
         private List<int[]> getBaseNearWinLosspermutations(
@@ -185,8 +185,8 @@ namespace Collection_Game_Tool.Services
                         for (int k = 0; k < i; k++)
                         {
                             int randomPrizeLevelSelection = rand.Next(0, tempPrizeLevelIndexes.Count);
-                            numberOfPicksForPrizeLevelCombintation += prizeLevels.getPrizeLevel(randomPrizeLevelSelection).numCollections - 1;
-                            tempPrizeLevelCombinations[k] = randomPrizeLevelSelection;
+                            numberOfPicksForPrizeLevelCombintation += prizeLevels.getPrizeLevel(tempPrizeLevelIndexes[randomPrizeLevelSelection]).numCollections - 1;
+                            tempPrizeLevelCombinations[k] = tempPrizeLevelIndexes[randomPrizeLevelSelection];
                             tempPrizeLevelIndexes.RemoveAt(randomPrizeLevelSelection);
                         }
                         if (!prizeLevelCombinations.Any(tempPrizeLevelCombinations.SequenceEqual) && numberOfPicksForPrizeLevelCombintation <= totalNumberOfPicks)

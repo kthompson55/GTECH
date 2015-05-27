@@ -268,11 +268,18 @@ namespace Collection_Game_Tool.Services
                 sb.Append(" Value: " + p.prizeValue);
                 headerLines.Add(sb.ToString());
             }
+            headerLines.Add("division level indicators and values:");
             foreach (Divisions.DivisionModel div in divisions.divisions)
             {
                 sb = new StringBuilder();
-                sb.Append("Division Level Number: " + prizeLevel++);
+                sb.Append("Division Number: " + prizeLevel++);
                 sb.Append(" Value: " + div.TotalPrizeValue);
+                sb.Append("Prize Levels at Division: ");
+                foreach (PrizeLevels.PrizeLevel p in div.getPrizeLevelsAtDivision())
+                {
+                    sb.Append(charFromInt(prizes.getLevelOfPrize(p) + 1));
+                }
+
                 headerLines.Add(sb.ToString());
             }
             sb = new StringBuilder();

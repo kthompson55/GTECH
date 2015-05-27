@@ -53,7 +53,7 @@ namespace Collection_Game_Tool.Services
                 Console.Out.Write("Finished thread");
 
             }
-            writeFile(fileName, divisionLevles, buildHeader(prizeLevels));
+            writeFile(fileName, divisionLevles, buildHeader(prizeLevels, divisions));
             shout("FileFinished");
         }
 
@@ -223,7 +223,7 @@ namespace Collection_Game_Tool.Services
                             {
                                 if (i[j] > 0)
                                 {
-                                    sb.Append(", " + charFromInt(i[j]));
+                                    sb.Append("," + charFromInt(i[j]));
                                 }
                                 else
                                 {
@@ -253,20 +253,30 @@ namespace Collection_Game_Tool.Services
             }
         }
 
-        private List<string> buildHeader(PrizeLevels.PrizeLevels prizes){
+        private List<string> buildHeader(PrizeLevels.PrizeLevels prizes, Divisions.DivisionsModel divisions){
             List<string> headerLines = new List<string>();
             headerLines.Add("The first number is the division indicator.");
             headerLines.Add("Prize level indicators and values:");
             int prizeLevel = 1;
+            StringBuilder sb;
             foreach (PrizeLevels.PrizeLevel p in prizes.prizeLevels)
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append( prizeLevel++ + "prize level:");
-                sb.Append("Character: " + charFromInt(prizes.getLevelOfPrize(p) + 1));
+                sb = new StringBuilder();
+                sb.Append("Prize Level Character: " + charFromInt(prizes.getLevelOfPrize(p) + 1));
                 sb.Append(" Value: " + p.prizeValue);
                 headerLines.Add(sb.ToString());
             }
-            headerLines.Add("The last division is always the loss division.");
+            foreach (Divisions.DivisionModel div in divisions.divisions)
+            {
+                sb = new StringBuilder();
+                sb.Append("Division Level Number: " + prizeLevel++);
+                sb.Append(" Value: " + div.TotalPrizeValue);
+                headerLines.Add(sb.ToString());
+            }
+            sb = new StringBuilder();
+            sb.Append("Division Level Number: " + prizeLevel++);
+            sb.Append(" Value: " + 0);
+            headerLines.Add(sb.ToString());
             return headerLines;
         }
 

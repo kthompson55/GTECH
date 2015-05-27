@@ -179,6 +179,7 @@ namespace Collection_Game_Tool.Services
                     int[] tempPrizeLevelCombinations = new int[i];
                     int numberOfPicksForPrizeLevelCombintation = 0;
                     bool newBaseComboAdded = false;
+                    int failCount = 0;
                     List<int> tempPrizeLevelIndexes = new List<int>(prizeLevelsIndexes);
                     do
                     {
@@ -197,7 +198,8 @@ namespace Collection_Game_Tool.Services
                         tempPrizeLevelCombinations = new int[i];
                         numberOfPicksForPrizeLevelCombintation = 0;
                         tempPrizeLevelIndexes = new List<int>(prizeLevelsIndexes);
-                    } while (!newBaseComboAdded);
+                        failCount ++;
+                    } while (!newBaseComboAdded && failCount <= 2500);
                 }
             }
             return prizeLevelCombinations;

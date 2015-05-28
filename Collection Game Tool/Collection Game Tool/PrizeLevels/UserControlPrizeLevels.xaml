@@ -36,7 +36,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Foreground="White">
-                The different prizes a player can win. (12 max and 2 min)
+                -The different prizes a player can win. (12 max and 2 min)-
             </Label>
             <Label
                 HorizontalAlignment="Center"

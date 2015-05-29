@@ -149,7 +149,7 @@ namespace Collection_Game_Tool.Main
 
                 for (int i = 0; i < divUC.divisionsList.getSize(); i++)
                 {
-                    divUC.loadInDivision(i + 1, divUC.divisionsList.divisions[i]);
+                    divUC.loadInDivision(divUC.divisionsList.divisions[i]);
                 }
             }
         }

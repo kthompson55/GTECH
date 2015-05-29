@@ -83,7 +83,8 @@ namespace Collection_Game_Tool.Services
                 baseLossconditions.Add(baseLoss);
             }
             lossPermutations = getAllLossPermutations(baseLossconditions, prizeLevels, gameInfo.nearWins, numberOfPermutationsForNearWinAmount);
-            return lossPermutations;
+            List<int[]> Losses = lossPermutations.Take((int)gameInfo.maxPermutations).ToList();
+            return Losses;
         }
 
         /// <summary>
@@ -380,15 +381,16 @@ namespace Collection_Game_Tool.Services
             int desiredAmountOfPermutations,
             PrizeLevels.PrizeLevels prizeLevels)
         {
+            
             HashSet<string> permiutationList = new HashSet<string>();
+            int[] extraPicks = getExtraPicks(permutations[0], prizeLevels);
             for (int i = 0; i < permutations.Count && i < desiredAmountOfPermutations + 500 && permiutationList.Count <= desiredAmountOfPermutations; i++)
             {
-                HashSet<string> extrasForPerm = createExtrapermutationsFormBase(permutations[i], getExtraPicks(permutations[i], prizeLevels), (int)desiredAmountOfPermutations);
+                HashSet<string> extrasForPerm = createExtrapermutationsFormBase(permutations[i], extraPicks, (int)desiredAmountOfPermutations);
                 permiutationList.UnionWith(extrasForPerm);
             }
             List<int[]> permutationions = new List<int[]>();
-            foreach (string s in permiutationList)
-            {
+            foreach (string s in permiutationList){
                 permutationions.Add(permutationStringToIntArray(s));
             }
             return permutationions;
@@ -411,18 +413,13 @@ namespace Collection_Game_Tool.Services
             extraPicks.CopyTo(copyOfExtraPicks, 0);
             int[] copyOfBase = new int[basePermiutation.Length];
             basePermiutation.CopyTo(copyOfBase, 0);
-            int numberOfFailuers = 0;
             List<int[]> filledPermiutationsForBase = fillPermiutationWithAllPossibleValues(copyOfExtraPicks, copyOfBase);
             for (int i = 0; i < filledPermiutationsForBase.Count && filledPermiutationsForBase.Count < maxNumberOfPermiutaitons; i++)
             {
-                if (!extrapermutations.Add(permutationToString(filledPermiutationsForBase[i])))
-                {
-                    numberOfFailuers++;
-                }
-                else
-                {
-                    numberOfFailuers = 0;
-                }
+                string perm = permutationToString(filledPermiutationsForBase[i]);
+                int countingNum = perm.Split('5').Length - 1;
+
+                extrapermutations.Add(perm);
             }
             return extrapermutations;
         }
@@ -444,15 +441,16 @@ namespace Collection_Game_Tool.Services
             {
                 int[] filledPermiutation = new int[permutation.Length];
                 permutation.CopyTo(filledPermiutation, 0);
+                int pickIndex = 0;
                 for (int j = 0; j < filledPermiutation.Length; j++)
                 {
                     if (filledPermiutation[j] == 0)
                     {
-                        filledPermiutation[j] = extraCopy[(i + j) % extraPicks.Length];
-
+                        filledPermiutation[j] = extraCopy[(i + pickIndex) % extraPicks.Length];
+                        pickIndex++;
                     }
-                    filledPermiutationCollection.Add(filledPermiutation);
                 }
+                filledPermiutationCollection.Add(filledPermiutation);
             }
             return filledPermiutationCollection;
         }
@@ -605,7 +603,8 @@ namespace Collection_Game_Tool.Services
                     sb.Append(",");
                 }
             }
-            return sb.ToString();
+            string perm = sb.ToString();
+            return perm;
         }
 
         /// <summary>

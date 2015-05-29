@@ -441,14 +441,13 @@ namespace Collection_Game_Tool.Services
             {
                 int[] filledPermiutation = new int[permutation.Length];
                 permutation.CopyTo(filledPermiutation, 0);
-                int repadd = 0;
-                int lastAdded = 0;
                 int pickIndex = 0;
                 for (int j = 0; j < filledPermiutation.Length; j++)
                 {
                     if (filledPermiutation[j] == 0)
                     {
                         filledPermiutation[j] = extraCopy[(i + pickIndex) % extraPicks.Length];
+                        pickIndex++;
                     }
                 }
                 filledPermiutationCollection.Add(filledPermiutation);

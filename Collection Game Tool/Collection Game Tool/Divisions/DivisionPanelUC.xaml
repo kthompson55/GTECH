@@ -30,7 +30,7 @@
         </Grid>
 
         <Grid Grid.Row="1" Background="#009ad8">
-            <Label Content="-The different combinations to win prize levels (30 max)-" 
+            <Label Content="The different combinations to win prize levels (30 max)" 
                    VerticalAlignment="Top" 
                    HorizontalAlignment="Center" 
                    Margin="0" Foreground="White"/>

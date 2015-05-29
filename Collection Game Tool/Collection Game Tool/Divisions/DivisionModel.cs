@@ -32,39 +32,65 @@ namespace Collection_Game_Tool.Divisions
             TotalPrizeValue = 0.00;
         }
 
+        /// <summary>
+        /// For divisions, this adds a prize level to the list of selected prize levels
+        /// The list represents the prize levels selected within the division
+        /// </summary>
+        /// <param name="prizeLevelToAdd"></param>
         public void addPrizeLevel(PrizeLevel prizeLevelToAdd)
         {
             selectedPrizes.Add(prizeLevelToAdd);
             selectedPrizes.Sort();
         }
 
+        /// <summary>
+        /// Removes a prize level based on the prize level object passed in
+        /// </summary>
+        /// <param name="prizeLevelToRemove"></param>
         public void removePrizeLevel(PrizeLevel prizeLevelToRemove)
         {
             selectedPrizes.Remove(prizeLevelToRemove);
             selectedPrizes.Sort();
         }
 
+        /// <summary>
+        /// Removes a prize level at the specified index
+        /// </summary>
+        /// <param name="prizeLevelIndex"></param>
         public void removePrizeLevel(int prizeLevelIndex)
         {
             selectedPrizes.RemoveAt(prizeLevelIndex);
             selectedPrizes.Sort();
         }
 
+        /// <summary>
+        /// Clears the prize level list of all the selected prize levels; leaves the list empty
+        /// </summary>
         public void clearPrizeLevelList()
         {
             selectedPrizes = new List<PrizeLevel>();
         }
 
+        /// <returns>The current list of selected prize levels</returns>
         public List<PrizeLevel> getPrizeLevelsAtDivision()
         {
             return selectedPrizes;
         }
 
+        /// <summary>
+        /// Gets a prize level from the list of selected prize levels at the specified index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public PrizeLevel getPrizeLevel(int index)
         {
             return selectedPrizes.ElementAt(index);
         }
 
+        /// <summary>
+        /// Calculates the total value of the division based on the combined value of the selected prize levels
+        /// </summary>
+        /// <returns></returns>
         public double calculateDivisionValue()
         {
             double divisionValue = 0.0f;

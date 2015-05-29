@@ -83,7 +83,7 @@ namespace Collection_Game_Tool.Services
                 baseLossconditions.Add(baseLoss);
             }
             lossPermutations = getAllLossPermutations(baseLossconditions, prizeLevels, gameInfo.nearWins, numberOfPermutationsForNearWinAmount);
-            List<int[]> Losses = lossPermutations.Take(gameInfo.maxPermutations).ToList();
+            List<int[]> Losses = lossPermutations.Take((int)gameInfo.maxPermutations).ToList();
             return Losses;
         }
 

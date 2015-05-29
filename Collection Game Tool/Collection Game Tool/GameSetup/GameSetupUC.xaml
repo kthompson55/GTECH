@@ -47,7 +47,7 @@
 
             </Grid.Resources>
             <Label Grid.Row="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#0068ad" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
-            <Label Grid.Row="1" Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="-The basic game settings-" VerticalContentAlignment="Center"></Label>
+            <Label Grid.Row="1" Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
 
             <ScrollViewer Grid.Row="2" x:Name="gameSetupScroll" MaxHeight="800" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto">
                 <!--VerticalScrollBarVisibility="Auto"-->
@@ -113,10 +113,10 @@
                                        Width="30"
                                        Margin="0,0,30,0"></Label>
                                 <StackPanel Orientation="Horizontal" Margin="10,0">
-                                    <Label FontSize="14">2</Label>
+                                    <Label FontSize="14">1</Label>
                                     <Slider x:Name="NumNearWinsSlider" 
                                             ValueChanged="NumNearWinsSlider_ValueChanged" 
-                                            MinWidth="200" Maximum="12" Minimum="2" 
+                                            MinWidth="200" Maximum="12" Minimum="1" 
                                             IsSelectionRangeEnabled="True" 
                                             VerticalAlignment="Center" 
                                             IsSnapToTickEnabled="True" TickPlacement="Both" TickFrequency="1"></Slider>
@@ -130,9 +130,12 @@
                     <Border Style="{StaticResource externalBorderStyle}">
 
                         <StackPanel x:Name="GSPermutationsPanel" Background="#ADADAD">
-                            <Label Style="{StaticResource titleStyle}">Game Win Permutations</Label>
+                            <Label Style="{StaticResource titleStyle}">Game Win/Loss Permutations</Label>
                             <Border BorderBrush="Black" BorderThickness="0,0,0,2">
-                                <Label Style="{StaticResource instructionStyle}">The number of division combinations to calculate that lead to a win</Label>
+                                <StackPanel>
+                                    <Label Style="{StaticResource instructionStyle}" Padding="0,2">The number of division combinations to calculate that lead to a win and the</Label>
+                                    <Label Style="{StaticResource instructionStyle}" Padding="0,0,0,2">number of combinations to calculate for an extra division that leads to losses</Label>
+                                </StackPanel>
                             </Border>
                             <DockPanel>
                                 <Label Style="{StaticResource dataLabelStyle}">Maximum Permutations:</Label>

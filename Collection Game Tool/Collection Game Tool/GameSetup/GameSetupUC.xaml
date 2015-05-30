@@ -133,8 +133,8 @@
                             <Label Style="{StaticResource titleStyle}">Game Win/Loss Permutations</Label>
                             <Border BorderBrush="Black" BorderThickness="0,0,0,2">
                                 <StackPanel>
-                                    <Label Style="{StaticResource instructionStyle}" Padding="0,2">The number of division combinations to calculate that lead to a win and the</Label>
-                                    <Label Style="{StaticResource instructionStyle}" Padding="0,0,0,2">number of combinations to calculate for an extra division that leads to losses</Label>
+                                    <Label Style="{StaticResource instructionStyle}" Padding="0,2">The number of winning combinations to calculate for each division,</Label>
+                                    <Label Style="{StaticResource instructionStyle}" Padding="0,0,0,2"> including an extra losing division</Label>
                                 </StackPanel>
                             </Border>
                             <DockPanel>

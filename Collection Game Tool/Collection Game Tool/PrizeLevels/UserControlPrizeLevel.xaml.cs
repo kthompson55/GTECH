@@ -42,6 +42,7 @@ namespace Collection_Game_Tool.PrizeLevels
             this.Loaded += new RoutedEventHandler(MainView_Loaded);
         }
 
+        //Setups up datacontext stuff
         public void setDataContext()
         {
             Level.DataContext = plObject;
@@ -50,6 +51,7 @@ namespace Collection_Game_Tool.PrizeLevels
             InstantWinCheckBox.DataContext = plObject;
         }
 
+        //After view is loaded
         void MainView_Loaded(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this.Parent);
@@ -72,6 +74,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
         private void TextBox_Focus(object sender, RoutedEventArgs e)
         {
+            //Focuses on the textbox that was selected in the prize level user control
             TextBox textBox = sender as TextBox;
             textBox.SelectAll();
             boxSelected();
@@ -79,6 +82,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
         private void TextBox_MouseCapture(object sender, MouseEventArgs e)
         {
+            //Basic selecting
             TextBox textBox = sender as TextBox;
             textBox.SelectAll();
         }
@@ -104,30 +108,35 @@ namespace Collection_Game_Tool.PrizeLevels
             listenerList.Add(list);
         }
 
+        //Makes sure text entered is okay
         private void textBoxValue_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             shout("Update");
             e.Handled = !TextBoxTextAllowed(e.Text);
         }
 
+        //Makes sure text entered is okay
         private void textBoxCollection_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             shout("Update");
             e.Handled = !CollectionBoxTextAllowed(e.Text);
         }
 
+        //Makes sure text entered is okay
         private bool TextBoxTextAllowed(string p)
         {
             shout("Update");
             return Array.TrueForAll<Char>(p.ToCharArray(), delegate(Char c) { return Char.IsDigit(c) || Char.IsControl(c) || c.Equals('.'); });
         }
 
+        //Makes sure text entered is okay
         private bool CollectionBoxTextAllowed(string p)
         {
             shout("Update");
             return Array.TrueForAll<Char>(p.ToCharArray(), delegate(Char c) { return Char.IsDigit(c) || Char.IsControl(c); });
         }
 
+        //Compares User Control Prize Level based of Prize Level value
         public int CompareTo(object obj)
         {
             if (obj == null)
@@ -138,6 +147,7 @@ namespace Collection_Game_Tool.PrizeLevels
             return compare.plObject.prizeValue.CompareTo(plObject.prizeValue);
         }
 
+        //Highlights box after text is changed in a prize level
         private void Text_Changed(object sender, TextChangedEventArgs e)
         {
             boxSelected();
@@ -151,6 +161,7 @@ namespace Collection_Game_Tool.PrizeLevels
                 ValidationResult vr = rr.Validate(CollectionBoxValue.Text, new CultureInfo("en-US", false));
 
                 PrizeLevelConverter plc = new PrizeLevelConverter();
+                //Checks if illegal characters were found in a text box
                 if (vr.Equals(new ValidationResult(false, "Illegal characters")))
                 {
                     ucplID = ErrorService.Instance.reportError("005", new List<string>{
@@ -158,7 +169,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     }, ucplID);
                 }
                 else if (vr.Equals(new ValidationResult(false, "Please enter a number in the given range.")))
-                {
+                {   //Check if number in a textbox is out of range
                     ucplID = ErrorService.Instance.reportError("006", new List<string>{
                         (string)plc.Convert(plObject.prizeLevel,typeof(string), null, new System.Globalization.CultureInfo("en-us")),
                         "0",
@@ -166,7 +177,7 @@ namespace Collection_Game_Tool.PrizeLevels
                     }, ucplID);
                 }
                 else if(vr.Equals(new ValidationResult(false, "Cannot be nothing")))
-                {
+                {   //Check is nothing was entered into the textbox
                     ucplID = ErrorService.Instance.reportError("008", new List<string>{
                         (string)plc.Convert(plObject.prizeLevel, typeof(string),null, new System.Globalization.CultureInfo("en-us"))
                     },
@@ -175,11 +186,13 @@ namespace Collection_Game_Tool.PrizeLevels
             }
             else
             {
+                //Resolves all errors if none were found
                 ErrorService.Instance.resolveError("005", null, ucplID);
                 ErrorService.Instance.resolveError("006", null, ucplID);
                 ErrorService.Instance.resolveError("008", null, ucplID);
             }
 
+            //Shouts update to sort the prize levels
             shout("Update");
         }
     }

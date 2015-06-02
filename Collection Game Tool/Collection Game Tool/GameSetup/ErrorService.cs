@@ -28,6 +28,7 @@ namespace Collection_Game_Tool.GameSetup
             }
         }
 
+        //The possible errors the application can have
         private Dictionary<string, string> errorTemplates = new Dictionary<string, string>
         {
             {"001","{0} dun goofed. Fix it.\n"},
@@ -43,6 +44,7 @@ namespace Collection_Game_Tool.GameSetup
             {"012", "With the current setup the player cannot lose. Either decrease the amount of player picks, or increase the amount of collections one of the prize levels has."}
         };
 
+        //The possible warnings the application can have
         private Dictionary<string, string> warningTemplates = new Dictionary<string, string>
         {
             {"001","{0} has no prize levels.\n"},
@@ -72,6 +74,7 @@ namespace Collection_Game_Tool.GameSetup
             }
         }
 
+        //Reports and error where errorCode is the unique key of the error from the dictionary, illegalObjects is the list of strings placed in the error string, and senderId is the unique Id from the object that is sending it, if senderId is null this will generate senderId
         public string reportError(string errorCode, List<string> illegalObjects, string senderId)
         {
             if(senderId == null) senderId = currentId++ + "";
@@ -87,6 +90,7 @@ namespace Collection_Game_Tool.GameSetup
             return senderId;
         }
 
+        //Resolves any error given the errorCode, which is the unique key of the error from the dictionary, and the senderId which is the unique Id from the object that is sending it, illegalObjects can be null (this is an artifact from an old build and should be removed in future builds)
         public void resolveError(string errorCode, List<string> illegalObjects, string senderId)
         {
             Error theError = new Error(senderId, errorCode);
@@ -129,6 +133,7 @@ namespace Collection_Game_Tool.GameSetup
             }
         }
 
+        //Reports and error where warningCode is the unique key of the warning from the dictionary, illegalObjects is the list of strings placed in the warning string, and senderId is the unique Id from the object that is sending it, if senderId is null this will generate senderId
         public string reportWarning(string warningCode, List<string> illegalObjects, string senderId)
         {
             if (senderId == null) senderId = currentId++ + "";
@@ -143,6 +148,7 @@ namespace Collection_Game_Tool.GameSetup
             return senderId;
         }
 
+        //Resolves any warning given the warningCode, which is the unique key of the warning from the dictionary, and the senderId which is the unique Id from the object that is sending it, illegalObjects can be null (this is an artifact from an old build and should be removed in future builds)
         public void resolveWarning(string warningCode, List<string> illegalObjects, string senderId)
         {
             Warning theWarning = new Warning(senderId, warningCode);

@@ -26,6 +26,7 @@ namespace Collection_Game_Tool.PrizeLevels
     {
         List<Listener> listenerList = new List<Listener>();
         public PrizeLevels plsObject;
+        //Number of collection to check against
         private int collectionCheck;
         private const double MARGIN = 60;
         private string plsID;
@@ -105,6 +106,7 @@ namespace Collection_Game_Tool.PrizeLevels
             prizeLevelCounterLabel.Content = Prizes.Children.Count;
         }
 
+        //Loads PrizeLevels object
         public void loadExistingPrizeLevel(PrizeLevel loadedPrizeLevel)
         {
             UserControlPrizeLevel ucpl = new UserControlPrizeLevel();
@@ -155,6 +157,7 @@ namespace Collection_Game_Tool.PrizeLevels
                 String parse=(String)pass;
                 if (parse.Equals("Update"))
                 {
+                    //Sorts Prize Levels by value
                     List<UserControlPrizeLevel> ucplList = new List<UserControlPrizeLevel>();
                     ucplList = Prizes.Children.Cast<UserControlPrizeLevel>().ToList<UserControlPrizeLevel>();
                     Prizes.Children.Clear();
@@ -172,6 +175,7 @@ namespace Collection_Game_Tool.PrizeLevels
                         ucplList[i].LevelGrid.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ADADAD")); //  fff000
                         ucplList[i].OuterGrid.Margin = new Thickness(0, i * MARGIN, 0, 0);
                         ucplList[i].plObject.prizeLevel = (i + 1);
+                        //Finds the highest collection in all prize levels
                         if (ucplList[i].plObject.numCollections>collectionToShout)
                         {
                             collectionToShout = ucplList[i].plObject.numCollections;
@@ -202,6 +206,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
                     if (collectionCheck < collectionToShout)
                     {
+                        //Checks to see if any prize level collection is higher then player picks
                         plsID=ErrorService.Instance.reportError("004", new List<string>
                         {
                             (string)plc.Convert(ucplList[index].plObject.prizeLevel,typeof(string), null, new System.Globalization.CultureInfo("en-us")),
@@ -282,6 +287,7 @@ namespace Collection_Game_Tool.PrizeLevels
 
         public void setCollectionCheck(int CC)
         {
+            //Updates to be sorted and validated
             collectionCheck = CC;
             ((UserControlPrizeLevel)Prizes.Children[0]).shout("Update");
         }

@@ -17,6 +17,7 @@
                 <MenuItem Header="Save Project" Click="SaveItem_Clicked"/>
                 <MenuItem Header="Save Project As" Click="SaveAsItem_Clicked"/>
                 <MenuItem Header="Open Project" Click="OpenItem_Clicked"/>
+                <MenuItem Header="About" Click="MenuItem_Click"/>
             </MenuItem>
         </Menu>
 

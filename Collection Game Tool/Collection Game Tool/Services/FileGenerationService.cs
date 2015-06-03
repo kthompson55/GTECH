@@ -15,18 +15,19 @@ namespace Collection_Game_Tool.Services
         public FileGenerationService() { }
 
         /// <summary>
-        /// Method needed to create the File
+        /// Builds the file To Generate Game Data
         /// </summary>
-        /// <param name="divisions"></param>
-        /// <param name="prizeLevels"></param>
-        /// <param name="gameInfo"></param>
-        /// <param name="fileName"></param>
+        /// <param name="divisions">All Division information</param>
+        /// <param name="prizeLevels">All Prize Level information</param>
+        /// <param name="gameInfo">All game Inforamtion</param>
+        /// <param name="fileName">The full output file name and pat</param>
         /// <param name="gameSetupUC"></param>
         public void buildGameData(
             Divisions.DivisionsModel divisions,
             PrizeLevels.PrizeLevels prizeLevels,
             GameSetup.GameSetupModel gameInfo,
-            string fileName, GameSetup.GameSetupUC gameSetupUC)
+            string fileName,
+            GameSetup.GameSetupUC gameSetupUC)
         {
             addListener(gameSetupUC);
             int numberOfDivisions = divisions.getNumberOfDivisions() + 1;
@@ -50,19 +51,55 @@ namespace Collection_Game_Tool.Services
             for (int i = 0; i < threads.Count; i++)
             {
                 threads.ElementAt(i).Join();
-                Console.Out.Write("Finished thread");
-
             }
             writeFile(fileName, divisionLevles, buildHeader(prizeLevels, divisions));
             shout("FileFinished");
         }
 
         /// <summary>
-        /// Gets all losing permutations for a given game
+        /// Builds the file To Generate Game Data
         /// </summary>
-        /// <param name="gameInfo">All of the game information</param>
-        /// <param name="prizeLevels">All of the prizelevel informaiton for the game</param>
-        /// <returns>returns a list of int[] where each int[] is a unique permutation that has no winning selections</returns>
+        /// <param name="divisions">All Division information</param>
+        /// <param name="prizeLevels">All Prize Level information</param>
+        /// <param name="gameInfo">All game Inforamtion</param>
+        /// <param name="fileName">The full output file name and pat</param>
+        public void buildGameData(
+            Divisions.DivisionsModel divisions,
+            PrizeLevels.PrizeLevels prizeLevels,
+            GameSetup.GameSetupModel gameInfo,
+            string fileName)
+        {
+            int numberOfDivisions = divisions.getNumberOfDivisions() + 1;
+            List<int[]>[] divisionLevles = new List<int[]>[numberOfDivisions];
+            List<Thread> threads = new List<Thread>();
+            for (int i = 0; i < numberOfDivisions; i++)
+            {
+                int divisionIndex = i;
+                Thread t;
+                if (divisionIndex == numberOfDivisions - 1)
+                {
+                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionLossingPermutations(gameInfo, prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                }
+                else
+                {
+                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, (int)gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                }
+                t.Start();
+                threads.Add(t);
+            }
+            for (int i = 0; i < threads.Count; i++)
+            {
+                threads.ElementAt(i).Join();
+            }
+            writeFile(fileName, divisionLevles, new List<string>());
+        }
+
+        /// <summary>
+        /// Generates losing permutations for a game
+        /// </summary>
+        /// <param name="gameInfo">All game Information</param>
+        /// <param name="prizeLevels">All prizeLevels</param>
+        /// <returns>List of int arrays representing losing permutations</returns>
         private List<int[]> getDivisionLossingPermutations(
             GameSetup.GameSetupModel gameInfo,
             PrizeLevels.PrizeLevels prizeLevels
@@ -134,6 +171,13 @@ namespace Collection_Game_Tool.Services
             return createExtrapermutations(lossPermituations, maxNumberOfpermutationsPerNearWin + extraPermutationBuffer, prizeLevels); ;
         }
 
+        /// <summary>
+        /// Creates the base combinations for near win losing conditions. 
+        /// </summary>
+        /// <param name="nearWinPrizeLevels">Number of max near wins</param>
+        /// <param name="totalNumberOfPicks">Total number of picks for a divisions</param>
+        /// <param name="prizeLevels">All the prize levels</param>
+        /// <returns>Returns a list of base combinations</returns>
         private List<int[]> getBaseNearWinLosspermutations(
             int nearWinPrizeLevels,
             int totalNumberOfPicks,
@@ -157,6 +201,13 @@ namespace Collection_Game_Tool.Services
             return nearWinBasepermutations;
         }
 
+        /// <summary>
+        /// Gets complete combinations of near wins
+        /// </summary>
+        /// <param name="nearWinPrizeLevels">Number of near wins</param>
+        /// <param name="totalNumberOfPicks">total number of picks for a level</param>
+        /// <param name="prizeLevels">All prize levels</param>
+        /// <returns></returns>
         private List<int[]> getPrizeLevelCombinationsForNearWins(
             int nearWinPrizeLevels,
             int totalNumberOfPicks,
@@ -206,6 +257,12 @@ namespace Collection_Game_Tool.Services
             return prizeLevelCombinations;
         }
 
+        /// <summary>
+        /// Writes the file out
+        /// </summary>
+        /// <param name="fileName">The file name and output path</param>
+        /// <param name="divisionLevles">All the division permutation information</param>
+        /// <param name="header">The header for the file</param>
         private void writeFile(string fileName, List<int[]>[] divisionLevles, List<string> header)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
@@ -256,6 +313,12 @@ namespace Collection_Game_Tool.Services
             }
         }
 
+        /// <summary>
+        /// Builds the header information for the file
+        /// </summary>
+        /// <param name="prizes">All prize informaiton</param>
+        /// <param name="divisions">All division information</param>
+        /// <returns>Returns a list of string representing each line of the header</returns>
         private List<string> buildHeader(PrizeLevels.PrizeLevels prizes, Divisions.DivisionsModel divisions){
             List<string> headerLines = new List<string>();
             headerLines.Add("The first number is the division indicator.");
@@ -290,7 +353,15 @@ namespace Collection_Game_Tool.Services
             return headerLines;
         }
 
-        //Creates the collection of win permutations
+        /// <summary>
+        /// Creates all the winning permutations of a divisions
+        /// </summary>
+        /// <param name="divisionIndicator">Selected Division</param>
+        /// <param name="totalNumberOfPicks">Number of picks for a division</param>
+        /// <param name="numberOfPermuitations">number of permutations to genreate for a division</param>
+        /// <param name="division">Division informaiton</param>
+        /// <param name="prizeLevels">Prize level informaiton</param>
+        /// <returns>Returns the list of winning permutaitons for a division</returns>
         private List<int[]> getDivisionWinningPermutations(
             int divisionIndicator,
             short totalNumberOfPicks,
@@ -333,6 +404,13 @@ namespace Collection_Game_Tool.Services
             return finalPermutations;
         }
 
+        /// <summary>
+        /// Gets all base permutations to determine a winning permutation.
+        /// </summary>
+        /// <param name="totalNumberOfPicks">Number of picks for a division</param>
+        /// <param name="numberOfPermuitations">Max number of permutations.</param>
+        /// <param name="permuitationArray">Permutation array with bae win information.</param>
+        /// <returns>Returns all base permutations of a winning permutation array.</returns>
         private List<int[]> getAllBasePermutations(
             int totalNumberOfPicks,
             int numberOfPermuitations,
@@ -357,6 +435,15 @@ namespace Collection_Game_Tool.Services
             return divisionIncompleteWinpermutations;
         }
 
+        /// <summary>
+        /// Fill the extra spots of a permutation with non winning picks.
+        /// </summary>
+        /// <param name="nonWinningPermutations">The non winning permutations</param>
+        /// <param name="extraPicks">The extra picks to fill in for a division</param>
+        /// <param name="div">The division</param>
+        /// <param name="prizeLevels">All prize levels</param>
+        /// <param name="maxNumberOfpermutations">Max number of permutations to reach.</param>
+        /// <returns>Returns filled permutations.</returns>
         private List<int[]> fillBlankDivisionpermutationsWithNonWinningData(
             List<int[]> nonWinningPermutations,
             int[] extraPicks,
@@ -624,6 +711,11 @@ namespace Collection_Game_Tool.Services
             return permutation;
         }
 
+        /// <summary>
+        /// Turns a int value to a char for the file genreation
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private char charFromInt(int value)
         {
             char character = (char)(value + 64);

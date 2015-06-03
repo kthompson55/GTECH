@@ -268,7 +268,7 @@ namespace Collection_Game_Tool.Services
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
             {
 
-                List<string> lines = new List<string>();
+                List<string> lines = new List<string>(header);
                 int divisionIndicator = 0;
                 foreach (List<int[]> li in divisionLevles)
                 {

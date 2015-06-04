@@ -99,7 +99,9 @@ namespace Collection_Game_Tool.PrizeLevels
         private void boxSelected()
         {
             validateMyself();
-            this.plObject.prizeValue = double.Parse(TextBoxValue.Text);
+            double set = 0.0;
+            if(double.TryParse(TextBoxValue.Text, out set))
+                this.plObject.prizeValue = set;
             shout("Update");
             LevelGrid.Background = Brushes.Yellow;
         }

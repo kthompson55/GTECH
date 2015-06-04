@@ -169,7 +169,7 @@ namespace Collection_Game_Tool.Main
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = System.Windows.MessageBox.Show("Version 4.0", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxResult result = System.Windows.MessageBox.Show("Version 4.1", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

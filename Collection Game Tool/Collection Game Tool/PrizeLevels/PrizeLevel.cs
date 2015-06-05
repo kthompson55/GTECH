@@ -16,11 +16,9 @@ namespace Collection_Game_Tool.PrizeLevels
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //This stores the objects that the individual Prize Level can communicate with
         [field: NonSerializedAttribute()]
         List<Listener> audience = new List<Listener>();
 
-        //PrizeLevel is 1,2,3,4,5, etc that coordinates with A,B,C,D,E,F,etc...Use PrizeLevelConverter to get int to string and vice-versa
         private int _prizeLevel;
         public int prizeLevel
         {
@@ -37,7 +35,6 @@ namespace Collection_Game_Tool.PrizeLevels
             }
         }
 
-        //The value of the prize
         private double _prizeValue;
         public double prizeValue
         {
@@ -54,7 +51,6 @@ namespace Collection_Game_Tool.PrizeLevels
             }
         }
 
-        //The number of times you items you have to collect to win the prize level
         private int _numCollections;
         public int numCollections
         {
@@ -71,7 +67,6 @@ namespace Collection_Game_Tool.PrizeLevels
             }
         }
 
-        //Declares the prize level an instant win or not
         private bool _isInstantWin;
         public bool isInstantWin
         {
@@ -88,7 +83,6 @@ namespace Collection_Game_Tool.PrizeLevels
             }
         }
 
-        //Comparison of prizelevels, just compares value, this is used for sorting the prize levels
         public int CompareTo(object obj)
         {
             if (obj == null)

@@ -6,7 +6,6 @@ using Collection_Game_Tool.Services;
 using Collection_Game_Tool.PrizeLevels;
 using Collection_Game_Tool.Divisions;
 using Collection_Game_Tool.GameSetup;
-using System.IO;
 
 namespace Collection_Game_Tool_Test.ServicesTests
 {
@@ -64,633 +63,406 @@ namespace Collection_Game_Tool_Test.ServicesTests
         #endregion
 
         [TestMethod]
-        public void testFileGenOne()
+        public void testBuildGameDataThreeDivisonsFourPicks()
         {
-            //Game Information
-            GameSetupModel gsm = new GameSetupModel();
-            gsm.isNearWin = true;
-            gsm.nearWins = 1;
-            gsm.maxPermutations = 1000;
-            gsm.totalPicks = 10;
+            //Custom input for a game
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 4;
+            gs.isNearWin = true;
+            gs.nearWins = 2;
 
-            PrizeLevels ps = new PrizeLevels();
-           
-            PrizeLevel p1 = new PrizeLevel();
-            p1.numCollections = 5;
-            p1.prizeValue = 1000;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.numCollections = 4;
-            p2.prizeValue = 100;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.numCollections = 4;
-            p3.prizeValue = 10;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.numCollections = 3;
-            p4.prizeValue = 5;
-            ps.addPrizeLevel(p4);
-            PrizeLevel p5 = new PrizeLevel();
-            p5.numCollections = 3;
-            p5.prizeValue = 2;
-            ps.addPrizeLevel(p5);
-            PrizeLevel p6 = new PrizeLevel();
-            p6.numCollections = 2;
-            p6.prizeValue = 1;
-            ps.addPrizeLevel(p6);
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 3;
+            pl1.prizeValue = 100;
 
-            DivisionsModel divs = new DivisionsModel();
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 2;
+            pl2.prizeValue = 50;
 
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p1);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p2);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p3);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p4);
-            divs.addDivision(d4);
-            DivisionModel d5 = new DivisionModel();
-            d5.addPrizeLevel(p5);
-            divs.addDivision(d5);
-            DivisionModel d6 = new DivisionModel();
-            d6.addPrizeLevel(p6);
-            divs.addDivision(d6);
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 2;
+            pl3.prizeValue = 25;
 
-            //file creation
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
 
-            //file test
-            for (int i = 0; i < 1000; i++)
-            {
-                String fileName = "FileGenTest" + i;
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(divs, ps, gsm, "C:\\" + fileName + ".txt");
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
 
-                try
-                {
-                    using (StreamReader sr = new StreamReader("C:\\" + fileName + ".txt"))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            Assert.IsTrue(checkLine(divs, ps, line));
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
-            }
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl2);
 
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl2);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+
+            //File Generator
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "T:\\Work\\JunkOut\\testBuildGameDataThreeDivisonsFourPicks.txt");
+        }
+
+
+        [TestMethod]
+        public void testBuildGameDataFourDivisonsFivePicks()
+        {
+            //Custom input for a game
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 5;
+            gs.isNearWin = true;
+            gs.nearWins = 2;
+
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 3;
+            pl1.prizeValue = 100;
+
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 2;
+            pl2.prizeValue = 50;
+
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 2;
+            pl3.prizeValue = 25;
+
+            PrizeLevel pl4 = new PrizeLevel();
+            pl4.isInstantWin = false;
+            pl4.numCollections = 4;
+            pl4.prizeValue = 10000;
+
+            PrizeLevel pl5 = new PrizeLevel();
+            pl5.isInstantWin = false;
+            pl5.numCollections = 3;
+            pl5.prizeValue = 1000;
+
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
+            pls.addPrizeLevel(pl4);
+            pls.addPrizeLevel(pl5);
+
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
+
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl2);
+
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl2);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionModel dm4 = new DivisionModel();
+            dm4.addPrizeLevel(pl5);
+
+            DivisionModel dm5 = new DivisionModel();
+            dm5.addPrizeLevel(pl5);
+            dm5.addPrizeLevel(pl2);
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+            dms.addDivision(dm5);
+
+            //File Generator
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "T:\\Work\\JunkOut\\testBuildGameDataFourDivisonsFivePicks.txt");
         }
 
         [TestMethod]
-        public void testFileGenTwo()
+        public void testBuildGameDataThreeDivisonsFourPicksWithLoss()
         {
-            //Game Information
-            GameSetupModel gsm = new GameSetupModel();
-            gsm.isNearWin = true;
-            gsm.nearWins = 1;
-            gsm.maxPermutations = 1000;
-            gsm.totalPicks = 10;
+            //Custom input for a game
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 4;
 
-            PrizeLevels ps = new PrizeLevels();
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 3;
+            pl1.prizeValue = 100;
 
-            PrizeLevel p1 = new PrizeLevel();
-            p1.numCollections = 3;
-            p1.prizeValue = 1000;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.numCollections = 3;
-            p2.prizeValue = 100;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.numCollections = 3;
-            p3.prizeValue = 10;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.numCollections = 3;
-            p4.prizeValue = 5;
-            ps.addPrizeLevel(p4);
-            PrizeLevel p5 = new PrizeLevel();
-            p5.numCollections = 3;
-            p5.prizeValue = 2;
-            ps.addPrizeLevel(p5);
-            PrizeLevel p6 = new PrizeLevel();
-            p6.numCollections = 3;
-            p6.prizeValue = 1;
-            ps.addPrizeLevel(p6);
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 2;
+            pl2.prizeValue = 50;
 
-            DivisionsModel divs = new DivisionsModel();
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 2;
+            pl3.prizeValue = 25;
 
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p1);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p2);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p3);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p4);
-            divs.addDivision(d4);
-            DivisionModel d5 = new DivisionModel();
-            d5.addPrizeLevel(p5);
-            divs.addDivision(d5);
-            DivisionModel d6 = new DivisionModel();
-            d6.addPrizeLevel(p6);
-            divs.addDivision(d6);
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
 
-            //file creation
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
 
-            //file test
-            for (int i = 0; i < 1000; i++)
-            {
-                String fileName = "FileGenTest" + i;
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(divs, ps, gsm, "C:\\" + fileName + ".txt");
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl2);
 
-                try
-                {
-                    using (StreamReader sr = new StreamReader("C:\\" + fileName + ".txt"))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            Assert.IsTrue(checkLine(divs, ps, line));
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
-            }
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl2);
+            dm3.addPrizeLevel(pl3);
 
+            DivisionModel dm4 = new DivisionModel();
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+
+            //File Generator
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataThreeDivisonsFourPicksWithLoss");
         }
 
         [TestMethod]
-        public void testFileGenThree()
+        public void testBuildGameDataFourDivisionsSixPicks()
         {
-            //Game Information
-            GameSetupModel gsm = new GameSetupModel();
-            gsm.isNearWin = true;
-            gsm.nearWins = 2;
-            gsm.maxPermutations = 1000;
-            gsm.totalPicks = 10;
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 6;
 
-            PrizeLevels ps = new PrizeLevels();
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 3;
+            pl1.prizeValue = 100;
 
-            PrizeLevel p1 = new PrizeLevel();
-            p1.numCollections = 3;
-            p1.prizeValue = 1000;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.numCollections = 3;
-            p2.prizeValue = 100;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.numCollections = 3;
-            p3.prizeValue = 10;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.numCollections = 3;
-            p4.prizeValue = 5;
-            ps.addPrizeLevel(p4);
-            PrizeLevel p5 = new PrizeLevel();
-            p5.numCollections = 3;
-            p5.prizeValue = 2;
-            ps.addPrizeLevel(p5);
-            PrizeLevel p6 = new PrizeLevel();
-            p6.numCollections = 3;
-            p6.prizeValue = 1;
-            ps.addPrizeLevel(p6);
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 3;
+            pl2.prizeValue = 50;
 
-            DivisionsModel divs = new DivisionsModel();
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 3;
+            pl3.prizeValue = 25;
 
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p1);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p2);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p3);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p4);
-            divs.addDivision(d4);
-            DivisionModel d5 = new DivisionModel();
-            d5.addPrizeLevel(p5);
-            divs.addDivision(d5);
-            DivisionModel d6 = new DivisionModel();
-            d6.addPrizeLevel(p4);
-            d6.addPrizeLevel(p5);
-            divs.addDivision(d6);
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
 
-            //file creation
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
+            dm1.addPrizeLevel(pl2);
 
-            //file test
-            for (int i = 0; i < 1000; i++)
-            {
-                String fileName = "FileGenTest" + i;
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(divs, ps, gsm, "C:\\" + fileName + ".txt");
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl2);
+            dm2.addPrizeLevel(pl3);
 
-                try
-                {
-                    using (StreamReader sr = new StreamReader("C:\\" + fileName + ".txt"))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            Assert.IsTrue(checkLine(divs, ps, line));
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
-            }
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl1);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionModel dm4 = new DivisionModel();
+            dm4.addPrizeLevel(pl2);
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataFourDivisionsSixPicks");
         }
 
         [TestMethod]
-        public void testFileGenFour()
+        public void testBuildGameDataFiveDivisionsNinePicks()
         {
-            //Game Information
-            GameSetupModel gsm = new GameSetupModel();
-            gsm.isNearWin = true;
-            gsm.nearWins = 2;
-            gsm.maxPermutations = 1000;
-            gsm.totalPicks = 6;
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 9;
 
-            PrizeLevels ps = new PrizeLevels();
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 5;
+            pl1.prizeValue = 100;
 
-            PrizeLevel p1 = new PrizeLevel();
-            p1.numCollections = 5;
-            p1.prizeValue = 1000;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.numCollections = 4;
-            p2.prizeValue = 100;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.numCollections = 3;
-            p3.prizeValue = 10;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.numCollections = 3;
-            p4.prizeValue = 5;
-            ps.addPrizeLevel(p4);
-            PrizeLevel p5 = new PrizeLevel();
-            p5.numCollections = 3;
-            p5.prizeValue = 2;
-            ps.addPrizeLevel(p5);
-            PrizeLevel p6 = new PrizeLevel();
-            p6.numCollections = 2;
-            p6.prizeValue = 1;
-            ps.addPrizeLevel(p6);
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 4;
+            pl2.prizeValue = 50;
 
-            DivisionsModel divs = new DivisionsModel();
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 4;
+            pl3.prizeValue = 25;
 
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p1);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p2);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p3);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p4);
-            divs.addDivision(d4);
-            DivisionModel d5 = new DivisionModel();
-            d5.addPrizeLevel(p5);
-            divs.addDivision(d5);
-            DivisionModel d6 = new DivisionModel();
-            d6.addPrizeLevel(p3);
-            d6.addPrizeLevel(p4);
-            divs.addDivision(d6);
-            DivisionModel d7 = new DivisionModel();
-            d7.addPrizeLevel(p5);
-            d7.addPrizeLevel(p6);
-            divs.addDivision(d7);
+            PrizeLevel pl4 = new PrizeLevel();
+            pl4.isInstantWin = false;
+            pl4.numCollections = 3;
+            pl4.prizeValue = 10;
 
-            //file creation
+            PrizeLevel pl5 = new PrizeLevel();
+            pl5.isInstantWin = false;
+            pl5.numCollections = 3;
+            pl5.prizeValue = 5;
 
-            //file test
-            for (int i = 0; i < 1000; i++)
-            {
-                String fileName = "FileGenTest" + i;
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(divs, ps, gsm, "C:\\" + fileName + ".txt");
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
+            pls.addPrizeLevel(pl4);
+            pls.addPrizeLevel(pl5);
 
-                try
-                {
-                    using (StreamReader sr = new StreamReader("C:\\" + fileName + ".txt"))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            Assert.IsTrue(checkLine(divs, ps, line));
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
-            }
 
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
+
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl1);
+            dm2.addPrizeLevel(pl2);
+
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl1);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionModel dm4 = new DivisionModel();
+            dm4.addPrizeLevel(pl2);
+            dm4.addPrizeLevel(pl3);
+
+            DivisionModel dm5 = new DivisionModel();
+            dm5.addPrizeLevel(pl4);
+            dm5.addPrizeLevel(pl5);
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+            dms.addDivision(dm5);
+
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataFiveDivisionsNinePicks");
         }
 
         [TestMethod]
-        public void testFileGenFive()
+        public void testBuildGameDataFiveDivisionsNinePicksWithFailDivision()
         {
-            //Game Information
-            GameSetupModel gsm = new GameSetupModel();
-            gsm.isNearWin = true;
-            gsm.nearWins = 1;
-            gsm.maxPermutations = 1000;
-            gsm.totalPicks = 10;
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 1000;
+            gs.totalPicks = 9;
 
-            PrizeLevels ps = new PrizeLevels();
+            PrizeLevel pl1 = new PrizeLevel();
+            pl1.isInstantWin = false;
+            pl1.numCollections = 5;
+            pl1.prizeValue = 100;
 
-            PrizeLevel p1 = new PrizeLevel();
-            p1.numCollections = 5;
-            p1.prizeValue = 1000;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.numCollections = 4;
-            p2.prizeValue = 100;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.numCollections = 4;
-            p3.prizeValue = 10;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.numCollections = 3;
-            p4.prizeValue = 5;
-            ps.addPrizeLevel(p4);
-            PrizeLevel p5 = new PrizeLevel();
-            p5.numCollections = 3;
-            p5.prizeValue = 2;
-            ps.addPrizeLevel(p5);
-            PrizeLevel p6 = new PrizeLevel();
-            p6.numCollections = 2;
-            p6.prizeValue = 1;
-            ps.addPrizeLevel(p6);
+            PrizeLevel pl2 = new PrizeLevel();
+            pl2.isInstantWin = false;
+            pl2.numCollections = 4;
+            pl2.prizeValue = 50;
 
-            DivisionsModel divs = new DivisionsModel();
+            PrizeLevel pl3 = new PrizeLevel();
+            pl3.isInstantWin = false;
+            pl3.numCollections = 4;
+            pl3.prizeValue = 25;
 
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p3);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p1);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p6);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p4);
-            divs.addDivision(d4);
-            DivisionModel d5 = new DivisionModel();
-            d5.addPrizeLevel(p5);
-            divs.addDivision(d5);
-            DivisionModel d6 = new DivisionModel();
-            d6.addPrizeLevel(p2);
-            divs.addDivision(d6);
+            PrizeLevel pl4 = new PrizeLevel();
+            pl4.isInstantWin = false;
+            pl4.numCollections = 3;
+            pl4.prizeValue = 10;
 
-            //file creation
+            PrizeLevel pl5 = new PrizeLevel();
+            pl5.isInstantWin = false;
+            pl5.numCollections = 3;
+            pl5.prizeValue = 5;
 
-            //file test
-            for (int i = 0; i < 1000; i++)
-            {
-                String fileName = "FileGenTest" + i;
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(divs, ps, gsm, "C:\\" + fileName + ".txt");
+            PrizeLevels pls = new PrizeLevels();
+            pls.addPrizeLevel(pl1);
+            pls.addPrizeLevel(pl2);
+            pls.addPrizeLevel(pl3);
+            pls.addPrizeLevel(pl4);
+            pls.addPrizeLevel(pl5);
 
-                try
-                {
-                    using (StreamReader sr = new StreamReader("C:\\" + fileName + ".txt"))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            Assert.IsTrue(checkLine(divs, ps, line));
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
-            }
 
+            DivisionModel dm1 = new DivisionModel();
+            dm1.addPrizeLevel(pl1);
+
+            DivisionModel dm2 = new DivisionModel();
+            dm2.addPrizeLevel(pl1);
+            dm2.addPrizeLevel(pl2);
+
+            DivisionModel dm3 = new DivisionModel();
+            dm3.addPrizeLevel(pl1);
+            dm3.addPrizeLevel(pl3);
+
+            DivisionModel dm4 = new DivisionModel();
+            dm4.addPrizeLevel(pl2);
+            dm4.addPrizeLevel(pl3);
+
+            DivisionModel dm5 = new DivisionModel();
+            dm5.addPrizeLevel(pl4);
+            dm5.addPrizeLevel(pl5);
+
+            DivisionModel dm6 = new DivisionModel();
+
+            DivisionsModel dms = new DivisionsModel();
+            dms.addDivision(dm1);
+            dms.addDivision(dm2);
+            dms.addDivision(dm3);
+            dms.addDivision(dm4);
+            dms.addDivision(dm5);
+            dms.addDivision(dm6);
+
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataFiveDivisionsNinePicksWithFail");
         }
+
 
         [TestMethod]
-        public void testFileGenSix()
+        public void testBuildGameDataMaxDivison()
         {
-            //Game Information
-            GameSetupModel gsm = new GameSetupModel();
-            gsm.isNearWin = true;
-            gsm.nearWins = 2;
-            gsm.maxPermutations = 1000;
-            gsm.totalPicks = 6;
+            GameSetupModel gs = new GameSetupModel();
+            gs.maxPermutations = 300000;
+            gs.totalPicks = 20;
 
-            PrizeLevels ps = new PrizeLevels();
-
-            PrizeLevel p1 = new PrizeLevel();
-            p1.numCollections = 5;
-            p1.prizeValue = 1000;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.numCollections = 4;
-            p2.prizeValue = 100;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.numCollections = 3;
-            p3.prizeValue = 10;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.numCollections = 3;
-            p4.prizeValue = 5;
-            ps.addPrizeLevel(p4);
-            PrizeLevel p5 = new PrizeLevel();
-            p5.numCollections = 3;
-            p5.prizeValue = 2;
-            ps.addPrizeLevel(p5);
-            PrizeLevel p6 = new PrizeLevel();
-            p6.numCollections = 2;
-            p6.prizeValue = 1;
-            ps.addPrizeLevel(p6);
-
-            DivisionsModel divs = new DivisionsModel();
-
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p5);
-            d1.addPrizeLevel(p6);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p2);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p3);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p4);
-            divs.addDivision(d4);
-            DivisionModel d5 = new DivisionModel();
-            d5.addPrizeLevel(p5);
-            divs.addDivision(d5);
-            DivisionModel d6 = new DivisionModel();
-            d6.addPrizeLevel(p3);
-            d6.addPrizeLevel(p4);
-            divs.addDivision(d6);
-            DivisionModel d7 = new DivisionModel();
-            d7.addPrizeLevel(p5);
-            d7.addPrizeLevel(p6);
-            divs.addDivision(d7);
-
-            //file creation
-
-            //file test
-            for (int i = 0; i < 1000; i++)
+            int numPrizeLevels = 12;
+            PrizeLevel[] prizes = new PrizeLevel[numPrizeLevels];
+            PrizeLevels pls = new PrizeLevels();
+            for (int i = 0; i < numPrizeLevels; i++)
             {
-                String fileName = "FileGenTest" + i;
-                FileGenerationService fgs = new FileGenerationService();
-                fgs.buildGameData(divs, ps, gsm, "C:\\" + fileName + ".txt");
-
-                try
-                {
-                    using (StreamReader sr = new StreamReader("C:\\" + fileName + ".txt"))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            Assert.IsTrue(checkLine(divs, ps, line));
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
+                prizes[i] = new PrizeLevel();
+                prizes[i].isInstantWin = false;
+                prizes[i].numCollections = i + 1;
+                prizes[i].prizeValue = 100 * i;
+                pls.addPrizeLevel(prizes[i]);
             }
 
+            int numberOfDivions = 30;
+            DivisionModel[] divisions = new DivisionModel[numberOfDivions];
+            DivisionsModel dms = new DivisionsModel();
+            Random rand = new Random();
+            for (int i = 0; i < numberOfDivions; i++)
+            {
+                divisions[i] = new DivisionModel();
+                divisions[i].addPrizeLevel(prizes[rand.Next(0, 12)]);
+                dms.addDivision(divisions[i]);
+            }
+
+            FileGenerationService fgs = new FileGenerationService();
+            fgs.buildGameData(dms, pls, gs, "T:\\Work\\JunkOut\\MaxTest.txt");
         }
-
-        [TestMethod]
-        public void testIntToChar()
-        {
-            int a = intFromChar('A');
-            Assert.IsTrue(a == 0);
-            Assert.IsTrue(intFromChar('B') == 1);
-            Assert.IsTrue(intFromChar('C') == 2);
-
-        }
-
-        [TestMethod]
-        public void testCheckLinePass()
-        {
-            PrizeLevels ps = new PrizeLevels();
-            PrizeLevel p1 = new PrizeLevel();
-            p1.prizeValue = 1000;
-            p1.numCollections = 3;
-            ps.addPrizeLevel(p1);
-            PrizeLevel p2 = new PrizeLevel();
-            p2.prizeValue = 100;
-            p2.numCollections = 3;
-            ps.addPrizeLevel(p2);
-            PrizeLevel p3 = new PrizeLevel();
-            p3.prizeValue = 10;
-            p3.numCollections = 3;
-            ps.addPrizeLevel(p3);
-            PrizeLevel p4 = new PrizeLevel();
-            p4.prizeValue = 1;
-            p4.numCollections = 3;
-            ps.addPrizeLevel(p4);
-            DivisionsModel divs = new DivisionsModel();
-            DivisionModel d1 = new DivisionModel();
-            d1.addPrizeLevel(p1);
-            divs.addDivision(d1);
-            DivisionModel d2 = new DivisionModel();
-            d2.addPrizeLevel(p1);
-            divs.addDivision(d2);
-            DivisionModel d3 = new DivisionModel();
-            d3.addPrizeLevel(p1);
-            divs.addDivision(d3);
-            DivisionModel d4 = new DivisionModel();
-            d4.addPrizeLevel(p1);
-            divs.addDivision(d4);
-            String passLine = "1 A,A,A,B,C,D";
-            String failLine = "1 A,A,B,B,C,D";
-            Assert.IsTrue(checkLine(divs, ps, passLine));
-            Assert.IsFalse(checkLine(divs, ps, failLine));
-
-        }
-
-        private bool checkLine(DivisionsModel divs,PrizeLevels ps, String line){
-            bool lineIsCorrect = true;
-            char[] lineChars = line.ToCharArray();
-            int divisionIndex = int.Parse(lineChars[0].ToString());
-            DivisionModel div = divs.getDivision(divisionIndex);
-            int[] prizeLevelsNeeded = new int[ps.prizeLevels.Count];
-            int[] prizeLevelsfound = new int[ps.prizeLevels.Count];
-            for (int i = 0; i < ps.prizeLevels.Count; i++)
-            {
-                prizeLevelsNeeded[i] = ps.prizeLevels[i].numCollections;
-            }
-            for (int i = 2; i < lineChars.Length; i++)
-            {
-                if (lineChars[i] != ',')
-                {
-                    int partValue = intFromChar(lineChars[i]);
-                    prizeLevelsfound[partValue]++;
-                }
-            }
-            //checks if all values are less than or equal to the needed levels
-            List<PrizeLevel> psad = div.getPrizeLevelsAtDivision();
-            for (int i = 0; i < ps.prizeLevels.Count; i++)
-            {
-                if (!(prizeLevelsfound[i] <= prizeLevelsNeeded[i]))
-                {
-                    lineIsCorrect = false;
-                }
-            }
-            //checks if all needed levels are the right value
-            int[] neededPrizeLevelIndexs = new int[psad.Count];
-            for (int i = 0; i < neededPrizeLevelIndexs.Length; i++)
-            {
-                int level = ps.getLevelOfPrize(psad[i]);
-                if (prizeLevelsNeeded[level] != prizeLevelsfound[level])
-                {
-                    lineIsCorrect = false;
-                }
-            }
-            return lineIsCorrect;
-        }
-
-        private int intFromChar(char value)
-        {
-            int character = (int)(value - 65);
-            return character;
-        } 
     }
 }

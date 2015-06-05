@@ -49,7 +49,7 @@ namespace Collection_Game_Tool.GameSetup
                 inw = value;
             }
         }
-        private short nw = 1;
+        private short nw = 2;
         public short nearWins 
         {
             get

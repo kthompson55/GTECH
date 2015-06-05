@@ -166,10 +166,5 @@ namespace Collection_Game_Tool.Main
                 e.Cancel = true;
             }
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = System.Windows.MessageBox.Show("Version 4.1", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
     }
 }

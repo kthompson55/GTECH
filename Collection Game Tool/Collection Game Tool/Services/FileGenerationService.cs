@@ -9,7 +9,7 @@ namespace Collection_Game_Tool.Services
 {
     public class FileGenerationService : Teller
     {
-        private List<Listener> audiance = new List<Listener>();
+        private List<Listener> audience = new List<Listener>();
         private int extraPermutationBuffer = 5000;
 
         public FileGenerationService() { }
@@ -30,7 +30,7 @@ namespace Collection_Game_Tool.Services
         {
             addListener(gameSetupUC);
             int numberOfDivisions = divisions.getNumberOfDivisions() + 1;
-            List<int[]>[] divisionLevles = new List<int[]>[numberOfDivisions];
+            List<int[]>[] divisionLevels = new List<int[]>[numberOfDivisions];
             List<Thread> threads = new List<Thread>();
             for (int i = 0; i < numberOfDivisions; i++)
             {
@@ -38,11 +38,11 @@ namespace Collection_Game_Tool.Services
                 Thread t;
                 if (divisionIndex == numberOfDivisions - 1)
                 {
-                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionLossingPermutations(gameInfo, prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                    t = new Thread(() => divisionLevels[divisionIndex] = getDivisionLosingPermutations(gameInfo, prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
                 }
                 else
                 {
-                    t = new Thread(() => divisionLevles[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, (int)gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                    t = new Thread(() => divisionLevels[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, (int)gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
                 }
                 t.Start();
                 threads.Add(t);
@@ -53,7 +53,7 @@ namespace Collection_Game_Tool.Services
                 Console.Out.Write("Finished thread");
 
             }
-            writeFile(fileName, divisionLevles, buildHeader(prizeLevels, divisions));
+            writeFile(fileName, divisionLevels, buildHeader(prizeLevels, divisions));
             shout("FileFinished");
         }
 
@@ -63,26 +63,26 @@ namespace Collection_Game_Tool.Services
         /// <param name="gameInfo">All of the game information</param>
         /// <param name="prizeLevels">All of the prizelevel informaiton for the game</param>
         /// <returns>returns a list of int[] where each int[] is a unique permutation that has no winning selections</returns>
-        private List<int[]> getDivisionLossingPermutations(
+        private List<int[]> getDivisionLosingPermutations(
             GameSetup.GameSetupModel gameInfo,
             PrizeLevels.PrizeLevels prizeLevels
             )
         {
             List<int[]> lossPermutations = new List<int[]>();
             List<int> extraPicks = getExtraPicks(new int[1], prizeLevels).ToList();
-            List<int[]> baseLossconditions = new List<int[]>();
+            List<int[]> baseLossConditions = new List<int[]>();
             int numberOfPermutationsForNearWinAmount = (int)gameInfo.maxPermutations;
             if (gameInfo.isNearWin)
             {
                 numberOfPermutationsForNearWinAmount = (int)(gameInfo.maxPermutations);
-                baseLossconditions.AddRange(getBaseNearWinLosspermutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
+                baseLossConditions.AddRange(getBaseNearWinLossPermutations(gameInfo.nearWins, gameInfo.totalPicks, prizeLevels));
             }
             else
             {
                 int[] baseLoss = new int[gameInfo.totalPicks];
-                baseLossconditions.Add(baseLoss);
+                baseLossConditions.Add(baseLoss);
             }
-            lossPermutations = getAllLossPermutations(baseLossconditions, prizeLevels, gameInfo.nearWins, numberOfPermutationsForNearWinAmount);
+            lossPermutations = getAllLossPermutations(baseLossConditions, prizeLevels, gameInfo.nearWins, numberOfPermutationsForNearWinAmount);
             List<int[]> Losses = lossPermutations.Take((int)gameInfo.maxPermutations).ToList();
             return Losses;
         }
@@ -90,21 +90,21 @@ namespace Collection_Game_Tool.Services
         /// <summary>
         /// Gets all permutations for a losing condition. Can be different if near win is needed.
         /// </summary>
-        /// <param name="baseLossconditions">The base set of lossing permutations</param>
+        /// <param name="baseLossConditions">The base set of lossing permutations</param>
         /// <param name="prizeLevels">All of the prize level information</param>
         /// <param name="numberOfNearWins">How many near wins can there be</param>
-        /// <param name="maxNumberOfpermutationsPerNearWin">Maximum number of permutations </param>
+        /// <param name="maxNumberOfPermutationsPerNearWin">Maximum number of permutations </param>
         /// <returns> Returns a list of all losing permutations</returns>
         private List<int[]> getAllLossPermutations(
-            List<int[]> baseLossconditions,
+            List<int[]> baseLossConditions,
             PrizeLevels.PrizeLevels prizeLevels,
             int numberOfNearWins,
-            int maxNumberOfpermutationsPerNearWin)
+            int maxNumberOfPermutationsPerNearWin)
         {
-            List<int[]> lossPermituations = new List<int[]>();
+            List<int[]> lossPermutations = new List<int[]>();
             int[] nearWinCounts = new int[numberOfNearWins + 1];
 
-            foreach (int[] lossCondition in baseLossconditions)
+            foreach (int[] lossCondition in baseLossConditions)
             {
                 int nearWinType = 0;
                 for (int i = 1; i < lossCondition.Length; i++)
@@ -115,31 +115,31 @@ namespace Collection_Game_Tool.Services
                     }
                 }
 
-                int[] bsaePermuitation = new int[lossCondition.Length];
-                lossCondition.CopyTo(bsaePermuitation, 0);
-                bool ableToFindNextdivision = true;
-                for (int i = nearWinCounts[nearWinType]; i < maxNumberOfpermutationsPerNearWin && ableToFindNextdivision; i++)
+                int[] basePermutation = new int[lossCondition.Length];
+                lossCondition.CopyTo(basePermutation, 0);
+                bool ableToFindNextDivision = true;
+                for (int i = nearWinCounts[nearWinType]; i < maxNumberOfPermutationsPerNearWin && ableToFindNextDivision; i++)
                 {
-                    int[] newPermuitation = new int[lossCondition.Length];
-                    lossCondition.CopyTo(newPermuitation, 0);
-                    if (ableToFindNextdivision)
+                    int[] newPermutation = new int[lossCondition.Length];
+                    lossCondition.CopyTo(newPermutation, 0);
+                    if (ableToFindNextDivision)
                     {
-                        lossPermituations.Add(newPermuitation);
+                        lossPermutations.Add(newPermutation);
                         nearWinCounts[nearWinType]++;
                     }
-                    bsaePermuitation = findNextPermutation(lossCondition);
-                    ableToFindNextdivision = !(bsaePermuitation[0] == -1);
+                    basePermutation = findNextPermutation(lossCondition);
+                    ableToFindNextDivision = !(basePermutation[0] == -1);
                 }
             }
-            return createExtrapermutations(lossPermituations, maxNumberOfpermutationsPerNearWin + extraPermutationBuffer, prizeLevels); ;
+            return createExtraPermutations(lossPermutations, maxNumberOfPermutationsPerNearWin + extraPermutationBuffer, prizeLevels); ;
         }
 
-        private List<int[]> getBaseNearWinLosspermutations(
+        private List<int[]> getBaseNearWinLossPermutations(
             int nearWinPrizeLevels,
             int totalNumberOfPicks,
             PrizeLevels.PrizeLevels prizeLevels)
         {
-            List<int[]> nearWinBasepermutations = new List<int[]>();
+            List<int[]> nearWinBasePermutations = new List<int[]>();
             List<int[]> prizeLevelCombinations = getPrizeLevelCombinationsForNearWins(nearWinPrizeLevels, totalNumberOfPicks, prizeLevels);
             foreach (int[] combo in prizeLevelCombinations)
             {
@@ -152,9 +152,9 @@ namespace Collection_Game_Tool.Services
                         neededPicks.Add(combo[i] + 1);
                     }
                 }
-                nearWinBasepermutations.Add(getBaseCombinaiton(totalNumberOfPicks, neededPicks.ToArray()).ToArray());
+                nearWinBasePermutations.Add(getBaseCombination(totalNumberOfPicks, neededPicks.ToArray()).ToArray());
             }
-            return nearWinBasepermutations;
+            return nearWinBasePermutations;
         }
 
         private List<int[]> getPrizeLevelCombinationsForNearWins(
@@ -206,14 +206,14 @@ namespace Collection_Game_Tool.Services
             return prizeLevelCombinations;
         }
 
-        private void writeFile(string fileName, List<int[]>[] divisionLevles, List<string> header)
+        private void writeFile(string fileName, List<int[]>[] divisionLevels, List<string> header)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
             {
 
                 List<string> lines = new List<string>(header);
                 int divisionIndicator = 0;
-                foreach (List<int[]> li in divisionLevles)
+                foreach (List<int[]> li in divisionLevels)
                 {
                     foreach (int[] i in li)
                     {
@@ -294,11 +294,11 @@ namespace Collection_Game_Tool.Services
         private List<int[]> getDivisionWinningPermutations(
             int divisionIndicator,
             short totalNumberOfPicks,
-            int numberOfPermuitations,
+            int numberOfPermutations,
             Divisions.DivisionModel division,
             PrizeLevels.PrizeLevels prizeLevels)
         {
-            List<int[]> divisionIncompleteWinpermutations = new List<int[]>();
+            List<int[]> divisionIncompleteWinPermutations = new List<int[]>();
             List<PrizeLevels.PrizeLevel> divisionPrizeLevels = division.getPrizeLevelsAtDivision();
             int maxNumberOfNeededPicksForDivision = 0;
             bool isInstantWinPresent = false;
@@ -312,52 +312,52 @@ namespace Collection_Game_Tool.Services
             }
 
             int[] picks = getNeededPicksForDivision(true, division, prizeLevels).ToArray();
-            divisionIncompleteWinpermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermuitations, getBaseCombinaiton(totalNumberOfPicks, picks).ToArray()));
-            int[] nonWinningPicks = getExtraPicks(divisionIncompleteWinpermutations[0], prizeLevels);
+            divisionIncompleteWinPermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermutations, getBaseCombination(totalNumberOfPicks, picks).ToArray()));
+            int[] nonWinningPicks = getExtraPicks(divisionIncompleteWinPermutations[0], prizeLevels);
             if (nonWinningPicks.Length + picks.Length < totalNumberOfPicks && isInstantWinPresent)
             {
-                divisionIncompleteWinpermutations.Clear();
+                divisionIncompleteWinPermutations.Clear();
             }
             if (maxNumberOfNeededPicksForDivision <= totalNumberOfPicks && isInstantWinPresent)
             {
-                divisionIncompleteWinpermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermuitations, getBaseCombinaiton(totalNumberOfPicks, getNeededPicksForDivision(false, division, prizeLevels).ToArray()).ToArray()));
+                divisionIncompleteWinPermutations.AddRange(getAllBasePermutations(totalNumberOfPicks, numberOfPermutations, getBaseCombination(totalNumberOfPicks, getNeededPicksForDivision(false, division, prizeLevels).ToArray()).ToArray()));
             }
 
-            List<int[]> maximumPermutations = fillBlankDivisionpermutationsWithNonWinningData(
-                divisionIncompleteWinpermutations,
+            List<int[]> maximumPermutations = fillBlankDivisionPermutationsWithNonWinningData(
+                divisionIncompleteWinPermutations,
                 nonWinningPicks,
                 division,
                 prizeLevels,
-                (numberOfPermuitations + extraPermutationBuffer)).OrderBy(a => Guid.NewGuid()).ToList();
-            List<int[]> finalPermutations = maximumPermutations.Take(numberOfPermuitations).ToList();
+                (numberOfPermutations + extraPermutationBuffer)).OrderBy(a => Guid.NewGuid()).ToList();
+            List<int[]> finalPermutations = maximumPermutations.Take(numberOfPermutations).ToList();
             return finalPermutations;
         }
 
         private List<int[]> getAllBasePermutations(
             int totalNumberOfPicks,
-            int numberOfPermuitations,
-            int[] permuitationArray)
+            int numberOfPermutations,
+            int[] permutationArray)
         {
-            List<int[]> divisionIncompleteWinpermutations = new List<int[]>();
+            List<int[]> divisionIncompleteWinPermutations = new List<int[]>();
 
             int[] firstPermuitation = new int[totalNumberOfPicks];
-            permuitationArray.CopyTo(firstPermuitation, 0);
-            bool ableToFindNextdivision = true;
-            for (int i = 0; i < numberOfPermuitations + extraPermutationBuffer && ableToFindNextdivision; i++)
+            permutationArray.CopyTo(firstPermuitation, 0);
+            bool ableToFindNextDivision = true;
+            for (int i = 0; i < numberOfPermutations + extraPermutationBuffer && ableToFindNextDivision; i++)
             {
-                int[] newPermuitation = new int[totalNumberOfPicks];
-                permuitationArray.CopyTo(newPermuitation, 0);
-                if (ableToFindNextdivision)
+                int[] newPermutation = new int[totalNumberOfPicks];
+                permutationArray.CopyTo(newPermutation, 0);
+                if (ableToFindNextDivision)
                 {
-                    divisionIncompleteWinpermutations.Add(newPermuitation);
+                    divisionIncompleteWinPermutations.Add(newPermutation);
                 }
-                permuitationArray = findNextPermutation(permuitationArray);
-                ableToFindNextdivision = !(permuitationArray[0] == -1);
+                permutationArray = findNextPermutation(permutationArray);
+                ableToFindNextDivision = !(permutationArray[0] == -1);
             }
-            return divisionIncompleteWinpermutations;
+            return divisionIncompleteWinPermutations;
         }
 
-        private List<int[]> fillBlankDivisionpermutationsWithNonWinningData(
+        private List<int[]> fillBlankDivisionPermutationsWithNonWinningData(
             List<int[]> nonWinningPermutations,
             int[] extraPicks,
             Divisions.DivisionModel div,
@@ -365,7 +365,7 @@ namespace Collection_Game_Tool.Services
             int maxNumberOfpermutations)
         {
             List<int[]> filledpermutations = new List<int[]>();
-            filledpermutations = createExtrapermutations(nonWinningPermutations, maxNumberOfpermutations, prizeLevels);
+            filledpermutations = createExtraPermutations(nonWinningPermutations, maxNumberOfpermutations, prizeLevels);
             return filledpermutations;
         }
 
@@ -376,52 +376,52 @@ namespace Collection_Game_Tool.Services
         /// <param name="desiredAmountOfPermutations"> The amount of desired permutations</param>
         /// <param name="prizeLevels"> All the prize levels for a given game</param>
         /// <returns>Returns a list of all extra permutations from the base list.</returns>
-        private List<int[]> createExtrapermutations(
+        private List<int[]> createExtraPermutations(
             List<int[]> permutations,
             int desiredAmountOfPermutations,
             PrizeLevels.PrizeLevels prizeLevels)
         {
             
-            HashSet<string> permiutationList = new HashSet<string>();
+            HashSet<string> permutationList = new HashSet<string>();
             int[] extraPicks = getExtraPicks(permutations[0], prizeLevels);
-            for (int i = 0; i < permutations.Count && i < desiredAmountOfPermutations + 500 && permiutationList.Count <= desiredAmountOfPermutations; i++)
+            for (int i = 0; i < permutations.Count && i < desiredAmountOfPermutations + 500 && permutationList.Count <= desiredAmountOfPermutations; i++)
             {
-                HashSet<string> extrasForPerm = createExtrapermutationsFormBase(permutations[i], extraPicks, (int)desiredAmountOfPermutations);
-                permiutationList.UnionWith(extrasForPerm);
+                HashSet<string> extrasForPerm = createExtraPermutationsFromBase(permutations[i], extraPicks, (int)desiredAmountOfPermutations);
+                permutationList.UnionWith(extrasForPerm);
             }
-            List<int[]> permutationions = new List<int[]>();
-            foreach (string s in permiutationList){
-                permutationions.Add(permutationStringToIntArray(s));
+            List<int[]> extraPermutations = new List<int[]>();
+            foreach (string s in permutationList){
+                extraPermutations.Add(permutationStringToIntArray(s));
             }
-            return permutationions;
+            return extraPermutations;
         }
 
         /// <summary>
         /// Creates large numbers of permutations from single base permutation
         /// </summary>
-        /// <param name="basePermiutation"> A base permutation containing the desired picks and all other values equaling zero ex: {0,0,0,1,1}</param>
-        /// <param name="extraPicks">A int[] containing all extra picks to place in zero valued indexes of the base permiutation</param>
-        /// <param name="maxNumberOfPermiutaitons">The maximum number of permutations for this array </param>
+        /// <param name="basePermutation"> A base permutation containing the desired picks and all other values equaling zero ex: {0,0,0,1,1}</param>
+        /// <param name="extraPicks">A int[] containing all extra picks to place in zero valued indexes of the base permutation</param>
+        /// <param name="maxNumberOfPermutations">The maximum number of permutations for this array </param>
         /// <returns>Returns a hash set of strings representations of extra permutations</returns>
-        private HashSet<string> createExtrapermutationsFormBase(
-            int[] basePermiutation,
+        private HashSet<string> createExtraPermutationsFromBase(
+            int[] basePermutation,
             int[] extraPicks,
-            int maxNumberOfPermiutaitons)
+            int maxNumberOfPermutations)
         {
-            HashSet<string> extrapermutations = new HashSet<string>();
+            HashSet<string> extraPermutations = new HashSet<string>();
             int[] copyOfExtraPicks = new int[extraPicks.Length];
             extraPicks.CopyTo(copyOfExtraPicks, 0);
-            int[] copyOfBase = new int[basePermiutation.Length];
-            basePermiutation.CopyTo(copyOfBase, 0);
-            List<int[]> filledPermiutationsForBase = fillPermiutationWithAllPossibleValues(copyOfExtraPicks, copyOfBase);
-            for (int i = 0; i < filledPermiutationsForBase.Count && filledPermiutationsForBase.Count < maxNumberOfPermiutaitons; i++)
+            int[] copyOfBase = new int[basePermutation.Length];
+            basePermutation.CopyTo(copyOfBase, 0);
+            List<int[]> filledPermutationsForBase = fillPermutationWithAllPossibleValues(copyOfExtraPicks, copyOfBase);
+            for (int i = 0; i < filledPermutationsForBase.Count && filledPermutationsForBase.Count < maxNumberOfPermutations; i++)
             {
-                string perm = permutationToString(filledPermiutationsForBase[i]);
+                string perm = permutationToString(filledPermutationsForBase[i]);
                 int countingNum = perm.Split('5').Length - 1;
 
-                extrapermutations.Add(perm);
+                extraPermutations.Add(perm);
             }
-            return extrapermutations;
+            return extraPermutations;
         }
 
         /// <summary>
@@ -430,29 +430,29 @@ namespace Collection_Game_Tool.Services
         /// <param name="extraPicks"> List of extra picks that will be used to fill in zero values</param>
         /// <param name="permutation"> Base permutation to be filled in </param>
         /// <returns> Returns a filled in permutation with no zero values</returns>
-        private List<int[]> fillPermiutationWithAllPossibleValues(
+        private List<int[]> fillPermutationWithAllPossibleValues(
             int[] extraPicks,
             int[] permutation)
         {
-            List<int[]> filledPermiutationCollection = new List<int[]>();
+            List<int[]> filledPermutationCollection = new List<int[]>();
             int[] extraCopy = new int[extraPicks.Length];
             extraPicks.CopyTo(extraCopy, 0);
             for (int i = 0; i < extraPicks.Length; i++)
             {
-                int[] filledPermiutation = new int[permutation.Length];
-                permutation.CopyTo(filledPermiutation, 0);
+                int[] filledPermutation = new int[permutation.Length];
+                permutation.CopyTo(filledPermutation, 0);
                 int pickIndex = 0;
-                for (int j = 0; j < filledPermiutation.Length; j++)
+                for (int j = 0; j < filledPermutation.Length; j++)
                 {
-                    if (filledPermiutation[j] == 0)
+                    if (filledPermutation[j] == 0)
                     {
-                        filledPermiutation[j] = extraCopy[(i + pickIndex) % extraPicks.Length];
+                        filledPermutation[j] = extraCopy[(i + pickIndex) % extraPicks.Length];
                         pickIndex++;
                     }
                 }
-                filledPermiutationCollection.Add(filledPermiutation);
+                filledPermutationCollection.Add(filledPermutation);
             }
-            return filledPermiutationCollection;
+            return filledPermutationCollection;
         }
 
         /// <summary>
@@ -465,20 +465,20 @@ namespace Collection_Game_Tool.Services
             int[] permutation,
             PrizeLevels.PrizeLevels prizeLevels)
         {
-            List<int> usedIndexs = new List<int>();
+            List<int> usedIndexes = new List<int>();
             List<int> extraPicks = new List<int>();
             foreach (int i in permutation)
             {
                 int j = Math.Abs(i);
-                if (j - 1 != -1 && !usedIndexs.Contains((j - 1)))
+                if (j - 1 != -1 && !usedIndexes.Contains((j - 1)))
                 {
-                    usedIndexs.Add(j - 1);
+                    usedIndexes.Add(j - 1);
                 }
             }
             int numberOfPrizeLevels = prizeLevels.getNumPrizeLevels();
             for (int i = 0; i < numberOfPrizeLevels; i++)
             {
-                if (!usedIndexs.Contains(i))
+                if (!usedIndexes.Contains(i))
                 {
                     int numberOfCollections = prizeLevels.getPrizeLevel(i).numCollections - 1;
                     for (int j = 0; j < numberOfCollections; j++)
@@ -496,17 +496,17 @@ namespace Collection_Game_Tool.Services
         /// <param name="totalNumberOfPicks">The total number of picks needed for a permutation ex:4</param>
         /// <param name="picks">The array of picks that need to be in the base combinaiton ex{1,1}</param>
         /// <returns>Returns a list of ints representing a permutation of picks ex:{0,0,1,1}</returns>
-        private List<int> getBaseCombinaiton(
+        private List<int> getBaseCombination(
             int totalNumberOfPicks,
             int[] picks)
         {
-            List<int> neededPicksForComination = picks.ToList();
-            for (int i = neededPicksForComination.Count; i < totalNumberOfPicks; i++)
+            List<int> neededPicksForCombination = picks.ToList();
+            for (int i = neededPicksForCombination.Count; i < totalNumberOfPicks; i++)
             {
-                neededPicksForComination.Add(0);
+                neededPicksForCombination.Add(0);
             }
-            neededPicksForComination.Sort();
-            return neededPicksForComination;
+            neededPicksForCombination.Sort();
+            return neededPicksForCombination;
         }
 
         /// <summary>
@@ -525,18 +525,18 @@ namespace Collection_Game_Tool.Services
             foreach (PrizeLevels.PrizeLevel pl in pls)
             {
                 int numberToCollect = pl.numCollections;
-                int indexinPrizeLevels = prizeLevels.getLevelOfPrize(pl) + 1;
+                int indexInPrizeLevels = prizeLevels.getLevelOfPrize(pl) + 1;
                 if ((pl.isInstantWin || pl.numCollections == 0) && useInstantWin)
                 {
                     numberToCollect = 1;
-                    neededPicks.Add(-indexinPrizeLevels);
+                    neededPicks.Add(-indexInPrizeLevels);
                 }
                 else
                 {
                     numberToCollect = pl.numCollections;
                     for (int i = 0; i < numberToCollect; i++)
                     {
-                        neededPicks.Add(indexinPrizeLevels);
+                        neededPicks.Add(indexInPrizeLevels);
                     }
                 }
             }
@@ -589,7 +589,7 @@ namespace Collection_Game_Tool.Services
         /// <summary>
         /// Converts a permutation to a string representation of itself
         /// </summary>
-        /// <param name="permutation">A permutation repestented by a int[] ex:{1,2,3,4}</param>
+        /// <param name="permutation">A permutation represented by a int[] ex:{1,2,3,4}</param>
         /// <returns>Returns a string representation of an int[] ex:"1,2,3,4"</returns>
         private string permutationToString(
             int[] permutation)
@@ -632,7 +632,7 @@ namespace Collection_Game_Tool.Services
 
         public void shout(object pass)
         {
-            foreach (Listener list in audiance)
+            foreach (Listener list in audience)
             {
                 list.onListen(pass);
             }
@@ -640,7 +640,7 @@ namespace Collection_Game_Tool.Services
 
         public void addListener(Listener list)
         {
-            audiance.Add(list);
+            audience.Add(list);
         }
     }
 }

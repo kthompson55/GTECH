@@ -42,7 +42,6 @@ namespace Collection_Game_Tool.GameSetup
             ErrorTextBlock.DataContext = ErrorService.Instance;
             WarningTextBlock.DataContext = ErrorService.Instance;
             errorPanelScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            //gameSetupScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
         }
 
         public void loadExistingData(GameSetupModel savedSetup)
@@ -59,14 +58,17 @@ namespace Collection_Game_Tool.GameSetup
             pickCheck = gsObject.totalPicks;
         }
 
-        //When Create is clicked, validates data and creates a text file
+        //Initiates save process when Create Button is clicked
         public void createButton_Click(object sender, RoutedEventArgs e)
         {
-            //open save dialog
             openSaveWindow();
-            MaxPermutationsTextBox.Focus();
+            MaxPermutationsTextBox.Focus(); //Returns focus to the application
         }
 
+        /// <summary>
+        /// Opens the standard save menu for the user to specify the save location
+        /// Initiates generation of the file once the user is finished
+        /// </summary>
         private void openSaveWindow()
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -78,7 +80,7 @@ namespace Collection_Game_Tool.GameSetup
             Nullable<bool> result = dlg.ShowDialog();
 
             // Process save file dialog box results
-            if (result == true)
+            if (result == true) //Yeah, yeah. We know, but it's a nullable bool.
             {
                 // Save document
                 string filename = dlg.FileName;
@@ -98,6 +100,7 @@ namespace Collection_Game_Tool.GameSetup
             GeneratingFileAnimation.Visibility = Visibility.Hidden;
             showGenerationCompleteMessage();
         }
+
         private void hideGenerationCompleteMessage()
         {
             GeneratingCompleteMessage.Visibility = Visibility.Hidden;
@@ -120,6 +123,7 @@ namespace Collection_Game_Tool.GameSetup
             }
         }
 
+        
         private void NumNearWinsSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (gsObject != null)
@@ -184,6 +188,11 @@ namespace Collection_Game_Tool.GameSetup
            
         }
 
+        /// <summary>
+        /// Checks that the value entered in Max Permutations is acceptable
+        /// </summary>
+        /// <param name="s">The input from the Max Permutations Textbox</param>
+        /// <returns>whether the value is in the acceptable range</returns>
         private bool WithinPermutationRange(string s)
         {
             uint philTheOrphan;
@@ -233,7 +242,9 @@ namespace Collection_Game_Tool.GameSetup
             adjustBorderVisibility();
         }
 
-
+        /// <summary>
+        /// Ensures that the Create Button can only be pressed when there are no errors
+        /// </summary>
         private void adjustCreateButtonEnabled()
         {
             if (ErrorService.Instance.errorText == "" || ErrorService.Instance.errorText == null)
@@ -246,6 +257,9 @@ namespace Collection_Game_Tool.GameSetup
             }
         }
 
+        /// <summary>
+        /// Ensures the Error/Warning box is only visible if there is at least one warning or error
+        /// </summary>
         private void adjustBorderVisibility()
         {
             if ((ErrorService.Instance.errorText == "" || ErrorService.Instance.errorText == null) && 

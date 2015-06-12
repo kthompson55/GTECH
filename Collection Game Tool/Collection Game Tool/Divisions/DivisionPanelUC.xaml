@@ -61,7 +61,7 @@
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
                     <Label HorizontalAlignment="Left" VerticalAlignment="Center" 
-                           Content="Number of Divisions (30 Max):" FontFamily="Arial" FontSize="18"/>
+                           Content="Number of Divisions (30 Max):" FontFamily="Arial" FontSize="17"/>
                     <Label x:Name="divisionCounterLabel" 
                            Content="30" FontFamily="Arial" FontSize="18" FontWeight="Bold"/>
                 </StackPanel>

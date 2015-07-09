@@ -43,7 +43,7 @@ namespace Collection_Game_Tool.Services
                 }
                 else
                 {
-                    t = new Thread(() => divisionLevels[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, (int)gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                    t = new Thread(() => divisionLevels[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, divisions.getDivision(i).MaxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
                 }
                 t.Start();
                 threads.Add(t);
@@ -82,7 +82,7 @@ namespace Collection_Game_Tool.Services
                 }
                 else
                 {
-                    t = new Thread(() => divisionLevels[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, (int)gameInfo.maxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
+                    t = new Thread(() => divisionLevels[divisionIndex] = getDivisionWinningPermutations(divisionIndex, gameInfo.totalPicks, divisions.getDivision(i).MaxPermutations, divisions.getDivision(divisionIndex), prizeLevels).OrderBy(a => Guid.NewGuid()).ToList());
                 }
                 t.Start();
                 threads.Add(t);

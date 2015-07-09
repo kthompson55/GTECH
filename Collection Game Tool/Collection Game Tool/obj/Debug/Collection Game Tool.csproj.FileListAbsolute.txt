@@ -73,3 +73,31 @@ C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.exe
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.pdb
 C:\Users\LAndrade\Desktop\GTech Enterprise\GTECH\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.csprojResolveAssemblyReference.cache
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe.config
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.exe
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.pdb
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.exe
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\bin\Debug\Collection Game Tool.pdb
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionPanelUC.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionUC.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\CircularProgressBar.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\PrizeLevels\UserControlPrizeLevels.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionPanelUC.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\DivisionUC.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\PrizeLevelBox.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\CircularProgressBar.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\GameSetupUC.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Main\MainWindow.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\PrizeLevels\UserControlPrizeLevel.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\PrizeLevels\UserControlPrizeLevels.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\App.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool_MarkupCompile.cache
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool_MarkupCompile.lref
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Divisions\PrizeLevelBox.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\GameSetup\GameSetupUC.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Main\MainWindow.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\PrizeLevels\UserControlPrizeLevel.baml
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.g.resources
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection_Game_Tool.Properties.Resources.resources
+C:\Users\kthompson\Desktop\Homework\GTECH\GTECHCollection\Collection Game Tool\Collection Game Tool\obj\Debug\Collection Game Tool.csproj.GenerateResource.Cache

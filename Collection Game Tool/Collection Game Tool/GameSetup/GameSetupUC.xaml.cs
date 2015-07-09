@@ -50,7 +50,6 @@ namespace Collection_Game_Tool.GameSetup
             gsObject.totalPicks = savedSetup.totalPicks;
             NearWinCheckbox.IsChecked = savedSetup.isNearWin;
             NumNearWinsSlider.Value = savedSetup.nearWins;
-            MaxPermutationsTextBox.Text = savedSetup.maxPermutations.ToString();
             gsObject = savedSetup;
             gsObject.initializeListener();
             Window parentWindow = Window.GetWindow(this.Parent);
@@ -62,7 +61,6 @@ namespace Collection_Game_Tool.GameSetup
         public void createButton_Click(object sender, RoutedEventArgs e)
         {
             openSaveWindow();
-            MaxPermutationsTextBox.Focus(); //Returns focus to the application
         }
 
         /// <summary>

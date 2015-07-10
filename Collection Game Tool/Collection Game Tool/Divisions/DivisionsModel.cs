@@ -14,7 +14,7 @@ namespace Collection_Game_Tool.Divisions
         public List<DivisionModel> divisions = new List<DivisionModel>();
         [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
-        private int _lossPermutations;
+        private int _lossPermutations = 1;
         public int LossMaxPermutations
         {
             get
@@ -24,8 +24,11 @@ namespace Collection_Game_Tool.Divisions
 
             set
             {
-                _lossPermutations = value;
-				if ( PropertyChanged != null ) PropertyChanged( this, new PropertyChangedEventArgs( "LossMaxPermutationsTextbox" ) );
+                if (value > 0)
+                {
+                    _lossPermutations = value;
+                    if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("LossMaxPermutationsTextbox"));
+                }
             }
         }
 

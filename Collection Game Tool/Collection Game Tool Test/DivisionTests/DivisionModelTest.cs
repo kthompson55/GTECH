@@ -60,7 +60,7 @@ namespace Collection_Game_Tool_Test.DivisionTests
         #endregion
 
         [TestMethod]
-        public void testAddPirzeLevel()
+        public void testAddPrizeLevel()
         {
             DivisionModel dm = new DivisionModel();
             for (int i = 0; i < testAmount; i++)
@@ -68,8 +68,8 @@ namespace Collection_Game_Tool_Test.DivisionTests
                 PrizeLevel pl = new PrizeLevel();
                 pl.prizeValue = 100 + i;
                 dm.addPrizeLevel(pl);
-                Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
-                Assert.IsTrue(dm.getPrizeLevel(i).prizeValue == 100 + i, "PrizeLevel not correct value.");
+                Assert.IsTrue(dm.getPrizeLevel(0) != null, "PrizeLevel not added to Division.");
+                Assert.IsTrue(dm.getPrizeLevel(0).prizeValue == 100 + i, "PrizeLevel not correct value.");
             }
         }
 
@@ -95,8 +95,8 @@ namespace Collection_Game_Tool_Test.DivisionTests
                 PrizeLevel pl = new PrizeLevel();
                 pl.prizeValue = 100 + i;
                 dm.addPrizeLevel(pl);
-                Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
-                Assert.IsTrue(dm.getPrizeLevel(i).prizeValue == 100 + i, "PrizeLevel not correct value.");
+                Assert.IsTrue(dm.getPrizeLevel(0) != null, "PrizeLevel not added to Division.");
+                Assert.IsTrue(dm.getPrizeLevel(0).prizeValue == 100 + i, "PrizeLevel not correct value.");
             }
         }
 
@@ -114,6 +114,14 @@ namespace Collection_Game_Tool_Test.DivisionTests
                 Assert.IsTrue(dm.getPrizeLevel(i) != null, "PrizeLevel not added to Division.");
                 Assert.IsTrue(dm.calculateDivisionValue() == prizeLevel, "PrizeLevel not correct value.");
             }
+        }
+
+        [TestMethod]
+        public void testGetSetPermutations()
+        {
+            DivisionModel dm = new DivisionModel();
+            dm.MaxPermutations = 5000;
+            Assert.IsTrue(dm.MaxPermutations == 5000);
         }
     }
 }

@@ -112,7 +112,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
 
             //File Generator
             FileGenerationService fgs = new FileGenerationService();
-            fgs.buildGameData(dms, pls, gs, "T:\\Work\\JunkOut\\testBuildGameDataThreeDivisonsFourPicks.txt");
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataThreeDivisonsFourPicks");
         }
 
 
@@ -189,7 +189,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
 
             //File Generator
             FileGenerationService fgs = new FileGenerationService();
-            fgs.buildGameData(dms, pls, gs, "T:\\Work\\JunkOut\\testBuildGameDataFourDivisonsFivePicks.txt");
+            fgs.buildGameData(dms, pls, gs, "testBuildGameDataFourDivisonsFivePicks");
         }
 
         [TestMethod]
@@ -440,16 +440,12 @@ namespace Collection_Game_Tool_Test.ServicesTests
             dm5.addPrizeLevel(pl5);
             dm5.MaxPermutations = 1000;
 
-            DivisionModel dm6 = new DivisionModel();
-            dm6.MaxPermutations = 1000;
-
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
             dms.addDivision(dm2);
             dms.addDivision(dm3);
             dms.addDivision(dm4);
             dms.addDivision(dm5);
-            dms.addDivision(dm6);
             dms.LossMaxPermutations = 1000;
 
             FileGenerationService fgs = new FileGenerationService();
@@ -478,18 +474,18 @@ namespace Collection_Game_Tool_Test.ServicesTests
             int numberOfDivions = 30;
             DivisionModel[] divisions = new DivisionModel[numberOfDivions];
             DivisionsModel dms = new DivisionsModel();
-            dms.LossMaxPermutations = 300000;
+            dms.LossMaxPermutations = 30000;
             Random rand = new Random();
             for (int i = 0; i < numberOfDivions; i++)
             {
                 divisions[i] = new DivisionModel();
                 divisions[i].addPrizeLevel(prizes[rand.Next(0, 12)]);
-                divisions[i].MaxPermutations = 300000;
+                divisions[i].MaxPermutations = 30000;
                 dms.addDivision(divisions[i]);
             }
 
             FileGenerationService fgs = new FileGenerationService();
-            fgs.buildGameData(dms, pls, gs, "T:\\Work\\JunkOut\\MaxTest.txt");
+            fgs.buildGameData(dms, pls, gs, "MaxTest");
         }
     }
 }

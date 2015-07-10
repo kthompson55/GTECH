@@ -146,27 +146,6 @@ namespace Collection_Game_Tool.GameSetup
            
         }
 
-        private void MaxPermutationsTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (gsObject != null)
-            {
-                TextBox textBox = sender as TextBox;
-                if (textBox.Text == "")
-                {
-                    textBox.Text = 0 +"";
-                }
-                else if (!WithinPermutationRange(textBox.Text))
-                {
-                    textBox.Text = lastAcceptableMaxPermutationValue;
-                }
-                else
-                {
-                    gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
-                }
-                gsObject.shout("validate");
-            }
-        }
-
         private void MaxPermutationsTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;

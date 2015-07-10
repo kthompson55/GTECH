@@ -83,5 +83,13 @@ namespace Collection_Game_Tool_Test.DivisionTests
                 Assert.IsTrue(dm.getDivision(i) != null, "Number of divisions is wrong.");
             }
         }
+
+        [TestMethod]
+        public void testGetSetLossPermutations()
+        {
+            DivisionsModel dms = new DivisionsModel();
+            dms.LossMaxPermutations = 1000;
+            Assert.IsTrue(dms.LossMaxPermutations == 1000);
+        }
     }
 }

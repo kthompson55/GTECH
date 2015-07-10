@@ -67,7 +67,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         {
             //Custom input for a game
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 1000;
             gs.totalPicks = 4;
             gs.isNearWin = true;
             gs.nearWins = 2;
@@ -94,18 +93,22 @@ namespace Collection_Game_Tool_Test.ServicesTests
 
             DivisionModel dm1 = new DivisionModel();
             dm1.addPrizeLevel(pl1);
+            dm1.MaxPermutations = 1000;
 
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl2);
+            dm2.MaxPermutations = 1000;
 
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl2);
             dm3.addPrizeLevel(pl3);
+            dm3.MaxPermutations = 1000;
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
             dms.addDivision(dm2);
             dms.addDivision(dm3);
+            dms.LossMaxPermutations = 1000;
 
             //File Generator
             FileGenerationService fgs = new FileGenerationService();
@@ -118,7 +121,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         {
             //Custom input for a game
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 1000;
             gs.totalPicks = 5;
             gs.isNearWin = true;
             gs.nearWins = 2;
@@ -157,20 +159,25 @@ namespace Collection_Game_Tool_Test.ServicesTests
 
             DivisionModel dm1 = new DivisionModel();
             dm1.addPrizeLevel(pl1);
+            dm1.MaxPermutations = 1000;
 
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl2);
+            dm2.MaxPermutations = 1000;
 
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl2);
             dm3.addPrizeLevel(pl3);
+            dm3.MaxPermutations = 1000;
 
             DivisionModel dm4 = new DivisionModel();
             dm4.addPrizeLevel(pl5);
+            dm4.MaxPermutations = 1000;
 
             DivisionModel dm5 = new DivisionModel();
             dm5.addPrizeLevel(pl5);
             dm5.addPrizeLevel(pl2);
+            dm5.MaxPermutations = 1000;
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
@@ -178,6 +185,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
             dms.addDivision(dm3);
             dms.addDivision(dm4);
             dms.addDivision(dm5);
+            dms.LossMaxPermutations = 1000;
 
             //File Generator
             FileGenerationService fgs = new FileGenerationService();
@@ -189,7 +197,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         {
             //Custom input for a game
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 1000;
             gs.totalPicks = 4;
 
             PrizeLevel pl1 = new PrizeLevel();
@@ -214,21 +221,26 @@ namespace Collection_Game_Tool_Test.ServicesTests
 
             DivisionModel dm1 = new DivisionModel();
             dm1.addPrizeLevel(pl1);
+            dm1.MaxPermutations = 1000;
 
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl2);
+            dm2.MaxPermutations = 1000;
 
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl2);
             dm3.addPrizeLevel(pl3);
+            dm3.MaxPermutations = 1000;
 
             DivisionModel dm4 = new DivisionModel();
+            dm4.MaxPermutations = 1000;
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
             dms.addDivision(dm2);
             dms.addDivision(dm3);
             dms.addDivision(dm4);
+            dms.LossMaxPermutations = 1000;
 
             //File Generator
             FileGenerationService fgs = new FileGenerationService();
@@ -239,7 +251,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         public void testBuildGameDataFourDivisionsSixPicks()
         {
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 1000;
             gs.totalPicks = 6;
 
             PrizeLevel pl1 = new PrizeLevel();
@@ -265,23 +276,28 @@ namespace Collection_Game_Tool_Test.ServicesTests
             DivisionModel dm1 = new DivisionModel();
             dm1.addPrizeLevel(pl1);
             dm1.addPrizeLevel(pl2);
+            dm1.MaxPermutations = 1000;
 
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl2);
             dm2.addPrizeLevel(pl3);
+            dm2.MaxPermutations = 1000;
 
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl1);
             dm3.addPrizeLevel(pl3);
+            dm3.MaxPermutations = 1000;
 
             DivisionModel dm4 = new DivisionModel();
             dm4.addPrizeLevel(pl2);
+            dm4.MaxPermutations = 1000;
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
             dms.addDivision(dm2);
             dms.addDivision(dm3);
             dms.addDivision(dm4);
+            dms.LossMaxPermutations = 1000;
 
             FileGenerationService fgs = new FileGenerationService();
             fgs.buildGameData(dms, pls, gs, "testBuildGameDataFourDivisionsSixPicks");
@@ -291,7 +307,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         public void testBuildGameDataFiveDivisionsNinePicks()
         {
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 1000;
             gs.totalPicks = 9;
 
             PrizeLevel pl1 = new PrizeLevel();
@@ -329,22 +344,27 @@ namespace Collection_Game_Tool_Test.ServicesTests
 
             DivisionModel dm1 = new DivisionModel();
             dm1.addPrizeLevel(pl1);
+            dm1.MaxPermutations = 1000;
 
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl1);
             dm2.addPrizeLevel(pl2);
+            dm2.MaxPermutations = 1000;
 
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl1);
             dm3.addPrizeLevel(pl3);
+            dm3.MaxPermutations = 1000;
 
             DivisionModel dm4 = new DivisionModel();
             dm4.addPrizeLevel(pl2);
             dm4.addPrizeLevel(pl3);
+            dm4.MaxPermutations = 1000;
 
             DivisionModel dm5 = new DivisionModel();
             dm5.addPrizeLevel(pl4);
             dm5.addPrizeLevel(pl5);
+            dm5.MaxPermutations = 1000;
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
@@ -352,6 +372,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
             dms.addDivision(dm3);
             dms.addDivision(dm4);
             dms.addDivision(dm5);
+            dms.LossMaxPermutations = 1000;
 
             FileGenerationService fgs = new FileGenerationService();
             fgs.buildGameData(dms, pls, gs, "testBuildGameDataFiveDivisionsNinePicks");
@@ -361,7 +382,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         public void testBuildGameDataFiveDivisionsNinePicksWithFailDivision()
         {
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 1000;
             gs.totalPicks = 9;
 
             PrizeLevel pl1 = new PrizeLevel();
@@ -396,27 +416,32 @@ namespace Collection_Game_Tool_Test.ServicesTests
             pls.addPrizeLevel(pl4);
             pls.addPrizeLevel(pl5);
 
-
             DivisionModel dm1 = new DivisionModel();
             dm1.addPrizeLevel(pl1);
+            dm1.MaxPermutations = 1000;
 
             DivisionModel dm2 = new DivisionModel();
             dm2.addPrizeLevel(pl1);
             dm2.addPrizeLevel(pl2);
+            dm2.MaxPermutations = 1000;
 
             DivisionModel dm3 = new DivisionModel();
             dm3.addPrizeLevel(pl1);
             dm3.addPrizeLevel(pl3);
+            dm3.MaxPermutations = 1000;
 
             DivisionModel dm4 = new DivisionModel();
             dm4.addPrizeLevel(pl2);
             dm4.addPrizeLevel(pl3);
+            dm4.MaxPermutations = 1000;
 
             DivisionModel dm5 = new DivisionModel();
             dm5.addPrizeLevel(pl4);
             dm5.addPrizeLevel(pl5);
+            dm5.MaxPermutations = 1000;
 
             DivisionModel dm6 = new DivisionModel();
+            dm6.MaxPermutations = 1000;
 
             DivisionsModel dms = new DivisionsModel();
             dms.addDivision(dm1);
@@ -425,6 +450,7 @@ namespace Collection_Game_Tool_Test.ServicesTests
             dms.addDivision(dm4);
             dms.addDivision(dm5);
             dms.addDivision(dm6);
+            dms.LossMaxPermutations = 1000;
 
             FileGenerationService fgs = new FileGenerationService();
             fgs.buildGameData(dms, pls, gs, "testBuildGameDataFiveDivisionsNinePicksWithFail");
@@ -435,7 +461,6 @@ namespace Collection_Game_Tool_Test.ServicesTests
         public void testBuildGameDataMaxDivison()
         {
             GameSetupModel gs = new GameSetupModel();
-            gs.maxPermutations = 300000;
             gs.totalPicks = 20;
 
             int numPrizeLevels = 12;
@@ -453,11 +478,13 @@ namespace Collection_Game_Tool_Test.ServicesTests
             int numberOfDivions = 30;
             DivisionModel[] divisions = new DivisionModel[numberOfDivions];
             DivisionsModel dms = new DivisionsModel();
+            dms.LossMaxPermutations = 300000;
             Random rand = new Random();
             for (int i = 0; i < numberOfDivions; i++)
             {
                 divisions[i] = new DivisionModel();
                 divisions[i].addPrizeLevel(prizes[rand.Next(0, 12)]);
+                divisions[i].MaxPermutations = 300000;
                 dms.addDivision(divisions[i]);
             }
 

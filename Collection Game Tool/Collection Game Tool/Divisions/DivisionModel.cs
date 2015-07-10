@@ -156,9 +156,25 @@ namespace Collection_Game_Tool.Divisions
             {
                 _maxPermutations = value;
                 if(PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("MaxPermutations"));
+					PropertyChanged( this, new PropertyChangedEventArgs( "MaxPermutationsTextbox" ) );
             }
         }
+
+		public string MaxPermutationsTextbox
+		{
+			get
+			{
+				return MaxPermutations.ToString();
+			}
+			set
+			{
+				int number;
+				if(int.TryParse(value, out number))
+				{
+					MaxPermutations = number;
+				}
+			}
+		}
 
         public double TotalPrizeValue
         {

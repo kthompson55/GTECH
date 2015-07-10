@@ -90,7 +90,7 @@
 
                         <StackPanel Orientation="Horizontal" Background="#009ad8" Height="40">
                             <Label Margin="10 0 10 0" FontSize="20" Content="Permutations:"/>
-                            <TextBox Margin="0 0 10 0" x:Name="divisionMaxPermutation" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Width="120" Height="30"/>
+							<TextBox Margin="0 0 10 0" x:Name="divisionMaxPermutation" Text="{Binding Path=LossMaxPermutationsTextbox, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Width="120" Height="30"/>
                         </StackPanel>
                     </StackPanel>
 

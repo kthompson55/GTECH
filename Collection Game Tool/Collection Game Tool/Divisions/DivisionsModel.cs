@@ -12,6 +12,20 @@ namespace Collection_Game_Tool.Divisions
     {
         public List<DivisionModel> divisions = new List<DivisionModel>();
 
+        private int _lossPermutations;
+        public int LossMaxPermutations
+        {
+            get
+            {
+                return _lossPermutations;
+            }
+
+            set
+            {
+                _lossPermutations = value;
+            }
+        }
+
         public int getNumberOfDivisions()
         {
             return divisions.Count;

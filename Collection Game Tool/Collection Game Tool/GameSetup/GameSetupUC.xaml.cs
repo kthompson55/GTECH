@@ -50,7 +50,6 @@ namespace Collection_Game_Tool.GameSetup
             gsObject.totalPicks = savedSetup.totalPicks;
             NearWinCheckbox.IsChecked = savedSetup.isNearWin;
             NumNearWinsSlider.Value = savedSetup.nearWins;
-            MaxPermutationsTextBox.Text = savedSetup.maxPermutations.ToString();
             gsObject = savedSetup;
             gsObject.initializeListener();
             Window parentWindow = Window.GetWindow(this.Parent);
@@ -62,7 +61,6 @@ namespace Collection_Game_Tool.GameSetup
         public void createButton_Click(object sender, RoutedEventArgs e)
         {
             openSaveWindow();
-            MaxPermutationsTextBox.Focus(); //Returns focus to the application
         }
 
         /// <summary>
@@ -146,27 +144,6 @@ namespace Collection_Game_Tool.GameSetup
         {
             gsObject.toggleNearWin();
            
-        }
-
-        private void MaxPermutationsTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (gsObject != null)
-            {
-                TextBox textBox = sender as TextBox;
-                if (textBox.Text == "")
-                {
-                    textBox.Text = 0 +"";
-                }
-                else if (!WithinPermutationRange(textBox.Text))
-                {
-                    textBox.Text = lastAcceptableMaxPermutationValue;
-                }
-                else
-                {
-                    gsObject.maxPermutations = Convert.ToUInt32(textBox.Text);
-                }
-                gsObject.shout("validate");
-            }
         }
 
         private void MaxPermutationsTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -262,14 +239,37 @@ namespace Collection_Game_Tool.GameSetup
         /// </summary>
         private void adjustBorderVisibility()
         {
-            if ((ErrorService.Instance.errorText == "" || ErrorService.Instance.errorText == null) && 
-                (ErrorService.Instance.warningText == "" || ErrorService.Instance.warningText == null))
+            if (ErrorService.Instance.HasErrors() || ErrorService.Instance.HasWarnings())
             {
-                ErrorBoxBorder.Visibility = Visibility.Hidden;
+                ErrorBoxBorder.Visibility = Visibility.Visible;
+                // hides error box if no errors
+                if (!ErrorService.Instance.HasErrors())
+                {
+                    ErrorHeader.Visibility = Visibility.Collapsed;
+                    ErrorTextBlock.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ErrorHeader.Visibility = Visibility.Visible;
+                    ErrorTextBlock.Visibility = Visibility.Visible;
+                }
+                // hides warning box if no warnings
+                if (!ErrorService.Instance.HasWarnings())
+                {
+                    WarningHeader.Visibility = Visibility.Collapsed;
+                    WarningTextBlock.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    WarningHeader.Visibility = Visibility.Visible;
+                    WarningTextBlock.Visibility = Visibility.Visible;
+                }
+                ErrorRow.Height = GridLength.Auto;
             }
             else
             {
-                ErrorBoxBorder.Visibility = Visibility.Visible;
+                ErrorBoxBorder.Visibility = Visibility.Hidden;
+                ErrorRow.Height = new GridLength(0);
             }
         }
     }

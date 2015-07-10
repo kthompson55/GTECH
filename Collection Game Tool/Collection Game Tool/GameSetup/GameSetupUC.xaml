@@ -18,6 +18,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Name="ErrorRow" Height="150"/>
             </Grid.RowDefinitions>
             <Grid.Resources>
                 <Services:CreateOpacityConverter x:Key="OpacityConverter"/>
@@ -49,7 +50,7 @@
             <Label Grid.Row="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#0068ad" Foreground="White" FontSize="30" FontWeight="Bold" >Game Setup</Label>
             <Label Grid.Row="1" Style="{StaticResource instructionStyle}" Margin="0,0,0,10" Height="50" Content="The basic game settings" VerticalContentAlignment="Center"></Label>
 
-            <ScrollViewer Grid.Row="2" x:Name="gameSetupScroll" MaxHeight="800" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="2" x:Name="gameSetupScroll" MaxHeight="800" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" Height="690">
                 <!--VerticalScrollBarVisibility="Auto"-->
                 <StackPanel x:Name="GameSetupOptionsPanel" 
                             Margin="10,0">
@@ -127,34 +128,6 @@
                         </StackPanel>
                     </Border>
 
-                    <Border Style="{StaticResource externalBorderStyle}">
-
-                        <StackPanel x:Name="GSPermutationsPanel" Background="#ADADAD">
-                            <Label Style="{StaticResource titleStyle}">Game Win/Loss Permutations</Label>
-                            <Border BorderBrush="Black" BorderThickness="0,0,0,2">
-                                <StackPanel>
-                                    <Label Style="{StaticResource instructionStyle}" Padding="0,2">The number of winning combinations to calculate for each division,</Label>
-                                    <Label Style="{StaticResource instructionStyle}" Padding="0,0,0,2"> including an extra losing division</Label>
-                                </StackPanel>
-                            </Border>
-                            <DockPanel>
-                                <Label Style="{StaticResource dataLabelStyle}">Maximum Permutations:</Label>
-                                <TextBox x:Name="MaxPermutationsTextBox" 
-                                     GotFocus="MaxPermutationsTextBox_GotFocus" 
-                                     GotMouseCapture="MaxPermutationsTextBox_GotMouseCapture" 
-                                     TextChanged="MaxPermutationsTextBox_TextChanged"
-                                     PreviewTextInput="MaxPermutationsTextBox_PreviewTextInput"
-                                     FontSize="14"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     Width="100"
-                                         >1</TextBox>
-
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-
-
                     <Button x:Name="CreateButton" Click="createButton_Click" Width="200" Height="50" FontSize="28" FontWeight="Bold" Background="#007CAA" Foreground="White" Margin="0,30,0,0" IsEnabled="{Binding Path=canCreate}" Opacity="{Binding Path=canCreate, Converter={StaticResource OpacityConverter}}">Create File</Button>
                     <StackPanel x:Name="GeneratingFileAnimation" Margin="10" Visibility="Hidden">
                         <Label FontSize="20" HorizontalAlignment="Center">Generating File</Label>
@@ -167,22 +140,19 @@
                     </StackPanel>
                     <Label x:Name="GeneratingCompleteMessage" FontSize="20" Margin="10" HorizontalAlignment="Center" Visibility="Hidden">File Generated!</Label>
 
-
-                    <Border x:Name="ErrorBoxBorder" BorderThickness="4" BorderBrush="Black" Margin="0,0,0,10"><!--D60804-->
-                        <ScrollViewer x:Name="errorPanelScroll" MaxHeight="350">
-                            <StackPanel Background="White">
-                                <Label FontWeight="Bold" FontSize="14" Background="#D60804" Foreground="White">Errors:</Label>
-                                <TextBlock x:Name="ErrorTextBlock" MaxWidth="400" Foreground="Black" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
-                                <Label FontWeight="Bold" FontSize="14" Background="#FFEE00" Foreground="Black">Warnings:</Label>
-                                <TextBlock x:Name="WarningTextBlock" MaxWidth="400" Foreground="Black" TextWrapping="Wrap" TargetUpdated="WarningTextBlock_TargetUpdated" Text="{Binding Path=warningText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
-                            </StackPanel>
-                        </ScrollViewer>
-
-                    </Border>
-
                 </StackPanel>
             </ScrollViewer>
+            <Border x:Name="ErrorBoxBorder" Grid.Row="4" BorderThickness="0,2" BorderBrush="Black" MaxHeight="150">
+                <ScrollViewer x:Name="errorPanelScroll">
+                    <StackPanel Background="White">
+                        <Label x:Name="ErrorHeader" FontWeight="Bold" FontSize="14" Background="#D60804" Foreground="White">Errors:</Label>
+                        <TextBlock x:Name="ErrorTextBlock" HorizontalAlignment="Left"  MaxWidth="400" Foreground="Black" TextWrapping="Wrap" TargetUpdated="ErrorTextBlock_TargetUpdated" Text="{Binding Path=errorText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+                        <Label x:Name="WarningHeader" FontWeight="Bold" FontSize="14" Background="#FFEE00" Foreground="Black">Warnings:</Label>
+                        <TextBlock x:Name="WarningTextBlock" HorizontalAlignment="Left" Padding="10,0,0,0" MaxWidth="400" Foreground="Black" TextWrapping="Wrap" TargetUpdated="WarningTextBlock_TargetUpdated" Text="{Binding Path=warningText, Mode=TwoWay, NotifyOnTargetUpdated=True}"></TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
 
+            </Border>
         </Grid>
     </Border>
 </UserControl>

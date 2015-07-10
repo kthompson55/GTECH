@@ -62,19 +62,6 @@ namespace Collection_Game_Tool.GameSetup
             }
         } //Max 12
 
-        private uint mp = 1;
-        public uint maxPermutations 
-        {
-            get
-            {
-                return mp;
-            }
-            set
-            {
-                mp = value;
-            }
-        }
-
         private bool _canCreate;
         public bool canCreate
         {

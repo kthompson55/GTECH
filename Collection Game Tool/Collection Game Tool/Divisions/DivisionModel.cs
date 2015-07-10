@@ -20,7 +20,7 @@ namespace Collection_Game_Tool.Divisions
         public List<LevelBox> levelBoxes = new List<LevelBox>();
         public const int MAX_PRIZE_BOXES = 12;
 
-        private int _maxPermutations;
+        private int _maxPermutations = 1;
         private int _divisionNumber;
         private int _totalPlayerPicks;
         private double _totalPrizeValue;
@@ -154,9 +154,12 @@ namespace Collection_Game_Tool.Divisions
 
             set
             {
-                _maxPermutations = value;
-                if(PropertyChanged != null)
-					PropertyChanged( this, new PropertyChangedEventArgs( "MaxPermutationsTextbox" ) );
+                if (value > 0)
+                {
+                    _maxPermutations = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("MaxPermutationsTextbox"));
+                }
             }
         }
 

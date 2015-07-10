@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace Collection_Game_Tool.Divisions
 {
     [Serializable]
-    public class DivisionsModel
+    public class DivisionsModel: INotifyPropertyChanged
     {
         public List<DivisionModel> divisions = new List<DivisionModel>();
-
+        [field: NonSerializedAttribute()]
+        public event PropertyChangedEventHandler PropertyChanged;
         private int _lossPermutations;
         public int LossMaxPermutations
         {
@@ -23,8 +25,22 @@ namespace Collection_Game_Tool.Divisions
             set
             {
                 _lossPermutations = value;
+				if ( PropertyChanged != null ) PropertyChanged( this, new PropertyChangedEventArgs( "LossMaxPermutationsTextbox" ) );
             }
         }
+
+		public string LossMaxPermutationsTextbox
+		{
+			get { return LossMaxPermutations.ToString(); }
+			set
+			{
+				int number;
+				if ( int.TryParse( value, out number ) )
+				{
+					LossMaxPermutations = number;
+				}
+			}
+		}
 
         public int getNumberOfDivisions()
         {

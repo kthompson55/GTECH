@@ -41,6 +41,7 @@ namespace Collection_Game_Tool.Divisions
             divisionsScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             this.Loaded += new RoutedEventHandler(DivisionPanelUC_Loaded);
             divisionCounterLabel.Content = divisionsHolderPanel.Children.Count;
+			divisionMaxPermutation.DataContext = divisionsList;
         }
 
         private void DivisionPanelUC_Loaded(object sender, RoutedEventArgs e)

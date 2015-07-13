@@ -218,28 +218,23 @@ namespace Collection_Game_Tool.Divisions
                     ErrorService.Instance.resolveError("011", null, divToCompare.errorID);
 
                 //Check if a Division can have an Instant Win
+                bool containsInstantWin = false;
                 int minimumCollections = GameSetupUC.pickCheck;
                 for (int i = 0; i < divToCompare.getPrizeLevelsAtDivision().Count; i++)
                 {
                     if (divToCompare.getPrizeLevel(i).isInstantWin)
                     {
                         minimumCollections -= 1;
+                        containsInstantWin = true;
                     }
                     else
                     {
                         minimumCollections -= divToCompare.getPrizeLevel(i).numCollections;
                     }
                 }
-                for (int i = 0; i < prizes.getNumPrizeLevels(); i++)
+                if (minimumCollections < 1 && containsInstantWin)
                 {
-                    if (!divToCompare.getPrizeLevelsAtDivision().Contains(prizes.getPrizeLevel(i)))
-                    {
-                        minimumCollections -= prizes.getPrizeLevel(i).numCollections - 1;
-                    }
-                }
-                if (minimumCollections > 0)
-                {
-                    divToCompare.errorID=ErrorService.Instance.reportWarning("007", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
+                    divToCompare.errorID = ErrorService.Instance.reportWarning("007", new List<string> { divToCompare.DivisionNumber.ToString() }, divToCompare.errorID);
                 }
                 else
                 {

@@ -151,6 +151,7 @@ namespace Collection_Game_Tool.Main
                 {
                     divUC.loadInDivision(divUC.divisionsList.divisions[i]);
                 }
+                divUC.SetLossPermutations(savedProject.savedDivisions.LossMaxPermutations);
             }
         }
 

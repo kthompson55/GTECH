@@ -51,6 +51,13 @@ namespace Collection_Game_Tool.Divisions
             addDivision();
         }
 
+        public void SetLossPermutations(int maxLossPermutations)
+        {
+            divisionsList.LossMaxPermutations = maxLossPermutations;
+            divisionsList.LossMaxPermutationsTextbox = maxLossPermutations.ToString();
+            divisionMaxPermutation.DataContext = divisionsList;
+        }
+
         public void addDivision()
         {
             if (divisionsList.getSize() < MAX_DIVISIONS)
